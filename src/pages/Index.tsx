@@ -84,7 +84,6 @@ const Index = () => {
                   <Input
                     placeholder="Ask about credit scores, taxes, mortgages, or any financial topic..."
                     className="h-16 sm:h-20 text-base sm:text-lg pl-6 pr-32 rounded-2xl border-2 border-border/50 bg-background/80 backdrop-blur-sm shadow-2xl hover:border-primary/50 focus:border-primary transition-all"
-                    onFocus={() => navigate('/chat')}
                   />
                   <Button 
                     type="submit"
