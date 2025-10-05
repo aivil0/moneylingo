@@ -12,11 +12,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target, Send, Mic, PiggyBank, CheckCircle2, CreditCard, Wallet, TrendingDown, Phone, Sparkles } from "lucide-react";
 import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
+
 const Index = () => {
   const navigate = useNavigate();
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showAuthDialog, setShowAuthDialog] = useState(false);
@@ -120,18 +121,18 @@ const Index = () => {
   }];
   const features = [{
     icon: MessageSquare,
-    title: "AI Financial Assistant",
-    description: "Get instant answers to your financial questions in your native language. Our AI breaks down complex concepts into simple, culturally-aware guidance through natural conversation.",
+    title: t("home.feature1Title"),
+    description: t("home.feature1Desc"),
     link: "/chat"
   }, {
     icon: FileText,
-    title: "Document Analysis",
-    description: "Upload tax forms, credit statements, bank documents, or any financial paperwork for instant analysis. Receive clear explanations and actionable insights in seconds.",
+    title: t("home.feature2Title"),
+    description: t("home.feature2Desc"),
     link: "/documents"
   }, {
     icon: Target,
-    title: "Personalized Financial Plans",
-    description: "Create customized financial strategies tailored to your goals and situation. Track your progress, build credit, manage debt, and achieve financial confidence.",
+    title: t("home.feature3Title"),
+    description: t("home.feature3Desc"),
     link: "/dashboard"
   }];
   const values = [{
@@ -202,7 +203,7 @@ const Index = () => {
                 </button>
               </TooltipTrigger>
               <TooltipContent side="left">
-                <p className="font-medium">Need help? Click me! 👋</p>
+                <p className="font-medium">{t("home.needHelp")}</p>
               </TooltipContent>
             </Tooltip>
           </div>
@@ -214,10 +215,10 @@ const Index = () => {
       }}>
           <div className="container mx-auto max-w-6xl text-center space-y-8 animate-fade-in-up">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-4">
-              <span className="block shimmer-text pb-2">Talk to Your Financial AI</span>
+              <span className="block shimmer-text pb-2">{t("home.title")}</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4 sm:px-6">
-              Get instant answers to your financial questions in your native language. Our AI assistant breaks down complex concepts into simple, culturally-aware guidance.
+              {t("home.subtitle")}
             </p>
             
             {/* Prominent Call Button */}
@@ -225,11 +226,11 @@ const Index = () => {
               <div className="flex flex-col items-center gap-3 animate-fade-in-up">
                 <Button onClick={() => setIsCallActive(true)} size="lg" className="h-16 px-10 bg-gradient-glow text-white rounded-full hover:scale-105 transition-all duration-300 shadow-2xl glow-pulse text-lg font-semibold">
                   <Phone className="h-6 w-6 mr-3 animate-pulse" />
-                  Talk to AI Assistant Now
+                  {t("home.callButton")}
                 </Button>
                 <p className="text-xs text-muted-foreground flex items-center gap-1.5">
                   <Headphones className="h-3.5 w-3.5" />
-                  Instant voice guidance in your language
+                  {t("home.voiceGuidance")}
                 </p>
               </div>
               
@@ -240,7 +241,7 @@ const Index = () => {
                     {lang.name}
                   </button>)}
               </div>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-4 text-center animate-fade-in">Available 24/7 in 20+ languages</p>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-4 text-center animate-fade-in">{t("home.available247")}</p>
             </div>
           </div>
         </section>
@@ -260,10 +261,10 @@ const Index = () => {
             
             <div className="text-center mb-16 animate-fade-in-up">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 shimmer-text">
-                Everything You Need to Succeed
+                {t("home.featuresTitle")}
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Comprehensive tools to build your financial confidence and achieve your goals.
+                {t("home.featuresSubtitle")}
               </p>
             </div>
 
@@ -300,10 +301,10 @@ const Index = () => {
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16 animate-fade-in-up">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 shimmer-text">
-                  Frequently Asked Questions
+                  {t("home.faqTitle")}
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Find answers to common questions about MoneyLingo
+                  {t("home.faqSubtitle")}
                 </p>
               </div>
 

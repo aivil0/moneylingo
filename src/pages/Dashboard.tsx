@@ -7,10 +7,12 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Link } from "react-router-dom";
 import { MessageSquare, FileText, TrendingUp, Clock, CheckCircle2, Lock, ExternalLink, BookOpen, Video, FileCheck } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Dashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const authStatus = localStorage.getItem("isAuthenticated") === "true";
@@ -77,10 +79,10 @@ const Dashboard = () => {
       <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10 animate-fade-in">
         <div className="mb-6 sm:mb-8 animate-scale-in px-4 sm:px-0">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold shimmer-text mb-2 leading-tight">
-            {isAuthenticated ? 'Welcome Back!' : 'Dashboard Preview'}
+            {isAuthenticated ? t("dashboard.welcome") : t("dashboard.preview")}
           </h1>
           <p className="text-sm sm:text-base text-muted-foreground">
-            {isAuthenticated ? "Here's your financial literacy progress." : 'Sign in to track your financial journey.'}
+            {isAuthenticated ? t("dashboard.progress") : t("dashboard.signInPrompt")}
           </p>
         </div>
 
@@ -89,13 +91,13 @@ const Dashboard = () => {
           <Alert className="mb-6 border-primary/50 bg-primary/5 glass-card animate-fade-in">
             <Lock className="h-4 w-4 text-primary" />
             <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between">
-              <span className="text-sm">Create an account to access your personalized dashboard and track your progress.</span>
+              <span className="text-sm">{t("dashboard.createAccount")}</span>
               <div className="flex gap-2 w-full sm:w-auto ml-0 sm:ml-4">
                 <Button size="sm" asChild className="flex-1 sm:flex-initial bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-lg">
-                  <Link to="/signin">Sign In</Link>
+                  <Link to="/signin">{t("dashboard.signIn")}</Link>
                 </Button>
                 <Button size="sm" variant="outline" asChild className="flex-1 sm:flex-initial hover-card-lift">
-                  <Link to="/signup">Sign Up</Link>
+                  <Link to="/signup">{t("dashboard.signUp")}</Link>
                 </Button>
               </div>
             </AlertDescription>
@@ -112,8 +114,8 @@ const Dashboard = () => {
                     <MessageSquare className="h-6 w-6 text-primary-foreground" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">Start AI Chat</CardTitle>
-                    <CardDescription className="text-sm">Ask financial questions</CardDescription>
+                    <CardTitle className="text-lg">{t("dashboard.startAI")}</CardTitle>
+                    <CardDescription className="text-sm">{t("dashboard.askQuestions")}</CardDescription>
                   </div>
                 </div>
               </CardHeader>
@@ -128,8 +130,8 @@ const Dashboard = () => {
                     <FileText className="h-6 w-6 text-primary-foreground" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">Upload Document</CardTitle>
-                    <CardDescription className="text-sm">Analyze financial files</CardDescription>
+                    <CardTitle className="text-lg">{t("dashboard.uploadDoc")}</CardTitle>
+                    <CardDescription className="text-sm">{t("dashboard.analyzeFiles")}</CardDescription>
                   </div>
                 </div>
               </CardHeader>
@@ -143,8 +145,8 @@ const Dashboard = () => {
             {/* Insights */}
             <Card className="glass-card animate-fade-in-up">
               <CardHeader>
-                <CardTitle className="text-xl">Your Progress</CardTitle>
-                <CardDescription>Key metrics from your financial journey</CardDescription>
+                <CardTitle className="text-xl">{t("dashboard.yourProgress")}</CardTitle>
+                <CardDescription>{t("dashboard.keyMetrics")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-4">
@@ -162,8 +164,8 @@ const Dashboard = () => {
             {/* Recent Activity */}
             <Card className="glass-card animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
               <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>Your latest interactions and progress</CardDescription>
+                <CardTitle>{t("dashboard.recentActivity")}</CardTitle>
+                <CardDescription>{t("dashboard.latestInteractions")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -203,8 +205,8 @@ const Dashboard = () => {
             {/* Current Goals */}
             <Card className="glass-card animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
               <CardHeader>
-                <CardTitle className="text-xl">Current Goals</CardTitle>
-                <CardDescription>Your active financial objectives</CardDescription>
+                <CardTitle className="text-xl">{t("dashboard.currentGoals")}</CardTitle>
+                <CardDescription>{t("dashboard.activeObjectives")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <Button
@@ -237,25 +239,25 @@ const Dashboard = () => {
                   </div>
                 </Button>
 
-                <Button variant="outline" className="w-full hover-card-lift bg-gradient-primary text-primary-foreground hover:scale-105 transition-all duration-300 shadow-lg" disabled={!isAuthenticated}>Add New Goal</Button>
+                <Button variant="outline" className="w-full hover-card-lift bg-gradient-primary text-primary-foreground hover:scale-105 transition-all duration-300 shadow-lg" disabled={!isAuthenticated}>{t("dashboard.addNewGoal")}</Button>
               </CardContent>
             </Card>
 
             {/* Help Resources */}
             <Card className="glass-card animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
               <CardHeader>
-                <CardTitle className="text-xl">Need Help?</CardTitle>
-                <CardDescription>Access resources and support</CardDescription>
+                <CardTitle className="text-xl">{t("dashboard.needHelp")}</CardTitle>
+                <CardDescription>{t("dashboard.accessResources")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
                 <Button variant="ghost" className="w-full justify-start hover-lift" asChild>
                   <Link to="/#faq">
-                    FAQ
+                    {t("dashboard.faq")}
                   </Link>
                 </Button>
                 <Button variant="ghost" className="w-full justify-start hover-lift" asChild>
                   <Link to="/chat">
-                    Ask AI Assistant
+                    {t("dashboard.askAI")}
                   </Link>
                 </Button>
               </CardContent>

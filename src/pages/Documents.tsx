@@ -8,10 +8,12 @@ import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { useState, useEffect } from "react";
 import { Upload, FileText, Search, Shield, Trash2, Eye, Lock, Phone, Headphones } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Documents = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isCallActive, setIsCallActive] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const authStatus = localStorage.getItem("isAuthenticated") === "true";
@@ -44,9 +46,9 @@ const Documents = () => {
 
       <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10">
         <div className="mb-6 sm:mb-8 animate-fade-in-up px-4 sm:px-0">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold shimmer-text mb-2 leading-tight">Document Analysis</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold shimmer-text mb-2 leading-tight">{t("documents.title")}</h1>
           <p className="text-sm sm:text-base text-muted-foreground mb-6">
-            Upload your financial documents for AI-powered explanations in your language.
+            {t("documents.subtitle")}
           </p>
           
           {/* Prominent Call Button */}
@@ -57,11 +59,11 @@ const Documents = () => {
               className="h-14 px-8 bg-gradient-glow text-white rounded-full hover:scale-105 transition-all duration-300 shadow-2xl glow-pulse text-base font-semibold"
             >
               <Phone className="h-5 w-5 mr-2 animate-pulse" />
-              Talk to AI Assistant
+              {t("documents.talkToAI")}
             </Button>
             <p className="text-xs text-muted-foreground flex items-center gap-1.5">
               <Headphones className="h-3.5 w-3.5" />
-              Get instant help analyzing your documents
+              {t("documents.instantHelp")}
             </p>
           </div>
         </div>
@@ -71,13 +73,13 @@ const Documents = () => {
           <Alert className="mb-4 sm:mb-6 border-primary/50 bg-primary/5 animate-fade-in">
             <Lock className="h-4 w-4 text-primary" />
             <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between">
-              <span className="text-sm">Sign in to upload and analyze your financial documents securely.</span>
+              <span className="text-sm">{t("documents.signInUpload")}</span>
               <div className="flex gap-2 w-full sm:w-auto sm:ml-4">
                 <Button size="sm" asChild className="flex-1 sm:flex-initial hover-lift">
-                  <Link to="/signin">Sign In</Link>
+                  <Link to="/signin">{t("dashboard.signIn")}</Link>
                 </Button>
                 <Button size="sm" variant="outline" asChild className="flex-1 sm:flex-initial hover-lift">
-                  <Link to="/signup">Sign Up</Link>
+                  <Link to="/signup">{t("dashboard.signUp")}</Link>
                 </Button>
               </div>
             </AlertDescription>
@@ -92,17 +94,17 @@ const Documents = () => {
                 <Upload className="h-8 w-8 text-primary-foreground" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2">Upload Your Documents</h3>
+                <h3 className="text-xl font-semibold mb-2">{t("documents.uploadTitle")}</h3>
                 <p className="text-sm sm:text-base text-muted-foreground mb-4">
-                  {isAuthenticated ? 'Drag and drop files here, or click to browse' : 'Sign in to upload documents'}
+                  {isAuthenticated ? t("documents.dragDrop") : t("documents.signInRequired")}
                 </p>
                 <p className="text-xs sm:text-sm text-muted-foreground">
-                  Supported formats: PDF, JPG, PNG (Max 10MB)
+                  {t("documents.supportedFormats")}
                 </p>
               </div>
               <Button size="lg" className="mt-4 bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-lg" disabled={!isAuthenticated}>
                 <Upload className="mr-2 h-5 w-5" />
-                Choose Files
+                {t("documents.chooseFiles")}
               </Button>
             </div>
           </CardContent>
@@ -116,9 +118,9 @@ const Documents = () => {
                 <Shield className="h-5 w-5 text-primary-foreground" />
               </div>
               <div>
-                <h3 className="font-semibold mb-1 text-sm sm:text-base">Your Documents Are Secure</h3>
+                <h3 className="font-semibold mb-1 text-sm sm:text-base">{t("documents.secureTitle")}</h3>
                 <p className="text-xs sm:text-sm text-muted-foreground">
-                  All documents are encrypted end-to-end and stored with bank-level security. We never share your financial information with third parties.
+                  {t("documents.secureDesc")}
                 </p>
               </div>
             </div>
@@ -128,11 +130,11 @@ const Documents = () => {
         {/* Document List */}
         <div className="animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4 sm:mb-6 px-4 sm:px-0">
-            <h2 className="text-xl sm:text-2xl font-bold shimmer-text">Your Documents</h2>
+            <h2 className="text-xl sm:text-2xl font-bold shimmer-text">{t("documents.yourDocuments")}</h2>
             <div className="relative w-full sm:max-w-sm">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search documents..."
+                placeholder={t("documents.searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -156,7 +158,7 @@ const Documents = () => {
                           : "bg-muted text-muted-foreground"
                       }`}
                     >
-                      {doc.status === "analyzed" ? "Analyzed" : "Pending"}
+                      {doc.status === "analyzed" ? t("documents.analyzed") : t("documents.pending")}
                     </span>
                   </div>
                   <CardTitle className="text-base mt-4 truncate">{doc.name}</CardTitle>
@@ -169,7 +171,7 @@ const Documents = () => {
                   <div className="flex gap-2">
                     <Button size="sm" variant="outline" className="flex-1 hover-card-lift" disabled={!isAuthenticated}>
                       <Eye className="mr-2 h-4 w-4" />
-                      View
+                      {t("documents.view")}
                     </Button>
                     <Button size="sm" variant="ghost" className="hover-card-lift" disabled={!isAuthenticated}>
                       <Trash2 className="h-4 w-4 text-destructive" />
@@ -184,7 +186,7 @@ const Documents = () => {
             <Card className="p-8 sm:p-12 glass-card">
               <div className="text-center text-muted-foreground">
                 <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p className="text-sm sm:text-base">No documents found matching your search.</p>
+                <p className="text-sm sm:text-base">{t("documents.noDocuments")}</p>
               </div>
             </Card>
           )}
