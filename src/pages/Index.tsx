@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target, Send, Mic, PiggyBank, CheckCircle2, CreditCard, Wallet, TrendingDown, Phone } from "lucide-react";
 import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { useToast } from "@/hooks/use-toast";
+
 const Index = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -22,6 +23,7 @@ const Index = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isCallActive, setIsCallActive] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   
   const placeholders = [
     "Ask about your credit score…",
@@ -49,7 +51,19 @@ const Index = () => {
       setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
     }, 3000);
     
-    return () => clearInterval(interval);
+    // Scroll progress tracking
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -167,7 +181,15 @@ const Index = () => {
   
   const currentLanguage = languages.find(l => l.name === selectedLanguage) || languages[0];
   
-  return <div className="min-h-screen flex flex-col bg-background">
+  return <div className="min-h-screen flex flex-col bg-background relative">
+      {/* Scroll Progress Bar */}
+      <div className="fixed top-0 left-0 right-0 h-1 bg-border/20 z-50">
+        <div 
+          className="h-full bg-gradient-primary transition-all duration-150 ease-out"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+      
       <Header />
 
       <main className="flex-1 relative overflow-hidden">
@@ -182,7 +204,9 @@ const Index = () => {
         </div>
         
         {/* Hero Section with radial gradient background */}
-        <section className="relative px-6 py-20 z-10" style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 0%, hsl(192, 100%, 98%), hsl(0, 0%, 100%))' }}>
+        <section className="relative px-6 pt-24 pb-32 z-10" style={{ 
+          background: 'radial-gradient(ellipse 100% 60% at 50% 0%, hsl(192, 100%, 97%), hsl(0, 0%, 100%) 70%)'
+        }}>
           <div className="container mx-auto max-w-6xl text-center space-y-8 animate-fade-in-up">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-4">
               <span className="block shimmer-text pb-2">{currentLanguage.greeting}</span>
@@ -232,18 +256,19 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Wave Divider - Reduced height */}
-        <div className="relative h-8" style={{ background: 'linear-gradient(to bottom, transparent, hsl(192, 100%, 98%) 50%)' }}>
-          <svg className="absolute bottom-0 w-full h-12" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,24 Q360,0 720,24 T1440,24 L1440,48 L0,48 Z" fill="hsl(192, 100%, 98%)" />
-          </svg>
-        </div>
+        {/* Smooth gradient transition to features */}
+        <div className="relative h-20 -mt-16" style={{ 
+          background: 'linear-gradient(to bottom, hsl(0, 0%, 100%), hsl(192, 100%, 98%))'
+        }} />
 
-        {/* Features Section with soft background */}
-        <section className="relative py-16 px-6" style={{ backgroundColor: 'hsl(192, 100%, 98%)' }}>
-          <div className="container mx-auto max-w-6xl relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 shimmer-text">
+        {/* Features Section with soft background and overlapping top */}
+        <section className="relative px-6 py-24 -mt-24 z-20" style={{ backgroundColor: 'hsl(192, 100%, 98%)' }}>
+          <div className="container mx-auto max-w-6xl relative">
+            {/* Overlapping decorative element */}
+            <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-24 h-24 bg-gradient-primary rounded-full blur-3xl opacity-20" />
+            
+            <div className="text-center mb-16 animate-fade-in-up">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 shimmer-text">
                 Everything You Need to Succeed
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -274,19 +299,19 @@ const Index = () => {
           </div>
         </section>
         
-        {/* Wave Divider - Reduced height */}
-        <div className="relative h-8" style={{ background: 'linear-gradient(to bottom, hsl(192, 100%, 98%), hsl(0, 0%, 100%))' }}>
-          <svg className="absolute bottom-0 w-full h-12" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,24 Q360,48 720,24 T1440,24 L1440,48 L0,48 Z" fill="hsl(0, 0%, 100%)" />
-          </svg>
+        {/* Smooth gradient transition to FAQ */}
+        <div className="relative h-24" style={{ 
+          background: 'linear-gradient(to bottom, hsl(192, 100%, 98%), hsl(210, 60%, 98%))'
+        }}>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
         </div>
         
-        {/* FAQ Section with white background */}
-        <section id="faq" className="relative py-16 px-6 bg-background">
-          <div className="container mx-auto max-w-6xl relative z-10">
+        {/* FAQ Section with subtle tint and overlapping top */}
+        <section id="faq" className="relative px-6 py-24 -mt-12 z-20" style={{ backgroundColor: 'hsl(210, 60%, 98%)' }}>
+          <div className="container mx-auto max-w-6xl relative">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 shimmer-text">
+              <div className="text-center mb-16 animate-fade-in-up">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 shimmer-text">
                   Frequently Asked Questions
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -310,27 +335,34 @@ const Index = () => {
           </div>
         </section>
         
-        {/* Wave Divider */}
-        <div className="relative h-16" style={{ background: 'linear-gradient(to bottom, transparent, hsl(210, 60%, 96%))' }}>
-          <svg className="absolute bottom-0 w-full h-16" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,24 Q360,0 720,24 T1440,24 L1440,48 L0,48 Z" fill="hsl(210, 60%, 96%)" />
-          </svg>
+        {/* Smooth gradient transition to CTA */}
+        <div className="relative h-24" style={{ 
+          background: 'linear-gradient(to bottom, hsl(210, 60%, 98%), hsl(0, 0%, 100%))'
+        }}>
+          <div className="absolute top-1/2 left-1/4 w-40 h-40 bg-accent/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 right-1/4 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
         </div>
         
-        {/* CTA Section with radial gradient background */}
-        <section className="relative py-20 px-6" style={{ background: 'radial-gradient(ellipse 80% 70% at 50% 50%, hsl(210, 60%, 96%), hsl(192, 100%, 98%))' }}>
-          <div className="container mx-auto max-w-6xl">
-            <div className="max-w-4xl mx-auto text-center bg-background/80 backdrop-blur-sm border border-border/40 shadow-xl p-12 rounded-3xl">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 shimmer-text">
+        {/* CTA Section with radial gradient background and overlapping */}
+        <section className="relative px-6 py-28 -mt-12 z-20" style={{ 
+          background: 'radial-gradient(ellipse 100% 80% at 50% 50%, hsl(192, 100%, 97%), hsl(210, 60%, 96%))'
+        }}>
+          <div className="container mx-auto max-w-6xl relative">
+            {/* Decorative elements */}
+            <div className="absolute -top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse-slow" />
+            <div className="absolute -bottom-10 right-10 w-40 h-40 bg-accent/10 rounded-full blur-3xl animate-float" />
+            
+            <div className="max-w-4xl mx-auto text-center bg-background/90 backdrop-blur-sm border border-border/40 shadow-2xl p-12 sm:p-16 rounded-3xl relative z-10 animate-fade-in-up">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 shimmer-text">
                 Ready to Take Control of Your Finances?
               </h2>
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
                 Join thousands of users who are building financial confidence in their native language.
               </p>
               <Button 
                 size="lg"
                 onClick={handleGetStarted}
-                className="bg-gradient-glow text-white px-10 py-6 text-lg rounded-full hover:scale-105 hover:shadow-2xl transition-all duration-300 shadow-xl"
+                className="bg-gradient-glow text-white px-12 py-7 text-xl rounded-full hover:scale-105 hover:shadow-2xl transition-all duration-300 shadow-xl glow-pulse"
               >
                 Get Started Free
               </Button>
