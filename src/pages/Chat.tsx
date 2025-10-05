@@ -57,13 +57,18 @@ const Chat = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      {/* Decorative Background */}
+      <div className="fixed inset-0 bg-gradient-mesh opacity-40 pointer-events-none" />
+      <div className="fixed top-20 right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float pointer-events-none" />
+      <div className="fixed bottom-20 left-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-slow pointer-events-none" />
+      
       <Header />
 
-      <main className="flex-1 container mx-auto px-4 py-8 flex flex-col max-w-5xl">
-        <div className="mb-6 flex items-center justify-between">
+      <main className="flex-1 container mx-auto px-4 py-8 flex flex-col max-w-5xl relative z-10 animate-fade-in">
+        <div className="mb-6 flex items-center justify-between animate-scale-in">
           <div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">AI Financial Assistant</h1>
+            <h1 className="text-3xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">AI Financial Assistant</h1>
             <p className="text-muted-foreground">Ask questions in your language, get clear answers</p>
           </div>
           <Select value={language} onValueChange={setLanguage}>
@@ -100,7 +105,7 @@ const Chat = () => {
         )}
 
         {/* Chat Area */}
-        <Card className="flex-1 flex flex-col mb-4 overflow-hidden">
+        <Card className="flex-1 flex flex-col mb-4 overflow-hidden bg-gradient-card hover-lift">
           <div className="flex-1 p-6 overflow-y-auto space-y-4">
             {messages.map((msg) => (
               <div
