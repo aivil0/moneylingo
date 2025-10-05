@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Header } from "@/components/Header";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useState, useEffect, useRef } from "react";
-import { Mic, Send, Volume2, Lock, Menu, MessageSquare } from "lucide-react";
+import { Mic, Send, Volume2, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Chat = () => {
@@ -75,46 +76,30 @@ const Chat = () => {
       <div className="absolute top-20 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float pointer-events-none" />
       <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow pointer-events-none" />
       
-      {/* Header with gradient accent */}
-      <header className="relative z-20 border-b border-border/40 bg-background/60 backdrop-blur-md shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5 hover-lift group">
-            <div className="h-9 w-9 rounded-lg bg-gradient-primary flex items-center justify-center shadow-lg">
-              <MessageSquare className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="font-bold text-lg bg-gradient-hero bg-clip-text text-transparent">MoneyLingo</span>
-          </Link>
-          
-          <div className="flex items-center gap-3">
-            <Select value={language} onValueChange={setLanguage}>
-              <SelectTrigger className="w-[130px] h-10 text-sm border-border/50 hover:border-primary/50 transition-colors">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="en">🇺🇸 English</SelectItem>
-                <SelectItem value="es">🇪🇸 Español</SelectItem>
-                <SelectItem value="zh">🇨🇳 中文</SelectItem>
-                <SelectItem value="ar">🇸🇦 العربية</SelectItem>
-                <SelectItem value="hi">🇮🇳 हिन्दी</SelectItem>
-                <SelectItem value="fr">🇫🇷 Français</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Button size="sm" variant="outline" asChild className="hover-lift">
-              <Link to="/dashboard">
-                <Menu className="h-4 w-4 mr-2" />
-                Menu
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Main Chat Area */}
-      <main className="flex-1 relative z-10 flex flex-col overflow-hidden">
+      <main className="flex-1 relative z-10 flex flex-col overflow-hidden container mx-auto max-w-4xl">
+        {/* Language Selector */}
+        <div className="px-4 pt-4 pb-2 flex justify-end">
+          <Select value={language} onValueChange={setLanguage}>
+            <SelectTrigger className="w-[140px] h-10 text-sm border-border/50 hover:border-primary/50 transition-colors bg-gradient-card shadow-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="en">🇺🇸 English</SelectItem>
+              <SelectItem value="es">🇪🇸 Español</SelectItem>
+              <SelectItem value="zh">🇨🇳 中文</SelectItem>
+              <SelectItem value="ar">🇸🇦 العربية</SelectItem>
+              <SelectItem value="hi">🇮🇳 हिन्दी</SelectItem>
+              <SelectItem value="fr">🇫🇷 Français</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* Auth Alert with gradient styling */}
         {!isAuthenticated && (
-          <div className="max-w-3xl mx-auto w-full px-4 pt-4">
+          <div className="px-4 pb-4">
             <Alert className="border-2 border-primary/40 bg-gradient-card shadow-lg animate-scale-in hover-lift">
               <div className="h-8 w-8 rounded-full bg-gradient-primary flex items-center justify-center">
                 <Lock className="h-4 w-4 text-primary-foreground" />
@@ -139,7 +124,7 @@ const Chat = () => {
 
         {/* Messages Container */}
         <div className="flex-1 overflow-y-auto">
-          <div className="max-w-3xl mx-auto w-full px-4 py-6">
+          <div className="w-full px-4 py-6">
             {messages.length === 1 && (
               <div className="text-center mb-12 animate-fade-in">
                 <div className="inline-block px-4 py-2 bg-gradient-primary text-primary-foreground rounded-full text-sm font-semibold mb-6 animate-pulse-slow shadow-lg">
@@ -223,7 +208,7 @@ const Chat = () => {
 
         {/* Input Area - Fixed at Bottom with gradient styling */}
         <div className="border-t-2 border-border/40 bg-gradient-card/80 backdrop-blur-md shadow-2xl">
-          <div className="max-w-3xl mx-auto w-full px-4 py-5">
+          <div className="w-full px-4 py-5">
             <div className="flex items-end gap-2">
               <div className="flex-1 relative">
                 <Input
