@@ -135,20 +135,6 @@ const Dashboard = () => {
               </CardHeader>
             </Card>
           </Link>
-
-          <Card className="glass-card hover:border-primary/50 transition-all hover-card-lift">
-            <CardHeader>
-              <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
-                  <TrendingUp className="h-6 w-6 text-primary-foreground" />
-                </div>
-                <div>
-                  <CardTitle className="text-lg">View Progress</CardTitle>
-                  <CardDescription className="text-sm">Track your goals</CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-          </Card>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
