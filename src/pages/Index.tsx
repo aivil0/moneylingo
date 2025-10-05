@@ -95,7 +95,7 @@ const Index = () => {
             </div>
             
             {/* Chat Feature Highlight */}
-            <div className="mt-12 p-8 bg-gradient-card rounded-2xl border-2 border-primary/20 hover-lift max-w-2xl mx-auto">
+            <Link to="/chat" className="block mt-12 p-8 bg-gradient-card rounded-2xl border-2 border-primary/20 hover-lift max-w-2xl mx-auto cursor-pointer transition-all">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <MessageSquare className="h-8 w-8 text-primary" />
                 <h3 className="text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">Try Our AI Chat</h3>
@@ -112,7 +112,7 @@ const Index = () => {
                 <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">Français</span>
                 <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">+14 more</span>
               </div>
-            </div>
+            </Link>
             
             {/* Floating emoji decorations */}
             <div className="flex justify-center gap-8 mt-12 text-4xl opacity-60">
