@@ -185,7 +185,7 @@ const Dashboard = () => {
                     <Button
                       key={activity.id}
                       variant="ghost"
-                      className="w-full h-auto p-4 justify-start hover-lift"
+                      className="w-full h-auto p-4 justify-start hover-lift border border-border/50 hover:border-primary/30 hover:bg-accent/5"
                       asChild
                     >
                       <Link to={activity.type === "chat" ? "/chat" : activity.type === "document" ? "/documents" : "/dashboard"}>
@@ -223,7 +223,7 @@ const Dashboard = () => {
               <CardContent className="space-y-4">
                 <Button
                   variant="ghost"
-                  className="w-full h-auto p-4 justify-start hover-lift border rounded-lg"
+                  className="w-full h-auto p-4 justify-start hover-lift border border-border/50 hover:border-primary/30 hover:bg-accent/5"
                   onClick={() => setSelectedGoal("Build Credit Score")}
                 >
                   <div className="flex items-start gap-3 w-full">
@@ -238,7 +238,7 @@ const Dashboard = () => {
 
                 <Button
                   variant="ghost"
-                  className="w-full h-auto p-4 justify-start hover-lift border rounded-lg"
+                  className="w-full h-auto p-4 justify-start hover-lift border border-border/50 hover:border-primary/30 hover:bg-accent/5"
                   onClick={() => setSelectedGoal("Understand Tax Forms")}
                 >
                   <div className="flex items-start gap-3 w-full">
