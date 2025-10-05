@@ -40,13 +40,13 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
 
   if (!isActive) return null;
 
-  const circleScale = 1 + (audioLevel / 100) * 0.3; // Reduced scale range for calmer effect
+  const circleScale = 1 + (audioLevel / 100) * 0.2; // Further reduced scale range
 
   return (
     <div className="fixed inset-0 z-50 bg-white animate-fade-in">
-      <div className="relative h-full flex flex-col items-center justify-between py-16 px-4">
+      <div className="relative h-full flex flex-col items-center justify-between py-12 px-4 gap-8">
         {/* Status indicator */}
-        <div className="text-center animate-fade-in-up">
+        <div className="text-center animate-fade-in-up flex-shrink-0">
           <div className="flex items-center justify-center gap-2">
             <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
             <span className="text-base text-foreground font-medium">
@@ -56,15 +56,15 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
         </div>
 
         {/* Main sound wave circle - centered with proper spacing */}
-        <div className="relative flex items-center justify-center flex-1">
+        <div className="relative flex items-center justify-center flex-1 max-h-[450px]">
           {/* Outer rings - no borders */}
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
               className="absolute rounded-full bg-primary/5"
               style={{
-                width: `${300 + i * 100}px`,
-                height: `${300 + i * 100}px`,
+                width: `${220 + i * 70}px`,
+                height: `${220 + i * 70}px`,
                 animation: `ping ${3 + i * 1.5}s cubic-bezier(0, 0, 0.2, 1) infinite`,
                 animationDelay: `${i * 0.5}s`,
                 opacity: audioLevel > 10 ? 0.3 - i * 0.08 : 0.08,
@@ -76,8 +76,8 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
           <div
             className="relative z-10 rounded-full shadow-2xl ease-out"
             style={{
-              width: "280px",
-              height: "280px",
+              width: "220px",
+              height: "220px",
               transform: `scale(${circleScale})`,
               background: `linear-gradient(${audioLevel * 1.2}deg, hsl(180, 62%, ${35 + audioLevel / 8}%), hsl(192, 81%, ${50 + audioLevel / 12}%), hsl(25, 95%, ${63 + audioLevel / 15}%))`,
               transition: "all 800ms ease-in-out",
@@ -87,7 +87,7 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
         </div>
 
         {/* Bottom section with buttons and info */}
-        <div className="flex flex-col items-center gap-8 w-full">
+        <div className="flex flex-col items-center gap-6 w-full flex-shrink-0">
           {/* Call info */}
           <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <p className="text-base text-foreground font-medium mb-2">
