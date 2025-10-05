@@ -24,6 +24,7 @@ const Index = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isCallActive, setIsCallActive] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [showHelpMenu, setShowHelpMenu] = useState(false);
   
   const placeholders = [
     "Ask about your credit score…",
@@ -193,12 +194,91 @@ const Index = () => {
       <Header />
 
       <main className="flex-1 relative overflow-hidden">
-        {/* Floating mascot */}
-        <div className="fixed bottom-24 right-8 z-50 bounce-gentle">
-          <div className="relative group cursor-pointer" onClick={() => toast({ title: "MoneyLingo Assistant", description: "I'm here to help! Click Get Started to begin." })}>
-            <PiggyBank className="h-16 w-16 text-primary drop-shadow-lg" />
-            <div className="absolute -top-12 right-0 bg-card text-card-foreground px-3 py-1.5 rounded-lg shadow-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              Need help? 👋
+        {/* Floating mascot with help menu */}
+        <div className="fixed bottom-8 right-8 z-50">
+          <div className="relative">
+            {/* Help Menu */}
+            {showHelpMenu && (
+              <div className="absolute bottom-20 right-0 bg-card border border-border rounded-xl shadow-2xl p-4 w-64 animate-scale-in">
+                <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                  <PiggyBank className="h-4 w-4 text-primary" />
+                  How can I help you?
+                </h3>
+                <div className="space-y-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start text-left"
+                    onClick={() => {
+                      setIsCallActive(true);
+                      setShowHelpMenu(false);
+                    }}
+                  >
+                    <Phone className="h-4 w-4 mr-2" />
+                    Talk to AI Assistant
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start text-left"
+                    onClick={() => {
+                      navigate('/chat');
+                      setShowHelpMenu(false);
+                    }}
+                  >
+                    <MessageSquare className="h-4 w-4 mr-2" />
+                    Start a Chat
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start text-left"
+                    onClick={() => {
+                      navigate('/documents');
+                      setShowHelpMenu(false);
+                    }}
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    Upload Documents
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start text-left"
+                    onClick={() => {
+                      document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+                      setShowHelpMenu(false);
+                    }}
+                  >
+                    <Shield className="h-4 w-4 mr-2" />
+                    View FAQ
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full justify-start text-left"
+                    onClick={() => {
+                      handleGetStarted();
+                      setShowHelpMenu(false);
+                    }}
+                  >
+                    <Target className="h-4 w-4 mr-2" />
+                    Get Started
+                  </Button>
+                </div>
+              </div>
+            )}
+            
+            {/* Mascot Button */}
+            <div 
+              className="relative group cursor-pointer bounce-gentle"
+              onClick={() => setShowHelpMenu(!showHelpMenu)}
+            >
+              <PiggyBank className="h-16 w-16 text-primary drop-shadow-lg transition-transform hover:scale-110" />
+              <div className="absolute top-0 right-0 h-3 w-3 bg-accent rounded-full animate-pulse" />
+              <div className="absolute -top-12 right-0 bg-card text-card-foreground px-3 py-1.5 rounded-lg shadow-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                Need help? 👋
+              </div>
             </div>
           </div>
         </div>
