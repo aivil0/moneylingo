@@ -125,7 +125,7 @@ const Chat = () => {
       <Header />
 
       {/* Main Voice Call Area */}
-      <main className="flex-1 relative z-10 flex flex-col items-center justify-center container mx-auto max-w-5xl px-4 pb-8">
+      <main className="flex-1 relative z-10 flex flex-col items-center justify-center container mx-auto max-w-5xl px-4 pb-8 pt-24">
         {/* Hero Voice Call Section */}
         <div className="text-center space-y-8 sm:space-y-10 animate-fade-in-up max-w-3xl px-4">
           <div>
