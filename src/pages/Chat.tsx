@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect, useRef } from "react";
-import { Mic, Send, Volume2, Phone, PhoneOff, MessageSquare, ChevronDown, ChevronUp } from "lucide-react";
+import { Send, Phone, PhoneOff } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -15,7 +15,6 @@ const Chat = () => {
   const [inputCount, setInputCount] = useState(0);
   const [isInCall, setIsInCall] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
-  const [isChatExpanded, setIsChatExpanded] = useState(false);
   
   const placeholders = [
     "Ask about your credit score…",
@@ -87,7 +86,6 @@ const Chat = () => {
     const initialMessage = location.state?.initialMessage;
     if (initialMessage) {
       setMessage(initialMessage);
-      setIsChatExpanded(true);
       // Auto-send the message
       setTimeout(() => {
         handleSendMessage(initialMessage);
@@ -208,92 +206,32 @@ const Chat = () => {
         </div>
       </main>
 
-      {/* Collapsible Chat Section at Bottom */}
+      {/* Fixed Chat Bar at Bottom */}
       <div className="relative z-20 border-t border-border/50 bg-background/95 backdrop-blur-sm">
-        {/* Chat Toggle Header */}
-        <button
-          onClick={() => setIsChatExpanded(!isChatExpanded)}
-          className="w-full px-6 py-4 flex items-center justify-between hover:bg-accent/5 transition-colors"
-        >
-          <div className="flex items-center gap-3">
-            <MessageSquare className="h-5 w-5 text-primary" />
-            <div className="text-left">
-              <p className="font-semibold">Text Chat</p>
-              <p className="text-xs text-muted-foreground">Prefer typing? Use our text chat</p>
-            </div>
+        <div className="px-4 py-4 container mx-auto max-w-4xl">
+          <div className="flex items-center gap-2 glass-card p-2 rounded-3xl shadow-xl">
+            <Input
+              placeholder={placeholders[placeholderIndex]}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
+              className="h-12 text-base rounded-3xl bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 pr-12"
+              aria-label="Message input"
+            />
+            <Button
+              size="icon"
+              onClick={handleSend}
+              disabled={!message.trim()}
+              className="h-10 w-10 rounded-full bg-gradient-primary hover:scale-110 transition-all shadow-lg disabled:opacity-50 flex-shrink-0"
+              aria-label="Send message"
+            >
+              <Send className="h-4 w-4" />
+            </Button>
           </div>
-          {isChatExpanded ? <ChevronDown className="h-5 w-5" /> : <ChevronUp className="h-5 w-5" />}
-        </button>
-
-        {/* Expandable Chat Area */}
-        {isChatExpanded && (
-          <div className="border-t border-border/50 animate-fade-in">
-            {/* Messages Container */}
-            <div className="max-h-[400px] overflow-y-auto px-4 py-4 container mx-auto max-w-4xl">
-              <div className="space-y-4">
-                {messages.map((msg, index) => (
-                  index > 0 && (
-                    <div
-                      key={msg.id}
-                      className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
-                    >
-                      <div
-                        className={`max-w-[85%] rounded-2xl px-4 py-3 shadow-lg ${
-                          msg.sender === "user"
-                            ? "bg-gradient-primary text-primary-foreground"
-                            : "bg-gradient-card border-2 border-border/50"
-                        }`}
-                      >
-                        <p className="text-sm leading-relaxed">{msg.text}</p>
-                        <div className="flex items-center justify-between gap-2 mt-2 pt-2 border-t border-white/10">
-                          <p className="text-xs opacity-60">{msg.time}</p>
-                          {msg.sender === "ai" && (
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="h-6 px-2 hover:bg-primary/10 hover-lift rounded-full"
-                              aria-label="Play audio"
-                            >
-                              <Volume2 className="h-3 w-3 mr-1" />
-                              <span className="text-xs">Listen</span>
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                ))}
-                <div ref={messagesEndRef} />
-              </div>
-            </div>
-
-            {/* Chat Input Bar */}
-            <div className="px-4 pb-4 pt-2 container mx-auto max-w-4xl">
-              <div className="flex items-center gap-2 glass-card p-2 rounded-3xl shadow-xl">
-                <Input
-                  placeholder={placeholders[placeholderIndex]}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  className="h-12 text-base rounded-3xl bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 pr-12"
-                  aria-label="Message input"
-                />
-                <Button
-                  size="icon"
-                  onClick={handleSend}
-                  disabled={!message.trim()}
-                  className="h-10 w-10 rounded-full bg-gradient-primary hover:scale-110 transition-all shadow-lg disabled:opacity-50 flex-shrink-0"
-                  aria-label="Send message"
-                >
-                  <Send className="h-4 w-4" />
-                </Button>
-              </div>
-              <p className="text-xs text-muted-foreground mt-2 text-center">
-                MoneyLingo can make mistakes. Verify important information.
-              </p>
-            </div>
-          </div>
-        )}
+          <p className="text-xs text-muted-foreground mt-2 text-center">
+            Or type your question • MoneyLingo can make mistakes
+          </p>
+        </div>
       </div>
 
       {/* Voice Call Interface */}
