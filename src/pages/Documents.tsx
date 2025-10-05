@@ -4,12 +4,14 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { useState, useEffect } from "react";
-import { Upload, FileText, Search, Shield, Trash2, Eye, Lock } from "lucide-react";
+import { Upload, FileText, Search, Shield, Trash2, Eye, Lock, Phone, Headphones } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Documents = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isCallActive, setIsCallActive] = useState(false);
 
   useEffect(() => {
     const authStatus = localStorage.getItem("isAuthenticated") === "true";
@@ -43,9 +45,25 @@ const Documents = () => {
       <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10 animate-fade-in">
         <div className="mb-6 sm:mb-8 animate-scale-in px-4 sm:px-0">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold shimmer-text mb-2 leading-tight">Document Analysis</h1>
-          <p className="text-sm sm:text-base text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground mb-6">
             Upload your financial documents for AI-powered explanations in your language.
           </p>
+          
+          {/* Prominent Call Button */}
+          <div className="flex flex-col sm:flex-row items-center gap-3 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+            <Button
+              onClick={() => setIsCallActive(true)}
+              size="lg"
+              className="h-14 px-8 bg-gradient-glow text-white rounded-full hover:scale-105 transition-all duration-300 shadow-2xl glow-pulse text-base font-semibold"
+            >
+              <Phone className="h-5 w-5 mr-2 animate-pulse" />
+              Talk to AI Assistant
+            </Button>
+            <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+              <Headphones className="h-3.5 w-3.5" />
+              Get instant help analyzing your documents
+            </p>
+          </div>
         </div>
 
         {/* Auth Alert */}
@@ -174,6 +192,12 @@ const Documents = () => {
       </main>
 
       <Footer />
+      
+      {/* Voice Call Interface */}
+      <VoiceCallInterface 
+        isActive={isCallActive}
+        onEnd={() => setIsCallActive(false)}
+      />
     </div>
   );
 };

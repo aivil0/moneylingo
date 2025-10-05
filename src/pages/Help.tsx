@@ -4,10 +4,14 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Input } from "@/components/ui/input";
+import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { Link } from "react-router-dom";
-import { Search, MessageSquare, BookOpen, Video, Mail } from "lucide-react";
+import { Search, MessageSquare, BookOpen, Video, Mail, Phone, Headphones } from "lucide-react";
+import { useState } from "react";
 
 const Help = () => {
+  const [isCallActive, setIsCallActive] = useState(false);
+  
   const faqs = [
     {
       question: "How does the AI understand my native language?",
@@ -91,11 +95,28 @@ const Help = () => {
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
               Find answers to common questions or reach out to our support team
             </p>
+            
+            {/* Prominent Call Button */}
+            <div className="flex flex-col items-center gap-3 mb-8 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+              <Button
+                onClick={() => setIsCallActive(true)}
+                size="lg"
+                className="h-16 px-10 bg-gradient-glow text-white rounded-full hover:scale-105 transition-all duration-300 shadow-2xl glow-pulse text-lg font-semibold"
+              >
+                <Phone className="h-6 w-6 mr-3 animate-pulse" />
+                Talk to AI Assistant Now
+              </Button>
+              <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+                <Headphones className="h-3.5 w-3.5" />
+                Get instant help in your language
+              </p>
+            </div>
+            
             <div className="max-w-2xl mx-auto relative px-4">
               <Search className="absolute left-8 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
                 placeholder="Search for help..."
-                className="pl-12 h-12 sm:h-14 text-base sm:text-lg"
+                className="pl-12 h-12 sm:h-14 text-base sm:text-lg glass-card border-2 border-border/50 focus:border-primary/50 transition-all"
                 aria-label="Search help articles"
               />
             </div>
@@ -161,6 +182,14 @@ const Help = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-3 sm:space-y-4">
+                <Button 
+                  onClick={() => setIsCallActive(true)}
+                  className="w-full bg-gradient-glow text-white hover:scale-105 transition-all duration-300 shadow-2xl glow-pulse" 
+                  size="lg"
+                >
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call AI Assistant
+                </Button>
                 <Button className="w-full bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-lg" size="lg" asChild>
                   <Link to="/chat">
                     <MessageSquare className="mr-2 h-5 w-5" />
@@ -181,6 +210,12 @@ const Help = () => {
       </main>
 
       <Footer />
+      
+      {/* Voice Call Interface */}
+      <VoiceCallInterface 
+        isActive={isCallActive}
+        onEnd={() => setIsCallActive(false)}
+      />
     </div>
   );
 };
