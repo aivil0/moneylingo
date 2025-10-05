@@ -1,11 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Header } from "@/components/Header";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useState, useEffect } from "react";
-import { Mic, Send, Paperclip, Volume2, Lock } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Mic, Send, Volume2, Lock, Menu, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Chat = () => {
@@ -56,160 +54,190 @@ const Chat = () => {
     }
   };
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
-      {/* Decorative Background */}
-      <div className="fixed inset-0 bg-gradient-mesh opacity-40 pointer-events-none" />
-      <div className="fixed top-20 right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float pointer-events-none" />
-      <div className="fixed bottom-20 left-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-slow pointer-events-none" />
+    <div className="min-h-screen flex flex-col relative overflow-hidden bg-background">
+      {/* Background Gradients */}
+      <div className="absolute inset-0 bg-gradient-main pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-clouds pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/5 to-background/20 pointer-events-none" />
       
-      <Header />
-
-      <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col max-w-5xl relative z-10 animate-fade-in">
-        <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 animate-scale-in">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-1 sm:mb-2">AI Financial Assistant</h1>
-            <p className="text-sm sm:text-base text-muted-foreground">Ask questions in your language, get clear answers</p>
+      {/* Minimal Header */}
+      <header className="relative z-20 border-b border-border/40 bg-background/80 backdrop-blur-sm">
+        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <MessageSquare className="h-5 w-5 text-primary" />
+            <span className="font-semibold text-lg">MoneyLingo</span>
+          </Link>
+          
+          <div className="flex items-center gap-3">
+            <Select value={language} onValueChange={setLanguage}>
+              <SelectTrigger className="w-[120px] h-9 text-sm">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en">English</SelectItem>
+                <SelectItem value="es">Español</SelectItem>
+                <SelectItem value="zh">中文</SelectItem>
+                <SelectItem value="ar">العربية</SelectItem>
+                <SelectItem value="hi">हिन्दी</SelectItem>
+                <SelectItem value="fr">Français</SelectItem>
+              </SelectContent>
+            </Select>
+            
+            <Button size="sm" variant="ghost" asChild>
+              <Link to="/dashboard">
+                <Menu className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
-          <Select value={language} onValueChange={setLanguage}>
-            <SelectTrigger className="w-full sm:w-[140px]" aria-label="Select chat language">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="es">Español</SelectItem>
-              <SelectItem value="zh">中文</SelectItem>
-              <SelectItem value="ar">العربية</SelectItem>
-              <SelectItem value="hi">हिन्दी</SelectItem>
-              <SelectItem value="fr">Français</SelectItem>
-            </SelectContent>
-          </Select>
         </div>
+      </header>
 
+      {/* Main Chat Area */}
+      <main className="flex-1 relative z-10 flex flex-col overflow-hidden">
         {/* Auth Alert */}
         {!isAuthenticated && (
-          <Alert className="mb-4 sm:mb-6 border-primary/50 bg-primary/5">
-            <Lock className="h-4 w-4 text-primary" />
-            <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between">
-              <span className="text-sm">Sign in to start chatting with our AI assistant and get personalized financial guidance.</span>
-              <div className="flex gap-2 w-full sm:w-auto sm:ml-4">
-                <Button size="sm" asChild className="flex-1 sm:flex-initial">
-                  <Link to="/signin">Sign In</Link>
-                </Button>
-                <Button size="sm" variant="outline" asChild className="flex-1 sm:flex-initial">
-                  <Link to="/signup">Sign Up</Link>
-                </Button>
-              </div>
-            </AlertDescription>
-          </Alert>
+          <div className="max-w-3xl mx-auto w-full px-4 pt-4">
+            <Alert className="border-primary/50 bg-primary/5 animate-fade-in">
+              <Lock className="h-4 w-4 text-primary" />
+              <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between">
+                <span className="text-sm">Sign in to chat with our AI assistant</span>
+                <div className="flex gap-2">
+                  <Button size="sm" asChild>
+                    <Link to="/signin">Sign In</Link>
+                  </Button>
+                  <Button size="sm" variant="outline" asChild>
+                    <Link to="/signup">Sign Up</Link>
+                  </Button>
+                </div>
+              </AlertDescription>
+            </Alert>
+          </div>
         )}
 
-        {/* Chat Area */}
-        <Card className="flex-1 flex flex-col mb-3 sm:mb-4 overflow-hidden bg-gradient-card hover-lift shadow-lg">
-          <div className="flex-1 p-3 sm:p-4 md:p-6 overflow-y-auto space-y-3 sm:space-y-4">
-            {messages.map((msg) => (
-              <div
-                key={msg.id}
-                className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
-              >
-                <div
-                  className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-3 sm:p-4 ${
-                    msg.sender === "user"
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-foreground"
-                  }`}
-                >
-                  <p className="text-xs sm:text-sm mb-2">{msg.text}</p>
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-xs opacity-70">{msg.time}</p>
-                    {msg.sender === "ai" && (
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="h-6 px-2"
-                        aria-label="Play audio"
-                      >
-                        <Volume2 className="h-3 w-3" />
-                      </Button>
-                    )}
-                  </div>
+        {/* Messages Container */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="max-w-3xl mx-auto w-full px-4 py-6">
+            {messages.length === 1 && (
+              <div className="text-center mb-8 animate-fade-in">
+                <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4 pb-2">
+                  How can I help you today?
+                </h1>
+                <p className="text-muted-foreground mb-8">
+                  Ask me anything about credit, taxes, mortgages, or financial planning
+                </p>
+                
+                {/* Suggested Questions */}
+                <div className="grid sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
+                  {[
+                    { q: "What is a credit score?", icon: "📊" },
+                    { q: "How do I file taxes?", icon: "📝" },
+                    { q: "What is APR?", icon: "💰" },
+                    { q: "Explain mortgage rates", icon: "🏠" },
+                  ].map((suggestion) => (
+                    <button
+                      key={suggestion.q}
+                      className="text-left p-4 rounded-xl border border-border/50 bg-background/50 hover:bg-accent/50 hover:border-primary/50 transition-all hover-lift disabled:opacity-50 disabled:cursor-not-allowed"
+                      onClick={() => isAuthenticated && setMessage(suggestion.q)}
+                      disabled={!isAuthenticated}
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className="text-2xl">{suggestion.icon}</span>
+                        <span className="text-sm font-medium">{suggestion.q}</span>
+                      </div>
+                    </button>
+                  ))}
                 </div>
               </div>
-            ))}
+            )}
+
+            {/* Chat Messages */}
+            <div className="space-y-6">
+              {messages.map((msg, index) => (
+                index > 0 && (
+                  <div
+                    key={msg.id}
+                    className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
+                  >
+                    <div
+                      className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+                        msg.sender === "user"
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted/80 text-foreground border border-border/50"
+                      }`}
+                    >
+                      <p className="text-sm sm:text-base leading-relaxed">{msg.text}</p>
+                      <div className="flex items-center justify-between gap-2 mt-2">
+                        <p className="text-xs opacity-60">{msg.time}</p>
+                        {msg.sender === "ai" && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="h-6 px-2 hover:bg-background/50"
+                            aria-label="Play audio"
+                          >
+                            <Volume2 className="h-3 w-3" />
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
           </div>
+        </div>
 
-          {/* Input Area */}
-          <div className="border-t p-3 sm:p-4 bg-background">
-            <div className="flex items-end gap-1.5 sm:gap-2">
-              <Button
-                size="icon"
-                variant="ghost"
-                className="flex-shrink-0 hidden sm:flex"
-                aria-label="Attach file"
-                disabled={!isAuthenticated}
-              >
-                <Paperclip className="h-5 w-5" />
-              </Button>
-
-              <div className="flex-1">
+        {/* Input Area - Fixed at Bottom */}
+        <div className="border-t border-border/40 bg-background/80 backdrop-blur-sm">
+          <div className="max-w-3xl mx-auto w-full px-4 py-4">
+            <div className="flex items-end gap-2">
+              <div className="flex-1 relative">
                 <Input
-                  placeholder={isAuthenticated ? "Type your question or use voice..." : "Sign in to start chatting..."}
+                  placeholder={isAuthenticated ? "Message MoneyLingo..." : "Sign in to start chatting..."}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="resize-none text-sm sm:text-base"
+                  className="pr-24 h-12 text-base rounded-full bg-background border-border/50"
                   aria-label="Message input"
                   disabled={!isAuthenticated}
                 />
-                <p className="text-xs text-muted-foreground mt-1">
-                  {message.length}/1000 characters
-                </p>
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-8 w-8 rounded-full"
+                    aria-label="Voice input"
+                    disabled={!isAuthenticated}
+                  >
+                    <Mic className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    onClick={handleSend}
+                    disabled={!message.trim() || !isAuthenticated}
+                    className="h-8 w-8 rounded-full"
+                    aria-label="Send message"
+                  >
+                    <Send className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-
-              <Button
-                size="icon"
-                variant="outline"
-                className="flex-shrink-0"
-                aria-label="Voice input"
-                disabled={!isAuthenticated}
-              >
-                <Mic className="h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
-
-              <Button
-                size="icon"
-                onClick={handleSend}
-                disabled={!message.trim() || !isAuthenticated}
-                className="flex-shrink-0"
-                aria-label="Send message"
-              >
-                <Send className="h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
             </div>
-          </div>
-        </Card>
-
-        {/* Suggested Questions */}
-        <div className="space-y-2">
-          <p className="text-xs sm:text-sm text-muted-foreground">Suggested questions:</p>
-          <div className="flex flex-wrap gap-2">
-            {[
-              "What is a credit score?",
-              "How do I file taxes?",
-              "What is APR?",
-              "Explain mortgage rates",
-            ].map((suggestion) => (
-              <Button
-                key={suggestion}
-                variant="outline"
-                size="sm"
-                className="text-xs sm:text-sm"
-                onClick={() => isAuthenticated && setMessage(suggestion)}
-                disabled={!isAuthenticated}
-              >
-                {suggestion}
-              </Button>
-            ))}
+            <p className="text-xs text-muted-foreground mt-2 text-center">
+              MoneyLingo can make mistakes. Check important info.
+            </p>
           </div>
         </div>
       </main>
