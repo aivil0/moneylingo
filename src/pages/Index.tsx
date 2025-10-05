@@ -225,7 +225,7 @@ const Index = () => {
         }}>
           <div className="container mx-auto max-w-6xl text-center space-y-8 animate-fade-in-up">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-4">
-              <span className="block shimmer-text pb-2">{currentLanguage.greeting}</span>
+              <span className="block shimmer-text pb-2">Talk to Your Personal Financial AI</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4 sm:px-6">
               Get instant answers to your financial questions in your native language. Our AI assistant breaks down complex concepts into simple, culturally-aware guidance.
