@@ -1,381 +1,316 @@
-import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link, useNavigate } from "react-router-dom";
-import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target, Send, Mic, PiggyBank, CheckCircle2, CreditCard, Wallet, TrendingDown } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { 
+  MessageSquare, FileText, Shield, Globe2, TrendingUp, 
+  Headphones, Send, Mic, Sparkles, CreditCard, BookOpen, 
+  Home, DollarSign, PiggyBank 
+} from "lucide-react";
+import { useState, useEffect } from "react";
+
 const Index = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showAuthDialog, setShowAuthDialog] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(false);
-  const [onboardingStep, setOnboardingStep] = useState(0);
-  const [selectedLanguage, setSelectedLanguage] = useState("English");
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
-  
+  const [isTyping, setIsTyping] = useState(false);
+
   const placeholders = [
-    "Ask about your credit score…",
-    "Type your question in any language…",
+    "Ask about your credit score...",
+    "Type your question in any language...",
     "Need help with taxes?",
-    "How do I build credit?",
-    "What's a good interest rate?",
-  ];
-  
-  const languages = [
-    { code: "en", name: "English", flag: "🇺🇸", greeting: "How can I help you today?" },
-    { code: "es", name: "Español", flag: "🇪🇸", greeting: "¿Cómo puedo ayudarte hoy?" },
-    { code: "zh", name: "中文", flag: "🇨🇳", greeting: "今天我能帮你什么？" },
-    { code: "ar", name: "العربية", flag: "🇸🇦", greeting: "كيف يمكنني مساعدتك اليوم؟" },
-    { code: "hi", name: "हिन्दी", flag: "🇮🇳", greeting: "आज मैं आपकी कैसे मदद कर सकता हूं?" },
-    { code: "fr", name: "Français", flag: "🇫🇷", greeting: "Comment puis-je vous aider aujourd'hui?" },
+    "How do mortgages work?",
+    "Explain credit card interest...",
   ];
 
+  // Rotating placeholder text
   useEffect(() => {
-    const authStatus = localStorage.getItem("isAuthenticated") === "true";
-    setIsAuthenticated(authStatus);
-    
-    // Rotate placeholders every 3 seconds
     const interval = setInterval(() => {
       setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
     }, 3000);
-    
     return () => clearInterval(interval);
   }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
+    navigate('/chat', { state: { initialMessage: searchQuery } });
+  };
 
-    if (isAuthenticated) {
-      navigate('/chat', { state: { initialMessage: searchQuery } });
-    } else {
-      setShowAuthDialog(true);
-    }
-  };
-  
-  const handleVoiceInput = () => {
-    toast({
-      title: "Voice input",
-      description: "Voice recognition feature coming soon!",
-    });
-  };
-  
-  const handleGetStarted = () => {
-    if (isAuthenticated) {
-      navigate('/dashboard');
-    } else {
-      setShowOnboarding(true);
-    }
-  };
-  
-  const onboardingSteps = [
-    {
-      title: "Welcome to MoneyLingo",
-      description: "Your AI-powered financial literacy assistant in your native language.",
-      icon: PiggyBank,
-    },
-    {
-      title: "Upload & Analyze",
-      description: "Upload your credit statements, tax forms, or any financial document for instant analysis.",
-      icon: FileText,
-    },
-    {
-      title: "Get Personalized Plans",
-      description: "Receive customized financial strategies tailored to your goals and situation.",
-      icon: Target,
-    },
+  const questionCards = [
+    { icon: CreditCard, text: "What is a credit score?", color: "from-emerald-500 to-teal-500" },
+    { icon: FileText, text: "How do I file taxes?", color: "from-blue-500 to-cyan-500" },
+    { icon: DollarSign, text: "What is APR?", color: "from-violet-500 to-purple-500" },
+    { icon: Home, text: "Explain mortgage rates", color: "from-amber-500 to-orange-500" },
   ];
-  
-  const features = [{
-    icon: CreditCard,
-    title: "Credit Building",
-    description: "Learn how to build and improve your credit score with personalized strategies."
-  }, {
-    icon: FileText,
-    title: "Document Analysis",
-    description: "Upload tax forms, credit statements, or financial documents for clear explanations."
-  }, {
-    icon: Wallet,
-    title: "Budget Planning",
-    description: "Create personalized budgets that work for your income and lifestyle."
-  }, {
-    icon: Globe,
-    title: "Multi-Language Support",
-    description: "Available in English, Spanish, Chinese, Arabic, Hindi, French, and more."
-  }, {
-    icon: TrendingDown,
-    title: "Debt Management",
-    description: "Get strategies to reduce debt and manage payments effectively."
-  }, {
-    icon: Shield,
-    title: "Bank-Level Security",
-    description: "Your financial data is protected with industry-leading encryption and security measures."
-  }];
-  const values = [{
-    icon: Heart,
-    title: "Empathy First",
-    description: "We understand the challenges immigrants and ESL speakers face in navigating complex financial systems."
-  }, {
-    icon: Users,
-    title: "Cultural Inclusivity",
-    description: "Financial advice that respects and incorporates diverse cultural perspectives and experiences."
-  }, {
-    icon: Target,
-    title: "Clear Communication",
-    description: "Breaking down complex financial jargon into simple, accessible language everyone can understand."
-  }, {
-    icon: Shield,
-    title: "Trust & Security",
-    description: "Your financial information is protected with the highest security standards in the industry."
-  }];
-  const currentLanguage = languages.find(l => l.name === selectedLanguage) || languages[0];
-  
-  return <div className="min-h-screen flex flex-col bg-gradient-soft-bg">
+
+  const features = [
+    {
+      icon: MessageSquare,
+      title: "AI Chat in Your Language",
+      description: "Speak with our AI in your native language and get instant, culturally-aware financial advice.",
+      gradient: "from-teal-500 to-emerald-500"
+    },
+    {
+      icon: FileText,
+      title: "Document Analysis",
+      description: "Upload tax forms, credit statements, or financial documents for clear explanations.",
+      gradient: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: TrendingUp,
+      title: "Personalized Plans",
+      description: "Get customized credit building plans and financial strategies tailored to your goals.",
+      gradient: "from-violet-500 to-purple-500"
+    },
+    {
+      icon: Globe2,
+      title: "Multi-Language Support",
+      description: "Available in English, Spanish, Chinese, Arabic, Hindi, French, and more.",
+      gradient: "from-pink-500 to-rose-500"
+    },
+    {
+      icon: Headphones,
+      title: "Voice Interaction",
+      description: "Talk naturally with voice input and output for a seamless experience.",
+      gradient: "from-amber-500 to-orange-500"
+    },
+    {
+      icon: Shield,
+      title: "Bank-Level Security",
+      description: "Your financial data is protected with industry-leading encryption and security measures.",
+      gradient: "from-indigo-500 to-blue-500"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#F8FBFA] to-[#E8F8F5]">
       <Header />
 
       <main className="flex-1 relative overflow-hidden">
-        {/* Floating mascot */}
-        <div className="fixed bottom-24 right-8 z-50 bounce-gentle">
-          <div className="relative group cursor-pointer" onClick={() => toast({ title: "MoneyLingo Assistant", description: "I'm here to help! Click Get Started to begin." })}>
-            <PiggyBank className="h-16 w-16 text-primary drop-shadow-lg" />
-            <div className="absolute -top-12 right-0 bg-card text-card-foreground px-3 py-1.5 rounded-lg shadow-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              Need help? 👋
-            </div>
-          </div>
+        {/* Subtle animated background orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 -right-20 w-96 h-96 bg-gradient-to-br from-teal-400/20 to-emerald-400/20 rounded-full blur-3xl animate-pulse-slow" />
+          <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "2s" }} />
         </div>
-        
+
         {/* Hero Section */}
-        <section className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 z-10">
-          <div className="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8 animate-fade-in-up">
-            {/* Language Selector */}
-            <div className="flex justify-center gap-2 flex-wrap mb-4">
-              {languages.slice(0, 6).map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => setSelectedLanguage(lang.name)}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                    selectedLanguage === lang.name
-                      ? 'bg-primary text-primary-foreground shadow-md scale-105'
-                      : 'bg-background/60 backdrop-blur-sm border border-border/40 hover:border-primary/40 hover:scale-105'
-                  }`}
-                >
-                  <span className="mr-1.5">{lang.flag}</span>
-                  {lang.name}
-                </button>
-              ))}
+        <section className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24 z-10">
+          <div className="max-w-5xl mx-auto text-center space-y-8 animate-fade-in-up">
+            {/* Animated Hero Title */}
+            <div className="space-y-4">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                <span className="relative inline-block">
+                  <span className="bg-gradient-hero bg-clip-text text-transparent animate-shimmer bg-[length:200%_100%]">
+                    Financial Literacy
+                  </span>
+                </span>
+                <span className="block mt-2 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 bg-clip-text text-transparent">
+                  In Your Language
+                </span>
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Get instant answers to your financial questions in your native language. Our AI assistant breaks down complex concepts into simple, culturally-aware guidance.
+              </p>
             </div>
-            
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-4">
-              <span className="block shimmer-text pb-2">{currentLanguage.greeting}</span>
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4 sm:px-6">
-              Get instant answers to your financial questions in your native language. Our AI assistant breaks down complex concepts into simple, culturally-aware guidance.
-            </p>
-            
-            {/* Hero Input Field - Floating Design */}
-            <div className="pt-6 sm:pt-8 px-4 max-w-3xl mx-auto">
-              <form onSubmit={handleSearch} className="relative">
-                <div className="relative group glass-card rounded-3xl p-1.5 hover:shadow-2xl transition-all duration-300">
-                  <Input
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={placeholders[placeholderIndex]}
-                    className="h-16 sm:h-20 text-base sm:text-lg pl-6 pr-40 rounded-3xl border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 transition-all duration-300"
-                  />
-                  <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2">
-                    <Button
-                      type="button"
-                      size="icon"
-                      variant="ghost"
-                      onClick={handleVoiceInput}
-                      className="h-12 w-12 rounded-full hover:bg-primary/10 transition-all duration-300"
-                    >
-                      <Mic className="h-5 w-5 text-primary" />
-                    </Button>
-                    <Button 
-                      type="submit"
-                      size="lg" 
-                      className="h-12 sm:h-14 px-6 sm:px-8 bg-gradient-primary hover:scale-105 hover:shadow-lg transition-all duration-300 rounded-full"
-                    >
-                      <Send className="h-5 w-5 sm:mr-2" />
-                      <span className="hidden sm:inline">Ask</span>
-                    </Button>
+
+            {/* Hero Search Box with Floating Design */}
+            <div className="pt-8 max-w-3xl mx-auto">
+              <form onSubmit={handleSearch} className="relative group">
+                <div className="glass-card rounded-3xl p-2 hover:shadow-2xl transition-all duration-300">
+                  <div className="relative flex items-center gap-2">
+                    <Input
+                      value={searchQuery}
+                      onChange={(e) => {
+                        setSearchQuery(e.target.value);
+                        setIsTyping(e.target.value.length > 0);
+                      }}
+                      placeholder={placeholders[placeholderIndex]}
+                      className="h-16 text-lg pl-6 pr-32 border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 transition-all"
+                    />
+                    <div className="flex items-center gap-2 pr-2">
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="ghost"
+                        className="h-12 w-12 rounded-full hover:bg-teal-50 transition-colors group/mic"
+                        onClick={() => navigate('/chat')}
+                      >
+                        <Mic className="h-5 w-5 text-teal-600 group-hover/mic:scale-110 transition-transform" />
+                      </Button>
+                      <Button
+                        type="submit"
+                        size="lg"
+                        className="h-12 px-6 bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transition-all duration-300 rounded-full group/send"
+                      >
+                        <Send className="h-5 w-5 mr-2 group-hover/send:translate-x-1 transition-transform" />
+                        <span className="font-semibold">Ask Now</span>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </form>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-4 text-center animate-fade-in">
+              <p className="text-sm text-gray-500 mt-4 flex items-center justify-center gap-2">
+                <Sparkles className="h-4 w-4 text-amber-500" />
                 Available 24/7 in 20+ languages • No credit card required
               </p>
             </div>
-            
-            {/* Quick Action Cards */}
-            <div className="grid sm:grid-cols-3 gap-4 max-w-4xl mx-auto mt-12">
-              <Link to="/chat" className="glass-card p-6 rounded-2xl hover-card-lift group">
-                <MessageSquare className="h-10 w-10 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="font-semibold text-lg mb-2">AI Chat</h3>
-                <p className="text-sm text-muted-foreground">Ask anything about finances</p>
-              </Link>
-              
-              <Link to="/documents" className="glass-card p-6 rounded-2xl hover-card-lift group">
-                <FileText className="h-10 w-10 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="font-semibold text-lg mb-2">Documents</h3>
-                <p className="text-sm text-muted-foreground">Upload & analyze files</p>
-              </Link>
-              
-              <button onClick={handleGetStarted} className="glass-card p-6 rounded-2xl hover-card-lift group glow-pulse">
-                <Target className="h-10 w-10 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="font-semibold text-lg mb-2">Get Started</h3>
-                <p className="text-sm text-muted-foreground">Create your plan</p>
-              </button>
+
+            {/* Quick Question Cards */}
+            <div className="pt-8">
+              <p className="text-sm font-medium text-gray-600 mb-4">Try asking about:</p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {questionCards.map((card, index) => {
+                  const Icon = card.icon;
+                  return (
+                    <button
+                      key={card.text}
+                      onClick={() => {
+                        setSearchQuery(card.text);
+                        setTimeout(() => handleSearch({ preventDefault: () => {} } as any), 100);
+                      }}
+                      className="group glass-card rounded-2xl p-5 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 text-left animate-fade-in-up"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <div className={`h-12 w-12 rounded-xl bg-gradient-to-br ${card.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                        <Icon className="h-6 w-6 text-white" />
+                      </div>
+                      <p className="text-sm font-medium text-gray-700 leading-snug">{card.text}</p>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Language Pills */}
+            <div className="pt-4">
+              <div className="flex flex-wrap justify-center gap-2">
+                {["🇺🇸 English", "🇪🇸 Español", "🇨🇳 中文", "🇸🇦 العربية", "🇮🇳 हिन्दी", "🇫🇷 Français"].map((lang) => (
+                  <span
+                    key={lang}
+                    className="px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full text-sm font-medium text-gray-700 shadow-sm hover:shadow-md hover:bg-white/80 transition-all cursor-pointer"
+                  >
+                    {lang}
+                  </span>
+                ))}
+                <span className="px-4 py-2 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full text-sm font-medium text-white shadow-md">
+                  +14 more
+                </span>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section className="relative py-12 sm:py-16 md:py-20">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center mb-8 sm:mb-12 px-4">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 shimmer-text">
+        <section className="relative py-20 bg-white/50 backdrop-blur-sm">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 animate-fade-in-up">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                 Everything You Need to Succeed
               </h2>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Comprehensive tools to build your financial confidence and achieve your goals.
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Powerful tools designed to make financial literacy accessible to everyone
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
               {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return <div key={feature.title} className="glass-card p-6 rounded-2xl hover-card-lift group animate-fade-in-up" style={{
-                animationDelay: `${index * 0.1}s`
-              }}>
-                    <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                      <Icon className="h-6 w-6 text-primary-foreground" />
+                const Icon = feature.icon;
+                return (
+                  <div
+                    key={feature.title}
+                    className="glass-card rounded-3xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-fade-in-up group"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className={`h-14 w-14 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
+                      <Icon className="h-7 w-7 text-white" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-                  </div>;
-            })}
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
-        
+
         {/* CTA Section */}
-        <section className="relative py-16 sm:py-20 md:py-24">
+        <section className="relative py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center glass-card p-8 sm:p-12 rounded-3xl">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 shimmer-text">
-                Ready to Take Control of Your Finances?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Join thousands of users who are building financial confidence in their native language.
-              </p>
-              <Button 
-                size="lg"
-                onClick={handleGetStarted}
-                className="bg-gradient-glow text-white px-8 py-6 text-lg rounded-full hover:scale-105 transition-all duration-300 shadow-2xl glow-pulse"
-              >
-                Get Started Free
-              </Button>
-              <p className="text-sm text-muted-foreground mt-4">
-                No credit card required • Available in 20+ languages
-              </p>
+            <div className="max-w-4xl mx-auto glass-card rounded-[2.5rem] p-12 text-center relative overflow-hidden animate-fade-in-up">
+              {/* Decorative gradient orbs */}
+              <div className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-teal-400/30 to-emerald-400/30 rounded-full blur-3xl" />
+              <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-gradient-to-br from-amber-400/30 to-orange-400/30 rounded-full blur-3xl" />
+              
+              <div className="relative z-10">
+                <PiggyBank className="h-16 w-16 mx-auto mb-6 text-teal-600 animate-bounce-gentle" />
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                  Ready to Master Your Finances?
+                </h2>
+                <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                  Join thousands of immigrants and ESL speakers who've achieved financial confidence with MoneyLingo
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="h-14 px-8 bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white shadow-xl hover:shadow-2xl transition-all duration-300 rounded-full text-lg font-semibold glow-pulse"
+                  >
+                    <Link to="/signup">
+                      Get Started Free
+                      <Sparkles className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="h-14 px-8 border-2 border-gray-300 hover:border-teal-500 hover:bg-teal-50 transition-all duration-300 rounded-full text-lg font-semibold"
+                  >
+                    <Link to="/chat">
+                      Try AI Chat
+                      <MessageSquare className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                </div>
+                <p className="text-sm text-gray-500 mt-6">
+                  ✓ No credit card required  ✓ Free forever  ✓ Cancel anytime
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trust Indicators */}
+        <section className="relative py-12 bg-white/50 backdrop-blur-sm">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-8 text-center">
+              <div className="flex items-center gap-2 text-gray-600">
+                <Shield className="h-5 w-5 text-teal-600" />
+                <span className="font-medium">Bank-Level Security</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-600">
+                <Globe2 className="h-5 w-5 text-teal-600" />
+                <span className="font-medium">20+ Languages</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-600">
+                <Sparkles className="h-5 w-5 text-teal-600" />
+                <span className="font-medium">AI-Powered</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-600">
+                <BookOpen className="h-5 w-5 text-teal-600" />
+                <span className="font-medium">Free Resources</span>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
       <Footer />
-
-      {/* Auth Required Dialog */}
-      <AlertDialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
-        <AlertDialogContent className="glass-card border-2 border-primary/20">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-2xl shimmer-text pb-1">
-              Sign in required
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-base">
-              You need to sign in to chat with our AI assistant and get personalized financial guidance in your language.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
-            <Button variant="outline" onClick={() => setShowAuthDialog(false)} className="hover-lift">
-              Cancel
-            </Button>
-            <Button asChild className="bg-gradient-primary hover-lift shadow-lg">
-              <Link to="/signin">Sign In</Link>
-            </Button>
-            <Button asChild variant="secondary" className="hover-lift">
-              <Link to="/signup">Create Account</Link>
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-      
-      {/* Onboarding Dialog */}
-      <Dialog open={showOnboarding} onOpenChange={setShowOnboarding}>
-        <DialogContent className="glass-card max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="text-2xl shimmer-text text-center mb-4">
-              {onboardingSteps[onboardingStep].title}
-            </DialogTitle>
-            <DialogDescription className="text-center text-base">
-              {onboardingSteps[onboardingStep].description}
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="flex justify-center my-8">
-            {React.createElement(onboardingSteps[onboardingStep].icon, {
-              className: "h-24 w-24 text-primary animate-float"
-            })}
-          </div>
-          
-          <div className="flex justify-center gap-2 mb-6">
-            {onboardingSteps.map((_, index) => (
-              <div
-                key={index}
-                className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                  index === onboardingStep ? 'bg-primary w-8' : 'bg-border'
-                }`}
-              />
-            ))}
-          </div>
-          
-          <div className="flex gap-3">
-            {onboardingStep > 0 && (
-              <Button
-                variant="outline"
-                onClick={() => setOnboardingStep(prev => prev - 1)}
-                className="flex-1"
-              >
-                Back
-              </Button>
-            )}
-            {onboardingStep < onboardingSteps.length - 1 ? (
-              <Button
-                onClick={() => setOnboardingStep(prev => prev + 1)}
-                className="flex-1 bg-gradient-primary"
-              >
-                Next
-              </Button>
-            ) : (
-              <Button
-                asChild
-                className="flex-1 bg-gradient-primary"
-              >
-                <Link to="/signup">Create Account</Link>
-              </Button>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;

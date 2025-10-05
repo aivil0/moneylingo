@@ -70,8 +70,6 @@ export default {
         'gradient-mesh': 'var(--gradient-mesh)',
         'gradient-main': 'var(--gradient-bg)',
         'gradient-clouds': 'var(--gradient-clouds)',
-        'gradient-soft-bg': 'var(--gradient-soft-bg)',
-        'gradient-glow': 'var(--gradient-glow)',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -108,16 +106,16 @@ export default {
           "50%": { transform: "translateY(-20px)" },
         },
         "shimmer": {
-          "0%": { backgroundPosition: "-1000px 0" },
-          "100%": { backgroundPosition: "1000px 0" },
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
         },
         "bounce-gentle": {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
         "glow-pulse": {
-          "0%, 100%": { boxShadow: "0 0 20px hsla(180, 62%, 45%, 0.4)" },
-          "50%": { boxShadow: "0 0 40px hsla(180, 62%, 45%, 0.6), 0 0 60px hsla(25, 95%, 65%, 0.3)" },
+          "0%, 100%": { boxShadow: "0 0 20px rgba(72, 187, 172, 0.3)" },
+          "50%": { boxShadow: "0 0 40px rgba(72, 187, 172, 0.6)" },
         },
       },
       animation: {
