@@ -126,23 +126,6 @@ const Chat = () => {
 
       {/* Main Voice Call Area */}
       <main className="flex-1 relative z-10 flex flex-col items-center justify-center container mx-auto max-w-5xl px-4">
-        {/* Language Selector */}
-        <div className="absolute top-4 right-4">
-          <Select value={language} onValueChange={setLanguage}>
-            <SelectTrigger className="w-[140px] h-10 text-sm border-border/50 hover:border-primary/50 transition-colors bg-gradient-card shadow-sm">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="en">🇺🇸 English</SelectItem>
-              <SelectItem value="es">🇪🇸 Español</SelectItem>
-              <SelectItem value="zh">🇨🇳 中文</SelectItem>
-              <SelectItem value="ar">🇸🇦 العربية</SelectItem>
-              <SelectItem value="hi">🇮🇳 हिन्दी</SelectItem>
-              <SelectItem value="fr">🇫🇷 Français</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
         {/* Hero Voice Call Section */}
         <div className="text-center space-y-6 sm:space-y-8 animate-fade-in-up max-w-3xl px-4">
           <div>
