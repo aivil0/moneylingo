@@ -7,7 +7,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link, useNavigate } from "react-router-dom";
-import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target, Send, Mic, PiggyBank, CheckCircle2, CreditCard, Wallet, TrendingDown } from "lucide-react";
+import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target, Send, Mic, PiggyBank, CheckCircle2, CreditCard, Wallet, TrendingDown, Phone } from "lucide-react";
+import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { useToast } from "@/hooks/use-toast";
 const Index = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Index = () => {
   const [onboardingStep, setOnboardingStep] = useState(0);
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [isCallActive, setIsCallActive] = useState(false);
   
   const placeholders = [
     "Ask about your credit score…",
@@ -213,6 +215,22 @@ const Index = () => {
               <p className="text-xs sm:text-sm text-muted-foreground mt-4 text-center animate-fade-in">
                 Available 24/7 in 20+ languages • No credit card required
               </p>
+              
+              {/* Prominent Call Button */}
+              <div className="mt-8 flex flex-col items-center gap-3 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+                <Button
+                  onClick={() => setIsCallActive(true)}
+                  size="lg"
+                  className="h-16 px-10 bg-gradient-glow text-white rounded-full hover:scale-105 transition-all duration-300 shadow-2xl glow-pulse text-lg font-semibold"
+                >
+                  <Phone className="h-6 w-6 mr-3 animate-pulse" />
+                  Talk to AI Assistant Now
+                </Button>
+                <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+                  <Headphones className="h-3.5 w-3.5" />
+                  Instant voice guidance in your language
+                </p>
+              </div>
             </div>
             
             {/* Quick Action Cards */}
@@ -293,6 +311,12 @@ const Index = () => {
       </main>
 
       <Footer />
+      
+      {/* Voice Call Interface */}
+      <VoiceCallInterface 
+        isActive={isCallActive}
+        onEnd={() => setIsCallActive(false)}
+      />
 
       {/* Auth Required Dialog */}
       <AlertDialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
