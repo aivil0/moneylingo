@@ -125,14 +125,14 @@ const Chat = () => {
       <Header />
 
       {/* Main Voice Call Area */}
-      <main className="flex-1 relative z-10 flex flex-col items-center justify-center container mx-auto max-w-5xl px-4">
+      <main className="flex-1 relative z-10 flex flex-col items-center justify-center container mx-auto max-w-5xl px-4 pb-8">
         {/* Hero Voice Call Section */}
-        <div className="text-center space-y-6 sm:space-y-8 animate-fade-in-up max-w-3xl px-4">
+        <div className="text-center space-y-8 sm:space-y-10 animate-fade-in-up max-w-3xl px-4">
           <div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-4">
               <span className="block shimmer-text pb-2">How can I help you today?</span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto px-4 sm:px-6">Get instant financial advice through natural conversation.</p>
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 sm:px-6 mt-4">Get instant financial advice through natural conversation.</p>
           </div>
 
           {/* Large Voice Call Button */}
@@ -148,19 +148,6 @@ const Chat = () => {
               <p className="text-sm text-muted-foreground">
                 {isInCall ? "We're listening and ready to help" : "Natural conversation in your language"}
               </p>
-            </div>
-          </div>
-
-          {/* Feature Pills */}
-          <div className="flex flex-wrap justify-center gap-3 pt-4">
-            <div className="glass-card px-4 py-2 rounded-full text-sm">
-              🎤 Voice Recognition
-            </div>
-            <div className="glass-card px-4 py-2 rounded-full text-sm">
-              🌍 30+ Languages
-            </div>
-            <div className="glass-card px-4 py-2 rounded-full text-sm">
-              ⚡ Instant Responses
             </div>
           </div>
         </div>
