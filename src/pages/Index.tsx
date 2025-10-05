@@ -66,31 +66,45 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-1">
+      <main className="flex-1 relative overflow-hidden">
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 bg-gradient-mesh opacity-40 pointer-events-none" />
+        <div className="absolute top-20 -right-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float pointer-events-none" />
+        <div className="absolute bottom-20 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float pointer-events-none" style={{ animationDelay: '2s' }} />
+        
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-20 md:py-32 bg-gradient-to-br from-background via-background to-primary/5">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
+        <section className="relative container mx-auto px-4 py-20 md:py-32">
+          <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in-up">
             <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
               Financial Literacy
-              <span className="block text-primary mt-2">In Your Language</span>
+              <span className="block bg-gradient-hero bg-clip-text text-transparent mt-2">In Your Language</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
               Breaking down barriers in finance for immigrants and ESL speakers with AI-powered guidance that speaks your language.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              <Button size="lg" asChild className="w-full sm:w-auto min-w-[200px]">
+              <Button size="lg" asChild className="w-full sm:w-auto min-w-[200px] hover-lift shadow-lg">
                 <Link to="/signup">Get Started Free</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="w-full sm:w-auto min-w-[200px]">
+              <Button size="lg" variant="outline" asChild className="w-full sm:w-auto min-w-[200px] hover-lift">
                 <Link to="/chat">Try AI Chat</Link>
               </Button>
+            </div>
+            
+            {/* Floating emoji decorations */}
+            <div className="flex justify-center gap-8 mt-12 text-4xl opacity-60">
+              <span className="animate-float">💰</span>
+              <span className="animate-float" style={{ animationDelay: '1s' }}>📊</span>
+              <span className="animate-float" style={{ animationDelay: '2s' }}>🌍</span>
+              <span className="animate-float" style={{ animationDelay: '3s' }}>💳</span>
             </div>
           </div>
         </section>
 
         {/* Mission Section */}
-        <section className="bg-gradient-primary text-primary-foreground py-20">
-          <div className="container mx-auto px-4">
+        <section className="relative bg-gradient-hero text-primary-foreground py-20 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iLjEiLz48L2c+PC9zdmc+')] opacity-20" />
+          <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">Our Mission</h2>
               <p className="text-lg text-center mb-12 opacity-90">
@@ -98,7 +112,7 @@ const Index = () => {
               </p>
 
               <div className="grid md:grid-cols-2 gap-8">
-                <Card className="bg-primary-foreground text-foreground">
+                <Card className="bg-primary-foreground text-foreground hover-lift animate-fade-in border-0 shadow-2xl">
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-bold mb-4">The Problem</h3>
                     <p className="text-muted-foreground">
@@ -107,7 +121,7 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-primary-foreground text-foreground">
+                <Card className="bg-primary-foreground text-foreground hover-lift animate-fade-in border-0 shadow-2xl" style={{ animationDelay: '0.2s' }}>
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-bold mb-4">Our Solution</h3>
                     <p className="text-muted-foreground">
@@ -121,8 +135,8 @@ const Index = () => {
         </section>
 
         {/* Features Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
+        <section className="relative py-20">
+          <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 Everything You Need to Understand Finance
@@ -133,13 +147,17 @@ const Index = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {features.map((feature) => {
+              {features.map((feature, index) => {
                 const Icon = feature.icon;
                 return (
-                  <Card key={feature.title} className="border-2 hover:border-primary/50 transition-colors">
+                  <Card 
+                    key={feature.title} 
+                    className="group border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-gradient-card animate-fade-in-up"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
                     <CardHeader>
-                      <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                        <Icon className="h-6 w-6 text-primary" aria-hidden="true" />
+                      <div className="h-12 w-12 rounded-lg bg-gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <Icon className="h-6 w-6 text-primary-foreground" aria-hidden="true" />
                       </div>
                       <CardTitle className="text-xl">{feature.title}</CardTitle>
                       <CardDescription className="text-base">{feature.description}</CardDescription>
@@ -152,21 +170,26 @@ const Index = () => {
         </section>
 
         {/* Values Section */}
-        <section className="bg-muted/50 py-20">
-          <div className="container mx-auto px-4">
+        <section className="relative bg-muted/30 py-20">
+          <div className="absolute inset-0 bg-gradient-mesh opacity-30 pointer-events-none" />
+          <div className="container mx-auto px-4 relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Our Values</h2>
             <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
               These principles guide everything we do at MoneyLingo
             </p>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {values.map((value) => {
+              {values.map((value, index) => {
                 const Icon = value.icon;
                 return (
-                  <Card key={value.title} className="text-center">
+                  <Card 
+                    key={value.title} 
+                    className="text-center hover-lift animate-fade-in-up border-0 shadow-lg bg-gradient-card"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
                     <CardContent className="p-6">
-                      <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                        <Icon className="h-8 w-8 text-primary" aria-hidden="true" />
+                      <div className="h-16 w-16 rounded-full bg-gradient-primary flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <Icon className="h-8 w-8 text-primary-foreground" aria-hidden="true" />
                       </div>
                       <h3 className="text-xl font-bold mb-2">{value.title}</h3>
                       <p className="text-sm text-muted-foreground">{value.description}</p>
@@ -231,21 +254,21 @@ const Index = () => {
         </section>
 
         {/* Impact Section */}
-        <section className="bg-muted/50 py-20">
-          <div className="container mx-auto px-4">
+        <section className="relative bg-muted/30 py-20">
+          <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-12">Making an Impact</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 animate-fade-in">Making an Impact</h2>
               <div className="grid md:grid-cols-3 gap-8">
-                <div>
-                  <p className="text-5xl font-bold text-primary mb-2">10K+</p>
+                <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+                  <p className="text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">10K+</p>
                   <p className="text-muted-foreground">Users Served</p>
                 </div>
-                <div>
-                  <p className="text-5xl font-bold text-primary mb-2">25+</p>
+                <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                  <p className="text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">25+</p>
                   <p className="text-muted-foreground">Languages Supported</p>
                 </div>
-                <div>
-                  <p className="text-5xl font-bold text-primary mb-2">50K+</p>
+                <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                  <p className="text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">50K+</p>
                   <p className="text-muted-foreground">Documents Analyzed</p>
                 </div>
               </div>
@@ -254,15 +277,18 @@ const Index = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-gradient-hero text-primary-foreground py-20">
-          <div className="container mx-auto px-4 text-center">
+        <section className="relative bg-gradient-hero text-primary-foreground py-20 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-20" />
+          <div className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse-slow" />
+          <div className="absolute bottom-10 left-10 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
+          <div className="container mx-auto px-4 text-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Take Control of Your Finances?
             </h2>
             <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
               Join thousands who are building financial confidence in their native language.
             </p>
-            <Button size="lg" variant="secondary" asChild className="min-w-[200px]">
+            <Button size="lg" variant="secondary" asChild className="min-w-[200px] hover-lift shadow-2xl animate-scale-in">
               <Link to="/signup">Start Your Journey</Link>
             </Button>
           </div>

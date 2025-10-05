@@ -40,10 +40,18 @@ All colors MUST be HSL.
 
     /* Gradient definitions */
     --gradient-primary: linear-gradient(135deg, hsl(180, 62%, 35%) 0%, hsl(180, 62%, 45%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(180, 62%, 35%) 0%, hsl(192, 81%, 45%) 50%, hsl(25, 95%, 63%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(180, 62%, 40%) 0%, hsl(192, 81%, 50%) 50%, hsl(25, 95%, 65%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(25, 95%, 63%) 0%, hsl(180, 62%, 45%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(192, 81%, 98%) 100%);
     --gradient-card: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(192, 81%, 99%) 100%);
+    --gradient-mesh: radial-gradient(at 0% 0%, hsl(180, 62%, 95%) 0px, transparent 50%),
+                     radial-gradient(at 100% 0%, hsl(25, 95%, 95%) 0px, transparent 50%),
+                     radial-gradient(at 100% 100%, hsl(192, 81%, 95%) 0px, transparent 50%),
+                     radial-gradient(at 0% 100%, hsl(180, 62%, 95%) 0px, transparent 50%);
+    
+    /* Animation variables */
+    --animation-duration: 0.3s;
+    --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 210 40% 25%;
@@ -86,10 +94,14 @@ All colors MUST be HSL.
 
     /* Dark mode gradients */
     --gradient-primary: linear-gradient(135deg, hsl(180, 62%, 40%) 0%, hsl(180, 62%, 50%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(180, 62%, 40%) 0%, hsl(192, 81%, 40%) 50%, hsl(25, 95%, 55%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(180, 62%, 45%) 0%, hsl(192, 81%, 45%) 50%, hsl(25, 95%, 60%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(25, 95%, 55%) 0%, hsl(180, 62%, 45%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(210, 40%, 8%) 0%, hsl(210, 40%, 12%) 100%);
     --gradient-card: linear-gradient(135deg, hsl(210, 40%, 10%) 0%, hsl(210, 40%, 12%) 100%);
+    --gradient-mesh: radial-gradient(at 0% 0%, hsl(180, 62%, 15%) 0px, transparent 50%),
+                     radial-gradient(at 100% 0%, hsl(25, 95%, 15%) 0px, transparent 50%),
+                     radial-gradient(at 100% 100%, hsl(192, 81%, 15%) 0px, transparent 50%),
+                     radial-gradient(at 0% 100%, hsl(180, 62%, 15%) 0px, transparent 50%);
     
     --sidebar-background: 210 40% 10%;
     --sidebar-foreground: 0 0% 90%;
@@ -109,5 +121,36 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-mesh {
+    background: var(--gradient-mesh);
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+  }
+  
+  .glass-morphism {
+    @apply bg-background/80 backdrop-blur-lg border border-border/50;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-hero bg-clip-text text-transparent;
   }
 }
