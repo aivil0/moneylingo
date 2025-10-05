@@ -43,12 +43,16 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
   const circleScale = 1 + (audioLevel / 100) * 0.2; // Further reduced scale range
 
   return (
-    <div className="fixed inset-0 z-50 bg-white animate-fade-in">
-      <div className="relative h-full flex flex-col items-center justify-between py-12 px-4 gap-8">
+    <div className="fixed inset-0 z-50 bg-gradient-soft-bg animate-fade-in overflow-hidden">
+      {/* Floating decorative elements */}
+      <div className="absolute top-20 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float pointer-events-none" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow pointer-events-none" />
+      
+      <div className="relative h-full flex flex-col items-center justify-between py-12 px-4 sm:px-6 gap-8">
         {/* Status indicator */}
         <div className="text-center animate-fade-in-up flex-shrink-0">
-          <div className="flex items-center justify-center gap-2">
-            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+          <div className="glass-card px-6 py-3 rounded-full inline-flex items-center gap-2">
+            <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
             <span className="text-base text-foreground font-medium">
               {isAISpeaking ? "AI is speaking..." : "Listening..."}
             </span>
@@ -57,24 +61,24 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
 
         {/* Main sound wave circle - centered with proper spacing */}
         <div className="relative flex items-center justify-center flex-1 max-h-[450px]">
-          {/* Outer rings - no borders */}
+          {/* Outer rings with glass effect */}
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
-              className="absolute rounded-full bg-primary/5"
+              className="absolute rounded-full bg-primary/10 backdrop-blur-sm"
               style={{
                 width: `${220 + i * 70}px`,
                 height: `${220 + i * 70}px`,
                 animation: `ping ${3 + i * 1.5}s cubic-bezier(0, 0, 0.2, 1) infinite`,
                 animationDelay: `${i * 0.5}s`,
-                opacity: audioLevel > 10 ? 0.3 - i * 0.08 : 0.08,
+                opacity: audioLevel > 10 ? 0.4 - i * 0.1 : 0.1,
               }}
             />
           ))}
 
-          {/* Main circle with dynamic gradient */}
+          {/* Main circle with dynamic gradient using design system */}
           <div
-            className="relative z-10 rounded-full shadow-2xl ease-out"
+            className="relative z-10 rounded-full shadow-2xl ease-out glow-pulse"
             style={{
               width: "220px",
               height: "220px",
@@ -90,38 +94,38 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
         <div className="flex flex-col items-center gap-6 w-full flex-shrink-0">
           {/* Call info */}
           <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-            <p className="text-base text-foreground font-medium mb-2">
-              Voice call active
+            <p className="text-xl font-semibold mb-2">
+              <span className="shimmer-text">Voice call active</span>
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-base text-muted-foreground">
               Ask me anything about finance
             </p>
           </div>
 
           {/* Control buttons */}
-          <div className="flex items-center gap-8 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+          <div className="flex items-center gap-6 sm:gap-8 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
             <Button
               size="icon"
               variant={isMuted ? "destructive" : "secondary"}
               onClick={() => setIsMuted(!isMuted)}
-              className="h-20 w-20 rounded-full shadow-xl hover-lift"
+              className="h-16 w-16 sm:h-20 sm:w-20 rounded-full shadow-xl hover-lift transition-all duration-300"
               aria-label={isMuted ? "Unmute" : "Mute"}
             >
-              {isMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+              {isMuted ? <MicOff className="h-5 w-5 sm:h-6 sm:w-6" /> : <Mic className="h-5 w-5 sm:h-6 sm:w-6" />}
             </Button>
 
             <Button
               size="icon"
               onClick={onEnd}
-              className="h-20 w-20 rounded-full bg-destructive hover:bg-destructive/90 shadow-2xl hover-lift"
+              className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-destructive hover:bg-destructive/90 shadow-2xl hover-lift transition-all duration-300 glow-pulse"
               aria-label="End call"
             >
-              <PhoneOff className="h-6 w-6" />
+              <PhoneOff className="h-5 w-5 sm:h-6 sm:w-6" />
             </Button>
           </div>
 
           {/* Tips */}
-          <div className="text-center animate-fade-in-up max-w-md" style={{ animationDelay: "0.4s" }}>
+          <div className="glass-card px-6 py-4 rounded-2xl text-center animate-fade-in-up max-w-md" style={{ animationDelay: "0.4s" }}>
             <p className="text-sm text-muted-foreground">
               💡 Speak naturally about credit, taxes, mortgages, or any financial topic
             </p>
