@@ -67,8 +67,8 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
               key={i}
               className="absolute rounded-full bg-primary/10 backdrop-blur-sm"
               style={{
-                width: `${220 + i * 70}px`,
-                height: `${220 + i * 70}px`,
+                width: `${350 + i * 80}px`,
+                height: `${350 + i * 80}px`,
                 animation: `ping ${4 + i * 2}s cubic-bezier(0.4, 0, 0.6, 1) infinite`,
                 animationDelay: `${i * 0.7}s`,
                 opacity: audioLevel > 10 ? 0.4 - i * 0.1 : 0.1,
@@ -78,13 +78,14 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
 
           {/* Main circle with dynamic gradient using design system */}
           <div
-            className="relative z-10 rounded-full shadow-2xl ease-out glow-pulse"
+            className="relative z-10 rounded-full shadow-2xl ease-out glow-pulse gradient-wave-animation"
             style={{
-              width: "220px",
-              height: "220px",
+              width: "350px",
+              height: "350px",
               transform: `scale(${circleScale})`,
-              background: `linear-gradient(${audioLevel * 1.2}deg, hsl(180, 62%, ${35 + audioLevel / 8}%), hsl(192, 81%, ${50 + audioLevel / 12}%), hsl(25, 95%, ${63 + audioLevel / 15}%))`,
-              transition: "all 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
+              background: `linear-gradient(${audioLevel * 1.2}deg, hsl(180, 62%, ${35 + audioLevel / 8}%), hsl(192, 81%, ${50 + audioLevel / 12}%), hsl(25, 95%, ${63 + audioLevel / 15}%), hsl(180, 62%, ${35 + audioLevel / 8}%))`,
+              backgroundSize: '200% 200%',
+              transition: "transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
           </div>
