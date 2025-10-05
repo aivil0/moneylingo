@@ -17,13 +17,12 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const Index = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [onboardingStep, setOnboardingStep] = useState(0);
-  const [selectedLanguage, setSelectedLanguage] = useState("English");
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isCallActive, setIsCallActive] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -177,7 +176,7 @@ const Index = () => {
     question: "Can the AI help me build my credit score?",
     answer: "Yes! The AI can provide personalized credit-building strategies, explain how credit scores work, help you understand your credit report, and suggest specific actions to improve your score based on your situation."
   }];
-  const currentLanguage = languages.find(l => l.name === selectedLanguage) || languages[0];
+  const currentLanguage = languages.find(l => l.code === language) || languages[0];
   return <div className="min-h-screen flex flex-col bg-background relative">
       {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-border/20 z-50">
@@ -236,7 +235,7 @@ const Index = () => {
               
               {/* Language Selector - Moved Below Call Button */}
               <div className="flex justify-center gap-2 flex-wrap mt-8">
-                {languages.slice(0, 6).map(lang => <button key={lang.code} onClick={() => setSelectedLanguage(lang.name)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${selectedLanguage === lang.name ? 'bg-primary text-primary-foreground shadow-md scale-105' : 'bg-background/60 backdrop-blur-sm border border-border/40 hover:border-primary/40 hover:scale-105'}`}>
+                {languages.slice(0, 6).map(lang => <button key={lang.code} onClick={() => setLanguage(lang.code as "en" | "es" | "zh" | "ar" | "hi" | "fr")} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${language === lang.code ? 'bg-primary text-primary-foreground shadow-md scale-105' : 'bg-background/60 backdrop-blur-sm border border-border/40 hover:border-primary/40 hover:scale-105'}`}>
                     <span className="mr-1.5">{lang.flag}</span>
                     {lang.name}
                   </button>)}
@@ -342,18 +341,15 @@ const Index = () => {
             <div className="absolute -bottom-10 right-10 w-40 h-40 bg-accent/10 rounded-full blur-3xl animate-float" />
             
             <div className="max-w-4xl mx-auto text-center bg-background/90 backdrop-blur-sm border border-border/40 shadow-2xl p-12 sm:p-16 rounded-3xl relative z-10 animate-fade-in-up">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 shimmer-text">
-                Ready to Take Control of Your Finances?
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 shimmer-text">
+                {t("home.ctaTitle")}
               </h2>
-              <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-                Join thousands of users who are building financial confidence in their native language.
+              <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+                {t("home.ctaSubtitle")}
               </p>
-              <Button size="lg" onClick={handleGetStarted} className="bg-gradient-glow text-white px-12 py-7 text-xl rounded-full hover:scale-105 hover:shadow-2xl transition-all duration-300 shadow-xl glow-pulse">
-                Get Started Free
+              <Button size="lg" onClick={handleGetStarted} className="bg-gradient-glow text-white px-12 py-7 text-lg sm:text-xl rounded-full hover:scale-105 hover:shadow-2xl transition-all duration-300 shadow-xl glow-pulse">
+                {t("home.getStarted")} →
               </Button>
-              <p className="text-sm text-muted-foreground mt-4">
-                No credit card required • Available in 20+ languages
-              </p>
             </div>
           </div>
         </section>
