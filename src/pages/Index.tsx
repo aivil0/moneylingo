@@ -66,7 +66,7 @@ const Index = () => {
             <div className="inline-block px-4 sm:px-6 py-2 bg-gradient-primary text-primary-foreground rounded-full text-xs sm:text-sm font-semibold mb-2 sm:mb-4 animate-pulse-slow">AI-Powered Financial Guidance</div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight px-4">
               Chat With AI
-              <span className="block bg-gradient-hero bg-clip-text text-transparent mt-2 sm:mt-3">Financial Literacy In Your Language</span>
+              <span className="block bg-gradient-hero bg-clip-text text-transparent mt-2 sm:mt-3 pb-2">Financial Literacy In Your Language</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto px-4 sm:px-6">
               Get instant answers to your financial questions in your native language. Our AI assistant breaks down complex concepts into simple, culturally-aware guidance.
