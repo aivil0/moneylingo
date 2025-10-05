@@ -111,16 +111,16 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
               className="h-16 w-16 sm:h-20 sm:w-20 rounded-full shadow-xl hover-lift transition-all duration-300"
               aria-label={isMuted ? "Unmute" : "Mute"}
             >
-              {isMuted ? <MicOff className="h-5 w-5 sm:h-6 sm:w-6" /> : <Mic className="h-5 w-5 sm:h-6 sm:w-6" />}
+              {isMuted ? <MicOff className="h-8 w-8 sm:h-10 sm:w-10" /> : <Mic className="h-8 w-8 sm:h-10 sm:w-10" />}
             </Button>
 
             <Button
               size="icon"
               onClick={onEnd}
-              className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-destructive hover:bg-destructive/90 shadow-2xl hover-lift transition-all duration-300 glow-pulse"
+              className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-destructive hover:bg-destructive/90 shadow-2xl hover-lift transition-all duration-300 glow-pulse no-underline"
               aria-label="End call"
             >
-              <PhoneOff className="h-5 w-5 sm:h-6 sm:w-6" />
+              <PhoneOff className="h-8 w-8 sm:h-10 sm:w-10 no-underline" style={{ textDecoration: 'none' }} />
             </Button>
           </div>
 
