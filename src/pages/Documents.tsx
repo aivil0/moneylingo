@@ -42,8 +42,8 @@ const Documents = () => {
       
       <Header />
 
-      <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10 animate-fade-in">
-        <div className="mb-6 sm:mb-8 animate-scale-in px-4 sm:px-0">
+      <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10">
+        <div className="mb-6 sm:mb-8 animate-fade-in-up px-4 sm:px-0">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold shimmer-text mb-2 leading-tight">Document Analysis</h1>
           <p className="text-sm sm:text-base text-muted-foreground mb-6">
             Upload your financial documents for AI-powered explanations in your language.
@@ -85,7 +85,7 @@ const Documents = () => {
         )}
 
         {/* Upload Section */}
-        <Card className={`mb-6 sm:mb-8 border-2 border-dashed transition-all glass-card animate-fade-in-up ${!isAuthenticated ? 'opacity-60' : 'hover:border-primary/50 hover-card-lift'}`}>
+        <Card className={`mb-6 sm:mb-8 border-2 border-dashed transition-all glass-card animate-fade-in-up ${!isAuthenticated ? 'opacity-60' : 'hover:border-primary/50 hover-card-lift'}`} style={{ animationDelay: "0.1s" }}>
           <CardContent className="p-8 sm:p-12">
             <div className="text-center space-y-4">
               <div className="mx-auto h-16 w-16 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
@@ -109,7 +109,7 @@ const Documents = () => {
         </Card>
 
         {/* Security Notice */}
-        <Card className="mb-6 sm:mb-8 border-primary/20 glass-card animate-fade-in">
+        <Card className="mb-6 sm:mb-8 border-primary/20 glass-card animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
           <CardContent className="p-4 sm:p-6">
             <div className="flex items-start gap-4">
               <div className="h-10 w-10 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0 shadow-lg">
@@ -126,7 +126,7 @@ const Documents = () => {
         </Card>
 
         {/* Document List */}
-        <div className="animate-fade-in-up">
+        <div className="animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4 sm:mb-6 px-4 sm:px-0">
             <h2 className="text-xl sm:text-2xl font-bold shimmer-text">Your Documents</h2>
             <div className="relative w-full sm:max-w-sm">
@@ -143,7 +143,7 @@ const Documents = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {filteredDocs.map((doc, index) => (
-              <Card key={doc.id} className="hover:border-primary/50 transition-all glass-card hover-card-lift animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+              <Card key={doc.id} className="hover:border-primary/50 transition-all glass-card hover-card-lift animate-fade-in-up" style={{ animationDelay: `${0.4 + index * 0.1}s` }}>
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
