@@ -2,20 +2,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Header } from "@/components/Header";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useState, useEffect, useRef } from "react";
-import { Mic, Send, Volume2 } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Mic, Send, Volume2, Phone, PhoneOff } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const Chat = () => {
   const location = useLocation();
+  const { toast } = useToast();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const [inputCount, setInputCount] = useState(0);
+  const [isInCall, setIsInCall] = useState(false);
 
   useEffect(() => {
     const authStatus = localStorage.getItem("isAuthenticated") === "true";
     setIsAuthenticated(authStatus);
   }, []);
+  
   const [message, setMessage] = useState("");
   const [language, setLanguage] = useState("en");
   const [messages, setMessages] = useState([
@@ -29,6 +32,19 @@ const Chat = () => {
 
   const handleSendMessage = (messageText: string) => {
     if (!messageText.trim()) return;
+
+    // Increment input count
+    const newCount = inputCount + 1;
+    setInputCount(newCount);
+
+    // Show reminder on second input if not authenticated
+    if (newCount === 2 && !isAuthenticated) {
+      toast({
+        title: "💡 Sign in to save your conversations",
+        description: "Your chat history will be saved and accessible across devices when you create an account.",
+        duration: 6000,
+      });
+    }
 
     // Add user message
     const userMessage = {
@@ -53,25 +69,28 @@ const Chat = () => {
   // Handle initial message from homepage
   useEffect(() => {
     const initialMessage = location.state?.initialMessage;
-    if (initialMessage && isAuthenticated) {
+    if (initialMessage) {
       setMessage(initialMessage);
       // Auto-send the message
       setTimeout(() => {
         handleSendMessage(initialMessage);
       }, 100);
     }
-  }, [location.state, isAuthenticated]);
+  }, [location.state]);
 
   const handleSend = () => {
     if (!message.trim()) return;
-    
-    // Check if user is authenticated
-    if (!isAuthenticated) {
-      setShowAuthDialog(true);
-      return;
-    }
-
     handleSendMessage(message);
+  };
+
+  const toggleCall = () => {
+    setIsInCall(!isInCall);
+    if (!isInCall) {
+      toast({
+        title: "📞 Call started",
+        description: "You can now speak with the AI assistant. Voice feature coming soon!",
+      });
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -144,12 +163,11 @@ const Chat = () => {
                     { q: "What is APR?", icon: "💰", desc: "Understand rates" },
                     { q: "Explain mortgage rates", icon: "🏠", desc: "Home financing" },
                   ].map((suggestion, index) => (
-                    <button
+                     <button
                       key={suggestion.q}
-                      className="group text-left p-5 rounded-2xl border-2 border-border/50 bg-gradient-card hover:border-primary/50 transition-all hover-lift disabled:opacity-50 disabled:cursor-not-allowed shadow-lg animate-fade-in-up"
+                      className="group text-left p-5 rounded-2xl border-2 border-border/50 bg-gradient-card hover:border-primary/50 transition-all hover-lift shadow-lg animate-fade-in-up"
                       style={{ animationDelay: `${index * 0.1}s` }}
-                      onClick={() => isAuthenticated && setMessage(suggestion.q)}
-                      disabled={!isAuthenticated}
+                      onClick={() => setMessage(suggestion.q)}
                     >
                       <div className="flex items-start gap-4">
                         <div className="text-3xl group-hover:scale-110 transition-transform">{suggestion.icon}</div>
@@ -208,7 +226,20 @@ const Chat = () => {
         {/* Input Area - Fixed at Bottom with gradient styling */}
         <div className="bg-gradient-card/80 backdrop-blur-md">
           <div className="w-full px-4 py-5">
-            <div className="flex items-end gap-2">
+            <div className="flex items-end gap-3">
+              {/* Call Button */}
+              <Button
+                size="icon"
+                onClick={toggleCall}
+                className={`h-14 w-14 rounded-2xl transition-all hover-lift shadow-lg ${
+                  isInCall 
+                    ? "bg-destructive hover:bg-destructive/90 animate-pulse" 
+                    : "bg-gradient-primary"
+                }`}
+                aria-label={isInCall ? "End call" : "Start voice call"}
+              >
+                {isInCall ? <PhoneOff className="h-5 w-5" /> : <Phone className="h-5 w-5" />}
+              </Button>
               <div className="flex-1 relative">
                 <Input
                   placeholder="Message MoneyLingo..."
@@ -219,15 +250,6 @@ const Chat = () => {
                   aria-label="Message input"
                 />
                 <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="h-9 w-9 rounded-full hover:bg-primary/10 hover-lift"
-                    aria-label="Voice input"
-                    onClick={() => !isAuthenticated && setShowAuthDialog(true)}
-                  >
-                    <Mic className="h-4 w-4" />
-                  </Button>
                   <Button
                     size="icon"
                     onClick={handleSend}
@@ -248,30 +270,6 @@ const Chat = () => {
         </div>
       </main>
 
-      {/* Auth Required Dialog */}
-      <AlertDialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
-        <AlertDialogContent className="bg-gradient-card border-2 border-primary/40">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-2xl bg-gradient-hero bg-clip-text text-transparent pb-1">
-              Sign in required
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-base">
-              You need to sign in to chat with our AI assistant and get personalized financial guidance in your language.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
-            <Button variant="outline" onClick={() => setShowAuthDialog(false)} className="hover-lift">
-              Cancel
-            </Button>
-            <Button asChild className="bg-gradient-primary hover-lift shadow-lg">
-              <Link to="/signin">Sign In</Link>
-            </Button>
-            <Button asChild variant="secondary" className="hover-lift">
-              <Link to="/signup">Create Account</Link>
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 };
