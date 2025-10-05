@@ -176,7 +176,7 @@ const Index = () => {
   
   const currentLanguage = languages.find(l => l.name === selectedLanguage) || languages[0];
   
-  return <div className="min-h-screen flex flex-col bg-gradient-soft-bg">
+  return <div className="min-h-screen flex flex-col bg-background">
       <Header />
 
       <main className="flex-1 relative overflow-hidden">
@@ -190,9 +190,9 @@ const Index = () => {
           </div>
         </div>
         
-        {/* Hero Section */}
-        <section className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 z-10">
-          <div className="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8 animate-fade-in-up">
+        {/* Hero Section with radial gradient background */}
+        <section className="relative px-6 py-20 z-10" style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 0%, hsl(192, 100%, 98%), hsl(0, 0%, 100%))' }}>
+          <div className="container mx-auto max-w-6xl text-center space-y-8 animate-fade-in-up">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-4">
               <span className="block shimmer-text pb-2">{currentLanguage.greeting}</span>
             </h1>
@@ -262,22 +262,29 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Features Section */}
-        <section className="relative py-12 sm:py-16 md:py-20">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center mb-8 sm:mb-12 px-4 sm:px-6">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 shimmer-text px-2 leading-tight">
+        {/* Wave Divider */}
+        <div className="relative h-16" style={{ background: 'linear-gradient(to bottom, transparent, hsl(192, 100%, 98%) 50%)' }}>
+          <svg className="absolute bottom-0 w-full h-16" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,24 Q360,0 720,24 T1440,24 L1440,48 L0,48 Z" fill="hsl(192, 100%, 98%)" />
+          </svg>
+        </div>
+
+        {/* Features Section with soft background */}
+        <section className="relative py-20 px-6" style={{ backgroundColor: 'hsl(192, 100%, 98%)' }}>
+          <div className="container mx-auto max-w-6xl relative z-10">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 shimmer-text">
                 Everything You Need to Succeed
               </h2>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Comprehensive tools to build your financial confidence and achieve your goals.
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((feature, index) => {
               const Icon = feature.icon;
-              return <div key={feature.title} className="glass-card p-6 rounded-2xl hover-card-lift group animate-fade-in-up" style={{
+              return <div key={feature.title} className="bg-background/80 backdrop-blur-sm border border-border/40 shadow-md p-6 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group animate-fade-in-up" style={{
                 animationDelay: `${index * 0.1}s`
               }}>
                     <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
@@ -291,22 +298,29 @@ const Index = () => {
           </div>
         </section>
         
-        {/* FAQ Section */}
-        <section id="faq" className="relative py-12 sm:py-16 md:py-20">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Wave Divider */}
+        <div className="relative h-16" style={{ background: 'linear-gradient(to bottom, hsl(192, 100%, 98%), hsl(0, 0%, 100%))' }}>
+          <svg className="absolute bottom-0 w-full h-16" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,24 Q360,48 720,24 T1440,24 L1440,48 L0,48 Z" fill="hsl(0, 0%, 100%)" />
+          </svg>
+        </div>
+        
+        {/* FAQ Section with white background */}
+        <section id="faq" className="relative py-20 px-6 bg-background">
+          <div className="container mx-auto max-w-6xl relative z-10">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8 sm:mb-12 px-4">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 shimmer-text px-2 leading-tight">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 shimmer-text">
                   Frequently Asked Questions
                 </h2>
-                <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                   Find answers to common questions about MoneyLingo
                 </p>
               </div>
 
-              <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+              <Accordion type="single" collapsible className="space-y-4">
                 {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="glass-card border rounded-lg px-4 sm:px-6 hover-card-lift animate-fade-in-up" style={{ animationDelay: `${index * 0.05}s` }}>
+                  <AccordionItem key={index} value={`item-${index}`} className="bg-background/80 backdrop-blur-sm border border-border/40 shadow-md rounded-lg px-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 animate-fade-in-up" style={{ animationDelay: `${index * 0.05}s` }}>
                     <AccordionTrigger className="text-left hover:no-underline">
                       <span className="font-semibold">{faq.question}</span>
                     </AccordionTrigger>
@@ -320,11 +334,18 @@ const Index = () => {
           </div>
         </section>
         
-        {/* CTA Section */}
-        <section className="relative py-16 sm:py-20 md:py-24">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center glass-card p-8 sm:p-12 rounded-3xl">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 shimmer-text">
+        {/* Wave Divider */}
+        <div className="relative h-16" style={{ background: 'linear-gradient(to bottom, transparent, hsl(210, 60%, 96%))' }}>
+          <svg className="absolute bottom-0 w-full h-16" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,24 Q360,0 720,24 T1440,24 L1440,48 L0,48 Z" fill="hsl(210, 60%, 96%)" />
+          </svg>
+        </div>
+        
+        {/* CTA Section with radial gradient background */}
+        <section className="relative py-20 px-6" style={{ background: 'radial-gradient(ellipse 80% 70% at 50% 50%, hsl(210, 60%, 96%), hsl(192, 100%, 98%))' }}>
+          <div className="container mx-auto max-w-6xl">
+            <div className="max-w-4xl mx-auto text-center bg-background/80 backdrop-blur-sm border border-border/40 shadow-xl p-12 rounded-3xl">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 shimmer-text">
                 Ready to Take Control of Your Finances?
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -333,7 +354,7 @@ const Index = () => {
               <Button 
                 size="lg"
                 onClick={handleGetStarted}
-                className="bg-gradient-glow text-white px-8 py-6 text-lg rounded-full hover:scale-105 transition-all duration-300 shadow-2xl glow-pulse"
+                className="bg-gradient-glow text-white px-10 py-6 text-lg rounded-full hover:scale-105 hover:shadow-2xl transition-all duration-300 shadow-xl"
               >
                 Get Started Free
               </Button>
