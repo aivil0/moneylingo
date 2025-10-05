@@ -207,7 +207,7 @@ const Chat = () => {
       </main>
 
       {/* Fixed Chat Bar at Bottom */}
-      <div className="relative z-20 border-t border-border/50 bg-background/95 backdrop-blur-sm">
+      <div className="relative z-20 border-t border-border/50 backdrop-blur-sm">
         <div className="px-4 py-4 container mx-auto max-w-4xl">
           <div className="flex items-center gap-2 glass-card p-2 rounded-3xl shadow-xl">
             <Input
