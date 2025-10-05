@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Header } from "@/components/Header";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -32,7 +33,9 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 py-12">
+    <>
+      <Header />
+      <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 py-12">
       {/* Background Gradients */}
       <div className="absolute inset-0 bg-gradient-soft-bg pointer-events-none" />
       <div className="absolute top-20 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float pointer-events-none" />
@@ -142,6 +145,7 @@ const SignIn = () => {
         </CardContent>
       </Card>
     </div>
+    </>
   );
 };
 
