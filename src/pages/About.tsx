@@ -148,7 +148,7 @@ const About = () => {
                   <Link to="/signup">Get Started</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild className="hover-card-lift">
-                  <Link to="/help">Learn More</Link>
+                  <Link to="/#faq">View FAQ</Link>
                 </Button>
               </div>
             </div>

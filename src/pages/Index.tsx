@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link, useNavigate } from "react-router-dom";
@@ -137,6 +138,42 @@ const Index = () => {
     title: "Trust & Security",
     description: "Your financial information is protected with the highest security standards in the industry."
   }];
+  
+  const faqs = [
+    {
+      question: "How does the AI understand my native language?",
+      answer: "Our AI is trained on multiple languages and financial terminology across cultures. It can understand and respond accurately in over 25 languages, ensuring you get precise financial guidance in the language you're most comfortable with.",
+    },
+    {
+      question: "Is my financial data secure?",
+      answer: "Yes! We use bank-level encryption (256-bit SSL) to protect all your documents and data. Your information is encrypted both in transit and at rest, and we never share your data with third parties. All staff undergo background checks and security training.",
+    },
+    {
+      question: "What types of documents can I upload?",
+      answer: "You can upload tax forms (W-2, 1040, etc.), credit card statements, bank statements, loan documents, and more. We support PDF, JPG, and PNG formats up to 10MB per file.",
+    },
+    {
+      question: "How accurate is the AI's financial advice?",
+      answer: "Our AI is trained on official financial regulations and best practices, but it's important to note that it provides educational guidance, not personalized financial advice. For specific financial decisions, we recommend consulting with a licensed financial advisor.",
+    },
+    {
+      question: "Can I use voice input if I'm not comfortable typing?",
+      answer: "Absolutely! Our platform supports voice input in multiple languages. Simply click the phone icon to start a voice call with our AI assistant. The AI will understand and respond to your questions naturally.",
+    },
+    {
+      question: "How much does MoneyLingo cost?",
+      answer: "We offer a free tier with basic features including AI chat and document uploads. Premium plans start at $9.99/month and include unlimited AI sessions, priority support, and advanced analytics features.",
+    },
+    {
+      question: "What languages are currently supported?",
+      answer: "We currently support English, Spanish, Mandarin Chinese, Arabic, Hindi, French, Portuguese, Russian, Korean, Japanese, Vietnamese, Tagalog, and many more. We're constantly adding new languages based on user demand.",
+    },
+    {
+      question: "Can the AI help me build my credit score?",
+      answer: "Yes! The AI can provide personalized credit-building strategies, explain how credit scores work, help you understand your credit report, and suggest specific actions to improve your score based on your situation.",
+    },
+  ];
+  
   const currentLanguage = languages.find(l => l.name === selectedLanguage) || languages[0];
   
   return <div className="min-h-screen flex flex-col bg-gradient-soft-bg">
@@ -250,6 +287,35 @@ const Index = () => {
                     <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
                   </div>;
             })}
+            </div>
+          </div>
+        </section>
+        
+        {/* FAQ Section */}
+        <section id="faq" className="relative py-12 sm:py-16 md:py-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8 sm:mb-12 px-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 shimmer-text px-2 leading-tight">
+                  Frequently Asked Questions
+                </h2>
+                <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+                  Find answers to common questions about MoneyLingo
+                </p>
+              </div>
+
+              <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+                {faqs.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`} className="glass-card border rounded-lg px-4 sm:px-6 hover-card-lift animate-fade-in-up" style={{ animationDelay: `${index * 0.05}s` }}>
+                    <AccordionTrigger className="text-left hover:no-underline">
+                      <span className="font-semibold">{faq.question}</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </div>
         </section>

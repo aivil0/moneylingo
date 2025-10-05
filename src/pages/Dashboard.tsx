@@ -263,8 +263,8 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent className="space-y-2">
                 <Button variant="ghost" className="w-full justify-start hover-lift" asChild>
-                  <Link to="/help">
-                    Help Center
+                  <Link to="/#faq">
+                    FAQ
                   </Link>
                 </Button>
                 <Button variant="ghost" className="w-full justify-start hover-lift" asChild>

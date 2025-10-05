@@ -9,7 +9,6 @@ import Chat from "./pages/Chat";
 import Documents from "./pages/Documents";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Help from "./pages/Help";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,7 +26,6 @@ const App = () => (
           <Route path="/documents" element={<Documents />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/help" element={<Help />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

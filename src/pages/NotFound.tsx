@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Home, Search } from "lucide-react";
+import { Home, MessageSquare } from "lucide-react";
 
 const NotFound = () => {
   const location = useLocation();
@@ -31,9 +31,9 @@ const NotFound = () => {
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="hover-card-lift">
-            <Link to="/help">
-              <Search className="mr-2 h-5 w-5" />
-              Get Help
+            <Link to="/chat">
+              <MessageSquare className="mr-2 h-5 w-5" />
+              Chat with AI
             </Link>
           </Button>
         </div>
