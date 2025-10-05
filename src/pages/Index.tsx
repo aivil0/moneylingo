@@ -5,10 +5,11 @@ import { Input } from "@/components/ui/input";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link, useNavigate } from "react-router-dom";
-import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target, Send, Mic, PiggyBank, CheckCircle2, CreditCard, Wallet, TrendingDown, Phone } from "lucide-react";
+import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target, Send, Mic, PiggyBank, CheckCircle2, CreditCard, Wallet, TrendingDown, Phone, Sparkles } from "lucide-react";
 import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { useToast } from "@/hooks/use-toast";
 
@@ -195,93 +196,136 @@ const Index = () => {
 
       <main className="flex-1 relative overflow-hidden">
         {/* Floating mascot with help menu */}
-        <div className="fixed bottom-8 right-8 z-50">
-          <div className="relative">
-            {/* Help Menu */}
-            {showHelpMenu && (
-              <div className="absolute bottom-20 right-0 bg-card border border-border rounded-xl shadow-2xl p-4 w-64 animate-scale-in">
-                <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
-                  <PiggyBank className="h-4 w-4 text-primary" />
-                  How can I help you?
-                </h3>
-                <div className="space-y-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full justify-start text-left"
-                    onClick={() => {
-                      setIsCallActive(true);
-                      setShowHelpMenu(false);
-                    }}
-                  >
-                    <Phone className="h-4 w-4 mr-2" />
-                    Talk to AI Assistant
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full justify-start text-left"
-                    onClick={() => {
-                      navigate('/chat');
-                      setShowHelpMenu(false);
-                    }}
-                  >
-                    <MessageSquare className="h-4 w-4 mr-2" />
-                    Start a Chat
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full justify-start text-left"
-                    onClick={() => {
-                      navigate('/documents');
-                      setShowHelpMenu(false);
-                    }}
-                  >
-                    <FileText className="h-4 w-4 mr-2" />
-                    Upload Documents
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full justify-start text-left"
-                    onClick={() => {
-                      document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
-                      setShowHelpMenu(false);
-                    }}
-                  >
-                    <Shield className="h-4 w-4 mr-2" />
-                    View FAQ
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full justify-start text-left"
-                    onClick={() => {
-                      handleGetStarted();
-                      setShowHelpMenu(false);
-                    }}
-                  >
-                    <Target className="h-4 w-4 mr-2" />
-                    Get Started
-                  </Button>
+        <TooltipProvider>
+          <div className="fixed bottom-8 right-8 z-50">
+            <div className="relative">
+              {/* Help Menu - Glassmorphic Design */}
+              {showHelpMenu && (
+                <div className="absolute bottom-20 right-0 w-56 animate-scale-in">
+                  <div className="bg-background/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] p-3 overflow-hidden">
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+                    
+                    {/* Header */}
+                    <div className="relative mb-3 pb-2 border-b border-border/40">
+                      <h3 className="font-semibold text-xs text-muted-foreground flex items-center gap-1.5">
+                        <Sparkles className="h-3 w-3 text-primary" />
+                        How can I help you?
+                      </h3>
+                    </div>
+                    
+                    {/* Menu Items - Vertical Grid */}
+                    <div className="relative space-y-1">
+                      {/* Chat with AI */}
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            onClick={() => {
+                              navigate('/chat');
+                              setShowHelpMenu(false);
+                            }}
+                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-background/50 hover:bg-primary/10 border border-transparent hover:border-primary/30 transition-all duration-200 group"
+                          >
+                            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <MessageSquare className="h-4 w-4 text-primary" />
+                            </div>
+                            <span className="text-sm font-medium text-foreground">Chat with AI</span>
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="left">
+                          <p>Start a text conversation with our AI assistant</p>
+                        </TooltipContent>
+                      </Tooltip>
+
+                      {/* Upload Docs */}
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            onClick={() => {
+                              navigate('/documents');
+                              setShowHelpMenu(false);
+                            }}
+                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-background/50 hover:bg-accent/10 border border-transparent hover:border-accent/30 transition-all duration-200 group"
+                          >
+                            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <FileText className="h-4 w-4 text-accent" />
+                            </div>
+                            <span className="text-sm font-medium text-foreground">Upload Docs</span>
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="left">
+                          <p>Upload financial documents for analysis</p>
+                        </TooltipContent>
+                      </Tooltip>
+
+                      {/* FAQs */}
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            onClick={() => {
+                              document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+                              setShowHelpMenu(false);
+                            }}
+                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-background/50 hover:bg-primary/10 border border-transparent hover:border-primary/30 transition-all duration-200 group"
+                          >
+                            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <Shield className="h-4 w-4 text-primary" />
+                            </div>
+                            <span className="text-sm font-medium text-foreground">FAQs</span>
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="left">
+                          <p>View frequently asked questions</p>
+                        </TooltipContent>
+                      </Tooltip>
+
+                      {/* Get Started */}
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button
+                            onClick={() => {
+                              handleGetStarted();
+                              setShowHelpMenu(false);
+                            }}
+                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 border border-primary/40 transition-all duration-200 group shadow-sm"
+                          >
+                            <div className="h-8 w-8 rounded-lg bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <Target className="h-4 w-4 text-white" />
+                            </div>
+                            <span className="text-sm font-semibold text-white">Get Started</span>
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="left">
+                          <p>Begin your financial journey with MoneyLingo</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
-            
-            {/* Mascot Button */}
-            <div 
-              className="relative group cursor-pointer bounce-gentle"
-              onClick={() => setShowHelpMenu(!showHelpMenu)}
-            >
-              <PiggyBank className="h-16 w-16 text-primary drop-shadow-lg transition-transform hover:scale-110" />
-              <div className="absolute top-0 right-0 h-3 w-3 bg-accent rounded-full animate-pulse" />
-              <div className="absolute -top-12 right-0 bg-card text-card-foreground px-3 py-1.5 rounded-lg shadow-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                Need help? 👋
-              </div>
+              )}
+              
+              {/* Mascot Button */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button 
+                    className="relative group cursor-pointer bounce-gentle focus:outline-none"
+                    onClick={() => setShowHelpMenu(!showHelpMenu)}
+                    aria-label="Help menu"
+                  >
+                    <div className="relative">
+                      <PiggyBank className="h-16 w-16 text-primary drop-shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-2xl" />
+                      {/* Glow effect on hover */}
+                      <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="left">
+                  <p className="font-medium">Need help? Click me! 👋</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
-        </div>
+        </TooltipProvider>
         
         {/* Hero Section with radial gradient background */}
         <section className="relative px-6 pt-24 pb-32 z-10" style={{ 
