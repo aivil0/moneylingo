@@ -74,35 +74,15 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
 
           {/* Main circle with dynamic gradient */}
           <div
-            className="relative z-10 rounded-full shadow-2xl transition-all duration-500 ease-out"
+            className="relative z-10 rounded-full shadow-2xl ease-out"
             style={{
               width: "280px",
               height: "280px",
               transform: `scale(${circleScale})`,
               background: `linear-gradient(${audioLevel * 1.2}deg, hsl(180, 62%, ${35 + audioLevel / 8}%), hsl(192, 81%, ${50 + audioLevel / 12}%), hsl(25, 95%, ${63 + audioLevel / 15}%))`,
+              transition: "all 800ms ease-in-out",
             }}
           >
-            {/* Sound bars around the circle */}
-            {audioLevel > 20 && (
-              <div className="absolute inset-0">
-                {[...Array(12)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute top-1/2 left-1/2 origin-left"
-                    style={{
-                      transform: `rotate(${i * 30}deg) translateX(-140px)`,
-                    }}
-                  >
-                    <div
-                      className="w-1 bg-white/50 rounded-full transition-all duration-300"
-                      style={{
-                        height: `${10 + Math.random() * audioLevel / 3}px`,
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
 
