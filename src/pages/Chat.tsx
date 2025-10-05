@@ -206,7 +206,7 @@ const Chat = () => {
         </div>
 
         {/* Input Area - Fixed at Bottom with gradient styling */}
-        <div className="border-t-2 border-border/40 bg-gradient-card/80 backdrop-blur-md shadow-2xl">
+        <div className="bg-gradient-card/80 backdrop-blur-md">
           <div className="w-full px-4 py-5">
             <div className="flex items-end gap-2">
               <div className="flex-1 relative">
