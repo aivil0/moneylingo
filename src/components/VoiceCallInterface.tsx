@@ -43,12 +43,7 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
   const circleScale = 1 + (audioLevel / 100) * 0.5;
 
   return (
-    <div className="fixed inset-0 z-50 bg-gradient-to-br from-background via-primary/5 to-accent/10 animate-fade-in">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "1s" }} />
-      </div>
+    <div className="fixed inset-0 z-50 bg-white animate-fade-in">
 
       <div className="relative h-full flex flex-col items-center justify-center px-4">
         {/* Status indicator */}
@@ -63,21 +58,6 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
 
         {/* Main sound wave circle */}
         <div className="relative flex items-center justify-center mb-12">
-          {/* Outer rings */}
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full border-2 border-primary/30"
-              style={{
-                width: `${300 + i * 100}px`,
-                height: `${300 + i * 100}px`,
-                animation: `ping ${2 + i}s cubic-bezier(0, 0, 0.2, 1) infinite`,
-                animationDelay: `${i * 0.3}s`,
-                opacity: audioLevel > 10 ? 0.6 - i * 0.2 : 0.2,
-              }}
-            />
-          ))}
-
           {/* Main circle with gradient */}
           <div
             className="relative z-10 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent shadow-2xl transition-all duration-200 flex items-center justify-center"
@@ -87,16 +67,6 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
               transform: `scale(${circleScale})`,
             }}
           >
-            {/* Inner glow */}
-            <div className="absolute inset-4 rounded-full bg-gradient-to-br from-white/20 to-transparent blur-xl" />
-            
-            {/* AI Icon */}
-            <div className="relative z-20 text-primary-foreground">
-              <div className="text-8xl mb-4 animate-float">🤖</div>
-              <div className="text-center">
-                <p className="text-sm font-semibold opacity-90">MoneyLingo AI</p>
-              </div>
-            </div>
 
             {/* Sound bars around the circle */}
             {audioLevel > 20 && (
