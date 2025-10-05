@@ -25,7 +25,7 @@ const Index = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isCallActive, setIsCallActive] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [showHelpMenu, setShowHelpMenu] = useState(false);
+  
   
   const placeholders = [
     "Ask about your credit score…",
@@ -195,130 +195,27 @@ const Index = () => {
       <Header />
 
       <main className="flex-1 relative overflow-hidden">
-        {/* Floating mascot with help menu */}
+        {/* Floating mascot */}
         <TooltipProvider>
           <div className="fixed bottom-8 right-8 z-50">
-            <div className="relative">
-              {/* Help Menu - Speech Bubble Design */}
-              {showHelpMenu && (
-                <div className="absolute bottom-14 right-20 w-48 animate-scale-in origin-bottom-left">
-                  <div className="relative bg-background/90 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] p-2 overflow-hidden">
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
-                    
-                    {/* Speech bubble tail */}
-                    <div className="absolute -bottom-2 right-2 w-4 h-4 bg-background/90 backdrop-blur-xl border-r border-b border-primary/20 transform rotate-45" />
-                    
-                    {/* Menu Items - Compact Vertical */}
-                    <div className="relative space-y-1">
-                      {/* Chat with AI */}
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            onClick={() => {
-                              navigate('/chat');
-                              setShowHelpMenu(false);
-                            }}
-                            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg bg-background/50 hover:bg-primary/10 border border-transparent hover:border-primary/30 transition-all duration-200 group"
-                          >
-                            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <MessageSquare className="h-3.5 w-3.5 text-primary" />
-                            </div>
-                            <span className="text-xs font-medium text-foreground">Chat with AI</span>
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="left">
-                          <p>Start a text conversation</p>
-                        </TooltipContent>
-                      </Tooltip>
-
-                      {/* Upload Docs */}
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            onClick={() => {
-                              navigate('/documents');
-                              setShowHelpMenu(false);
-                            }}
-                            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg bg-background/50 hover:bg-accent/10 border border-transparent hover:border-accent/30 transition-all duration-200 group"
-                          >
-                            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <FileText className="h-3.5 w-3.5 text-accent" />
-                            </div>
-                            <span className="text-xs font-medium text-foreground">Upload Docs</span>
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="left">
-                          <p>Upload documents for analysis</p>
-                        </TooltipContent>
-                      </Tooltip>
-
-                      {/* FAQs */}
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            onClick={() => {
-                              document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
-                              setShowHelpMenu(false);
-                            }}
-                            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg bg-background/50 hover:bg-primary/10 border border-transparent hover:border-primary/30 transition-all duration-200 group"
-                          >
-                            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <Shield className="h-3.5 w-3.5 text-primary" />
-                            </div>
-                            <span className="text-xs font-medium text-foreground">FAQs</span>
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="left">
-                          <p>View frequently asked questions</p>
-                        </TooltipContent>
-                      </Tooltip>
-
-                      {/* Get Started */}
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            onClick={() => {
-                              handleGetStarted();
-                              setShowHelpMenu(false);
-                            }}
-                            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 border border-primary/40 transition-all duration-200 group shadow-sm"
-                          >
-                            <div className="h-7 w-7 rounded-md bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <Target className="h-3.5 w-3.5 text-white" />
-                            </div>
-                            <span className="text-xs font-semibold text-white">Get Started</span>
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent side="left">
-                          <p>Begin your financial journey</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button 
+                  className="relative group cursor-pointer bounce-gentle focus:outline-none"
+                  onClick={() => navigate('/chat')}
+                  aria-label="Chat with AI"
+                >
+                  <div className="relative">
+                    <PiggyBank className="h-16 w-16 text-primary drop-shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-2xl" />
+                    {/* Glow effect on hover */}
+                    <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                </div>
-              )}
-              
-              {/* Mascot Button */}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button 
-                    className="relative group cursor-pointer bounce-gentle focus:outline-none"
-                    onClick={() => setShowHelpMenu(!showHelpMenu)}
-                    aria-label="Help menu"
-                  >
-                    <div className="relative">
-                      <PiggyBank className="h-16 w-16 text-primary drop-shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-2xl" />
-                      {/* Glow effect on hover */}
-                      <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent side="left">
-                  <p className="font-medium">Need help? Click me! 👋</p>
-                </TooltipContent>
-              </Tooltip>
-            </div>
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="left">
+                <p className="font-medium">Need help? Click me! 👋</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </TooltipProvider>
         
