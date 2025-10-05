@@ -130,7 +130,7 @@ const Chat = () => {
         <div className="text-center space-y-6 sm:space-y-8 animate-fade-in-up max-w-3xl px-4">
           <div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-4">
-              <span className="block shimmer-text pb-2">Talk to Your Financial AI</span>
+              <span className="block shimmer-text pb-2">How can I help you today?</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto px-4 sm:px-6">Get instant financial advice through natural conversation.</p>
           </div>
