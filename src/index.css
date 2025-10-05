@@ -257,7 +257,7 @@ All colors MUST be HSL.
   }
   
   .gradient-wave-animation {
-    animation: gradient-wave 8s ease-in-out infinite;
+    animation: gradient-wave 8s ease-in-out infinite, gentle-rotate 20s linear infinite, breathe-scale 4s ease-in-out infinite;
     background-size: 200% 200%;
   }
   
@@ -270,6 +270,24 @@ All colors MUST be HSL.
     }
     100% {
       background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes gentle-rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes breathe-scale {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
     }
   }
 }
