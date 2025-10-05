@@ -2,12 +2,19 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Header } from "@/components/Header";
-import { AuthGuard } from "@/components/AuthGuard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useState } from "react";
-import { Mic, Send, Paperclip, Volume2 } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useState, useEffect } from "react";
+import { Mic, Send, Paperclip, Volume2, Lock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Chat = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isAuthenticated") === "true";
+    setIsAuthenticated(authStatus);
+  }, []);
   const [message, setMessage] = useState("");
   const [language, setLanguage] = useState("en");
   const [messages, setMessages] = useState([
@@ -50,11 +57,10 @@ const Chat = () => {
   };
 
   return (
-    <AuthGuard>
-      <div className="min-h-screen flex flex-col">
-        <Header />
+    <div className="min-h-screen flex flex-col">
+      <Header />
 
-        <main className="flex-1 container mx-auto px-4 py-8 flex flex-col max-w-5xl">
+      <main className="flex-1 container mx-auto px-4 py-8 flex flex-col max-w-5xl">
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-foreground mb-2">AI Financial Assistant</h1>
@@ -74,6 +80,24 @@ const Chat = () => {
             </SelectContent>
           </Select>
         </div>
+
+        {/* Auth Alert */}
+        {!isAuthenticated && (
+          <Alert className="mb-6 border-primary/50 bg-primary/5">
+            <Lock className="h-4 w-4 text-primary" />
+            <AlertDescription className="flex items-center justify-between">
+              <span>Sign in to start chatting with our AI assistant and get personalized financial guidance.</span>
+              <div className="flex gap-2 ml-4">
+                <Button size="sm" asChild>
+                  <Link to="/signin">Sign In</Link>
+                </Button>
+                <Button size="sm" variant="outline" asChild>
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </div>
+            </AlertDescription>
+          </Alert>
+        )}
 
         {/* Chat Area */}
         <Card className="flex-1 flex flex-col mb-4 overflow-hidden">
@@ -117,18 +141,20 @@ const Chat = () => {
                 variant="ghost"
                 className="flex-shrink-0"
                 aria-label="Attach file"
+                disabled={!isAuthenticated}
               >
                 <Paperclip className="h-5 w-5" />
               </Button>
 
               <div className="flex-1">
                 <Input
-                  placeholder="Type your question or use voice..."
+                  placeholder={isAuthenticated ? "Type your question or use voice..." : "Sign in to start chatting..."}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
                   className="resize-none"
                   aria-label="Message input"
+                  disabled={!isAuthenticated}
                 />
                 <p className="text-xs text-muted-foreground mt-1">
                   {message.length}/1000 characters
@@ -140,6 +166,7 @@ const Chat = () => {
                 variant="outline"
                 className="flex-shrink-0"
                 aria-label="Voice input"
+                disabled={!isAuthenticated}
               >
                 <Mic className="h-5 w-5" />
               </Button>
@@ -147,7 +174,7 @@ const Chat = () => {
               <Button
                 size="icon"
                 onClick={handleSend}
-                disabled={!message.trim()}
+                disabled={!message.trim() || !isAuthenticated}
                 className="flex-shrink-0"
                 aria-label="Send message"
               >
@@ -171,7 +198,8 @@ const Chat = () => {
                 key={suggestion}
                 variant="outline"
                 size="sm"
-                onClick={() => setMessage(suggestion)}
+                onClick={() => isAuthenticated && setMessage(suggestion)}
+                disabled={!isAuthenticated}
               >
                 {suggestion}
               </Button>
@@ -179,8 +207,7 @@ const Chat = () => {
           </div>
         </div>
       </main>
-      </div>
-    </AuthGuard>
+    </div>
   );
 };
 

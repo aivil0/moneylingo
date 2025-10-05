@@ -2,12 +2,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { AuthGuard } from "@/components/AuthGuard";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { Upload, FileText, Search, Shield, Trash2, Eye } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useState, useEffect } from "react";
+import { Upload, FileText, Search, Shield, Trash2, Eye, Lock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Documents = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isAuthenticated") === "true";
+    setIsAuthenticated(authStatus);
+  }, []);
   const [searchQuery, setSearchQuery] = useState("");
 
   const documents = [
@@ -21,9 +28,8 @@ const Documents = () => {
   );
 
   return (
-    <AuthGuard>
-      <div className="min-h-screen flex flex-col">
-        <Header />
+    <div className="min-h-screen flex flex-col">
+      <Header />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="mb-8">
@@ -33,8 +39,26 @@ const Documents = () => {
           </p>
         </div>
 
+        {/* Auth Alert */}
+        {!isAuthenticated && (
+          <Alert className="mb-6 border-primary/50 bg-primary/5">
+            <Lock className="h-4 w-4 text-primary" />
+            <AlertDescription className="flex items-center justify-between">
+              <span>Sign in to upload and analyze your financial documents securely.</span>
+              <div className="flex gap-2 ml-4">
+                <Button size="sm" asChild>
+                  <Link to="/signin">Sign In</Link>
+                </Button>
+                <Button size="sm" variant="outline" asChild>
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </div>
+            </AlertDescription>
+          </Alert>
+        )}
+
         {/* Upload Section */}
-        <Card className="mb-8 border-2 border-dashed hover:border-primary/50 transition-colors">
+        <Card className={`mb-8 border-2 border-dashed transition-colors ${!isAuthenticated ? 'opacity-60' : 'hover:border-primary/50'}`}>
           <CardContent className="p-12">
             <div className="text-center space-y-4">
               <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
@@ -43,13 +67,13 @@ const Documents = () => {
               <div>
                 <h3 className="text-xl font-semibold mb-2">Upload Your Documents</h3>
                 <p className="text-muted-foreground mb-4">
-                  Drag and drop files here, or click to browse
+                  {isAuthenticated ? 'Drag and drop files here, or click to browse' : 'Sign in to upload documents'}
                 </p>
                 <p className="text-sm text-muted-foreground">
                   Supported formats: PDF, JPG, PNG (Max 10MB)
                 </p>
               </div>
-              <Button size="lg" className="mt-4">
+              <Button size="lg" className="mt-4" disabled={!isAuthenticated}>
                 <Upload className="mr-2 h-5 w-5" />
                 Choose Files
               </Button>
@@ -116,11 +140,11 @@ const Documents = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline" className="flex-1">
+                    <Button size="sm" variant="outline" className="flex-1" disabled={!isAuthenticated}>
                       <Eye className="mr-2 h-4 w-4" />
                       View
                     </Button>
-                    <Button size="sm" variant="ghost">
+                    <Button size="sm" variant="ghost" disabled={!isAuthenticated}>
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </div>
@@ -141,8 +165,7 @@ const Documents = () => {
       </main>
 
       <Footer />
-      </div>
-    </AuthGuard>
+    </div>
   );
 };
 

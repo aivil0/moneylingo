@@ -2,11 +2,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { AuthGuard } from "@/components/AuthGuard";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Link } from "react-router-dom";
-import { MessageSquare, FileText, TrendingUp, Clock, CheckCircle2 } from "lucide-react";
+import { MessageSquare, FileText, TrendingUp, Clock, CheckCircle2, Lock } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const Dashboard = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isAuthenticated") === "true";
+    setIsAuthenticated(authStatus);
+  }, []);
   const recentActivity = [
     { id: 1, type: "chat", title: "Asked about credit scores", time: "2 hours ago" },
     { id: 2, type: "document", title: "Uploaded tax return 2023", time: "1 day ago" },
@@ -20,15 +27,36 @@ const Dashboard = () => {
   ];
 
   return (
-    <AuthGuard>
-      <div className="min-h-screen flex flex-col">
-        <Header />
+    <div className="min-h-screen flex flex-col">
+      <Header />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Welcome Back!</h1>
-          <p className="text-muted-foreground">Here's your financial literacy progress.</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+            {isAuthenticated ? 'Welcome Back!' : 'Dashboard Preview'}
+          </h1>
+          <p className="text-muted-foreground">
+            {isAuthenticated ? "Here's your financial literacy progress." : 'Sign in to track your financial journey.'}
+          </p>
         </div>
+
+        {/* Auth Alert */}
+        {!isAuthenticated && (
+          <Alert className="mb-6 border-primary/50 bg-primary/5">
+            <Lock className="h-4 w-4 text-primary" />
+            <AlertDescription className="flex items-center justify-between">
+              <span>Create an account to access your personalized dashboard and track your progress.</span>
+              <div className="flex gap-2 ml-4">
+                <Button size="sm" asChild>
+                  <Link to="/signin">Sign In</Link>
+                </Button>
+                <Button size="sm" variant="outline" asChild>
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </div>
+            </AlertDescription>
+          </Alert>
+        )}
 
         {/* Quick Actions */}
         <div className="grid md:grid-cols-3 gap-4 mb-8">
@@ -159,7 +187,7 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <Button variant="outline" className="w-full">Add New Goal</Button>
+                <Button variant="outline" className="w-full" disabled={!isAuthenticated}>Add New Goal</Button>
               </CardContent>
             </Card>
 
@@ -187,8 +215,7 @@ const Dashboard = () => {
       </main>
 
       <Footer />
-      </div>
-    </AuthGuard>
+    </div>
   );
 };
 
