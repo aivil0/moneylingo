@@ -50,7 +50,7 @@ const Documents = () => {
           </p>
           
           {/* Prominent Call Button */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <div className="flex flex-col sm:flex-row items-center gap-3" style={{ animationDelay: "0.2s" }}>
             <Button
               onClick={() => setIsCallActive(true)}
               size="lg"
