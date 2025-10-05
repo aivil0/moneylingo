@@ -158,10 +158,10 @@ const Chat = () => {
             
             <div className="text-center">
               <p className="text-lg sm:text-xl font-semibold mb-1">
-                {isInCall ? "Talking to MoneyLingo..." : t("chat.tapToStart")}
+                {isInCall ? t("chat.talkingTo") : t("chat.tapToStart")}
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground">
-                {isInCall ? "We're listening and ready to help" : t("chat.naturalConversation")}
+                {isInCall ? t("chat.listening") : t("chat.naturalConversation")}
               </p>
             </div>
           </div>

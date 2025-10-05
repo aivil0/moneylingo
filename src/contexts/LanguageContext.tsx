@@ -91,6 +91,8 @@ const translations: Record<Language, any> = {
       naturalConversation: "Natural conversation in your language",
       placeholder: "Type your question in any language...",
       orType: "Or type your question • MoneyLingo can make mistakes",
+      talkingTo: "Talking to MoneyLingo...",
+      listening: "We're listening and ready to help",
     },
     dashboard: {
       title: "Dashboard",
@@ -228,6 +230,8 @@ const translations: Record<Language, any> = {
       naturalConversation: "Conversación natural en tu idioma",
       placeholder: "Escribe tu pregunta en cualquier idioma...",
       orType: "O escribe tu pregunta • MoneyLingo puede cometer errores",
+      talkingTo: "Hablando con MoneyLingo...",
+      listening: "Te estamos escuchando y listos para ayudar",
     },
     dashboard: {
       title: "Panel",
@@ -365,6 +369,8 @@ const translations: Record<Language, any> = {
       naturalConversation: "用您的语言自然对话",
       placeholder: "用任何语言输入您的问题...",
       orType: "或输入您的问题 • MoneyLingo可能会出错",
+      talkingTo: "正在与MoneyLingo通话...",
+      listening: "我们正在倾听并随时为您提供帮助",
     },
     dashboard: {
       title: "仪表板",
@@ -502,6 +508,8 @@ const translations: Record<Language, any> = {
       naturalConversation: "محادثة طبيعية بلغتك",
       placeholder: "اكتب سؤالك بأي لغة...",
       orType: "أو اكتب سؤالك • MoneyLingo يمكن أن يخطئ",
+      talkingTo: "التحدث مع MoneyLingo...",
+      listening: "نحن نستمع ومستعدون للمساعدة",
     },
     dashboard: {
       title: "لوحة التحكم",
@@ -639,6 +647,8 @@ const translations: Record<Language, any> = {
       naturalConversation: "आपकी भाषा में प्राकृतिक बातचीत",
       placeholder: "किसी भी भाषा में अपना प्रश्न टाइप करें...",
       orType: "या अपना प्रश्न टाइप करें • MoneyLingo गलतियाँ कर सकता है",
+      talkingTo: "MoneyLingo से बात कर रहे हैं...",
+      listening: "हम सुन रहे हैं और मदद के लिए तैयार हैं",
     },
     dashboard: {
       title: "डैशबोर्ड",
@@ -776,6 +786,8 @@ const translations: Record<Language, any> = {
       naturalConversation: "Conversation naturelle dans votre langue",
       placeholder: "Tapez votre question dans n'importe quelle langue...",
       orType: "Ou tapez votre question • MoneyLingo peut faire des erreurs",
+      talkingTo: "En conversation avec MoneyLingo...",
+      listening: "Nous vous écoutons et sommes prêts à vous aider",
     },
     dashboard: {
       title: "Tableau de bord",
