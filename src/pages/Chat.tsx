@@ -65,38 +65,45 @@ const Chat = () => {
   }, [messages]);
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden bg-background">
-      {/* Background Gradients */}
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      {/* Background Gradients - Same as homepage */}
       <div className="absolute inset-0 bg-gradient-main pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-clouds pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/5 to-background/20 pointer-events-none" />
       
-      {/* Minimal Header */}
-      <header className="relative z-20 border-b border-border/40 bg-background/80 backdrop-blur-sm">
-        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <MessageSquare className="h-5 w-5 text-primary" />
-            <span className="font-semibold text-lg">MoneyLingo</span>
+      {/* Floating decorative elements */}
+      <div className="absolute top-20 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float pointer-events-none" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow pointer-events-none" />
+      
+      {/* Header with gradient accent */}
+      <header className="relative z-20 border-b border-border/40 bg-background/60 backdrop-blur-md shadow-sm">
+        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2.5 hover-lift group">
+            <div className="h-9 w-9 rounded-lg bg-gradient-primary flex items-center justify-center shadow-lg">
+              <MessageSquare className="h-5 w-5 text-primary-foreground" />
+            </div>
+            <span className="font-bold text-lg bg-gradient-hero bg-clip-text text-transparent">MoneyLingo</span>
           </Link>
           
           <div className="flex items-center gap-3">
             <Select value={language} onValueChange={setLanguage}>
-              <SelectTrigger className="w-[120px] h-9 text-sm">
+              <SelectTrigger className="w-[130px] h-10 text-sm border-border/50 hover:border-primary/50 transition-colors">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="es">Español</SelectItem>
-                <SelectItem value="zh">中文</SelectItem>
-                <SelectItem value="ar">العربية</SelectItem>
-                <SelectItem value="hi">हिन्दी</SelectItem>
-                <SelectItem value="fr">Français</SelectItem>
+                <SelectItem value="en">🇺🇸 English</SelectItem>
+                <SelectItem value="es">🇪🇸 Español</SelectItem>
+                <SelectItem value="zh">🇨🇳 中文</SelectItem>
+                <SelectItem value="ar">🇸🇦 العربية</SelectItem>
+                <SelectItem value="hi">🇮🇳 हिन्दी</SelectItem>
+                <SelectItem value="fr">🇫🇷 Français</SelectItem>
               </SelectContent>
             </Select>
             
-            <Button size="sm" variant="ghost" asChild>
+            <Button size="sm" variant="outline" asChild className="hover-lift">
               <Link to="/dashboard">
-                <Menu className="h-4 w-4" />
+                <Menu className="h-4 w-4 mr-2" />
+                Menu
               </Link>
             </Button>
           </div>
@@ -105,18 +112,23 @@ const Chat = () => {
 
       {/* Main Chat Area */}
       <main className="flex-1 relative z-10 flex flex-col overflow-hidden">
-        {/* Auth Alert */}
+        {/* Auth Alert with gradient styling */}
         {!isAuthenticated && (
           <div className="max-w-3xl mx-auto w-full px-4 pt-4">
-            <Alert className="border-primary/50 bg-primary/5 animate-fade-in">
-              <Lock className="h-4 w-4 text-primary" />
-              <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between">
-                <span className="text-sm">Sign in to chat with our AI assistant</span>
+            <Alert className="border-2 border-primary/40 bg-gradient-card shadow-lg animate-scale-in hover-lift">
+              <div className="h-8 w-8 rounded-full bg-gradient-primary flex items-center justify-center">
+                <Lock className="h-4 w-4 text-primary-foreground" />
+              </div>
+              <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between ml-2">
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Sign in to unlock AI chat</p>
+                  <p className="text-sm text-muted-foreground">Get personalized financial guidance in your language</p>
+                </div>
                 <div className="flex gap-2">
-                  <Button size="sm" asChild>
+                  <Button size="sm" asChild className="bg-gradient-primary hover-lift shadow-lg">
                     <Link to="/signin">Sign In</Link>
                   </Button>
-                  <Button size="sm" variant="outline" asChild>
+                  <Button size="sm" variant="outline" asChild className="hover-lift">
                     <Link to="/signup">Sign Up</Link>
                   </Button>
                 </div>
@@ -129,31 +141,40 @@ const Chat = () => {
         <div className="flex-1 overflow-y-auto">
           <div className="max-w-3xl mx-auto w-full px-4 py-6">
             {messages.length === 1 && (
-              <div className="text-center mb-8 animate-fade-in">
-                <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4 pb-2">
+              <div className="text-center mb-12 animate-fade-in">
+                <div className="inline-block px-4 py-2 bg-gradient-primary text-primary-foreground rounded-full text-sm font-semibold mb-6 animate-pulse-slow shadow-lg">
+                  AI-Powered Financial Assistant
+                </div>
+                <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4 pb-2">
                   How can I help you today?
                 </h1>
-                <p className="text-muted-foreground mb-8">
-                  Ask me anything about credit, taxes, mortgages, or financial planning
+                <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
+                  Ask me anything about credit, taxes, mortgages, or financial planning in your language
                 </p>
                 
-                {/* Suggested Questions */}
-                <div className="grid sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
+                {/* Suggested Questions with gradient cards */}
+                <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
                   {[
-                    { q: "What is a credit score?", icon: "📊" },
-                    { q: "How do I file taxes?", icon: "📝" },
-                    { q: "What is APR?", icon: "💰" },
-                    { q: "Explain mortgage rates", icon: "🏠" },
-                  ].map((suggestion) => (
+                    { q: "What is a credit score?", icon: "📊", desc: "Learn the basics" },
+                    { q: "How do I file taxes?", icon: "📝", desc: "Step-by-step guide" },
+                    { q: "What is APR?", icon: "💰", desc: "Understand rates" },
+                    { q: "Explain mortgage rates", icon: "🏠", desc: "Home financing" },
+                  ].map((suggestion, index) => (
                     <button
                       key={suggestion.q}
-                      className="text-left p-4 rounded-xl border border-border/50 bg-background/50 hover:bg-accent/50 hover:border-primary/50 transition-all hover-lift disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="group text-left p-5 rounded-2xl border-2 border-border/50 bg-gradient-card hover:border-primary/50 transition-all hover-lift disabled:opacity-50 disabled:cursor-not-allowed shadow-lg animate-fade-in-up"
+                      style={{ animationDelay: `${index * 0.1}s` }}
                       onClick={() => isAuthenticated && setMessage(suggestion.q)}
                       disabled={!isAuthenticated}
                     >
-                      <div className="flex items-start gap-3">
-                        <span className="text-2xl">{suggestion.icon}</span>
-                        <span className="text-sm font-medium">{suggestion.q}</span>
+                      <div className="flex items-start gap-4">
+                        <div className="text-3xl group-hover:scale-110 transition-transform">{suggestion.icon}</div>
+                        <div className="flex-1">
+                          <p className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
+                            {suggestion.q}
+                          </p>
+                          <p className="text-xs text-muted-foreground">{suggestion.desc}</p>
+                        </div>
                       </div>
                     </button>
                   ))}
@@ -161,7 +182,7 @@ const Chat = () => {
               </div>
             )}
 
-            {/* Chat Messages */}
+            {/* Chat Messages with enhanced styling */}
             <div className="space-y-6">
               {messages.map((msg, index) => (
                 index > 0 && (
@@ -170,23 +191,24 @@ const Chat = () => {
                     className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
                   >
                     <div
-                      className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+                      className={`max-w-[85%] rounded-2xl px-5 py-4 shadow-lg ${
                         msg.sender === "user"
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted/80 text-foreground border border-border/50"
+                          ? "bg-gradient-primary text-primary-foreground"
+                          : "bg-gradient-card border-2 border-border/50"
                       }`}
                     >
                       <p className="text-sm sm:text-base leading-relaxed">{msg.text}</p>
-                      <div className="flex items-center justify-between gap-2 mt-2">
+                      <div className="flex items-center justify-between gap-2 mt-3 pt-2 border-t border-white/10">
                         <p className="text-xs opacity-60">{msg.time}</p>
                         {msg.sender === "ai" && (
                           <Button
                             size="sm"
                             variant="ghost"
-                            className="h-6 px-2 hover:bg-background/50"
+                            className="h-7 px-2 hover:bg-primary/10 hover-lift rounded-full"
                             aria-label="Play audio"
                           >
-                            <Volume2 className="h-3 w-3" />
+                            <Volume2 className="h-3 w-3 mr-1" />
+                            <span className="text-xs">Listen</span>
                           </Button>
                         )}
                       </div>
@@ -199,9 +221,9 @@ const Chat = () => {
           </div>
         </div>
 
-        {/* Input Area - Fixed at Bottom */}
-        <div className="border-t border-border/40 bg-background/80 backdrop-blur-sm">
-          <div className="max-w-3xl mx-auto w-full px-4 py-4">
+        {/* Input Area - Fixed at Bottom with gradient styling */}
+        <div className="border-t-2 border-border/40 bg-gradient-card/80 backdrop-blur-md shadow-2xl">
+          <div className="max-w-3xl mx-auto w-full px-4 py-5">
             <div className="flex items-end gap-2">
               <div className="flex-1 relative">
                 <Input
@@ -209,7 +231,7 @@ const Chat = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="pr-24 h-12 text-base rounded-full bg-background border-border/50"
+                  className="pr-28 h-14 text-base rounded-2xl bg-background/80 border-2 border-border/50 focus:border-primary/50 shadow-lg transition-all"
                   aria-label="Message input"
                   disabled={!isAuthenticated}
                 />
@@ -217,7 +239,7 @@ const Chat = () => {
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="h-8 w-8 rounded-full"
+                    className="h-9 w-9 rounded-full hover:bg-primary/10 hover-lift"
                     aria-label="Voice input"
                     disabled={!isAuthenticated}
                   >
@@ -227,7 +249,7 @@ const Chat = () => {
                     size="icon"
                     onClick={handleSend}
                     disabled={!message.trim() || !isAuthenticated}
-                    className="h-8 w-8 rounded-full"
+                    className="h-9 w-9 rounded-full bg-gradient-primary hover-lift shadow-lg"
                     aria-label="Send message"
                   >
                     <Send className="h-4 w-4" />
@@ -235,8 +257,9 @@ const Chat = () => {
                 </div>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground mt-2 text-center">
-              MoneyLingo can make mistakes. Check important info.
+            <p className="text-xs text-muted-foreground mt-3 text-center flex items-center justify-center gap-2">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              MoneyLingo can make mistakes. Always verify important financial information.
             </p>
           </div>
         </div>
