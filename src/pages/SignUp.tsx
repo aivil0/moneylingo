@@ -34,13 +34,18 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-subtle px-4 py-12">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 py-12">
+      {/* Background Gradients */}
+      <div className="absolute inset-0 bg-gradient-soft-bg pointer-events-none" />
+      <div className="absolute top-20 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float pointer-events-none" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow pointer-events-none" />
+      
+      <Card className="w-full max-w-md glass-card relative z-10 animate-fade-in-up">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <div className="text-4xl">💰</div>
           </div>
-          <CardTitle className="text-2xl">Create Your Account</CardTitle>
+          <CardTitle className="text-2xl shimmer-text">Create Your Account</CardTitle>
           <CardDescription>Start your financial literacy journey today</CardDescription>
         </CardHeader>
         <CardContent>
@@ -137,7 +142,7 @@ const SignUp = () => {
               </Label>
             </div>
 
-            <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
+            <Button type="submit" className="w-full bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-lg" size="lg" disabled={isLoading}>
               {isLoading ? "Creating account..." : "Create Account"}
             </Button>
 

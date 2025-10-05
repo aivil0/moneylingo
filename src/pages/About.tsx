@@ -30,17 +30,22 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      {/* Background Gradients */}
+      <div className="absolute inset-0 bg-gradient-soft-bg pointer-events-none" />
+      <div className="absolute top-20 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float pointer-events-none" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow pointer-events-none" />
+      
       <Header />
 
-      <main className="flex-1">
+      <main className="flex-1 relative z-10">
         {/* Hero Section */}
-        <section className="bg-primary text-primary-foreground py-20">
+        <section className="py-20 animate-fade-in-up">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 shimmer-text">
               Breaking Down Financial Barriers
             </h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-90">
+            <p className="text-xl max-w-3xl mx-auto text-muted-foreground">
               MoneyLingo was created to make financial literacy accessible to everyone, regardless of language or background.
             </p>
           </div>
@@ -56,7 +61,7 @@ const About = () => {
               </p>
 
               <div className="grid md:grid-cols-2 gap-8">
-                <Card>
+                <Card className="glass-card hover-card-lift">
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-bold mb-4">The Problem</h3>
                     <p className="text-muted-foreground">
@@ -65,7 +70,7 @@ const About = () => {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="glass-card hover-card-lift">
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-bold mb-4">Our Solution</h3>
                     <p className="text-muted-foreground">
@@ -79,7 +84,7 @@ const About = () => {
         </section>
 
         {/* Values Section */}
-        <section className="bg-muted/50 py-20">
+        <section className="py-20">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Our Values</h2>
             <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
@@ -87,13 +92,13 @@ const About = () => {
             </p>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {values.map((value) => {
+              {values.map((value, index) => {
                 const Icon = value.icon;
                 return (
-                  <Card key={value.title} className="text-center">
+                  <Card key={value.title} className="text-center glass-card hover-card-lift animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                     <CardContent className="p-6">
-                      <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                        <Icon className="h-8 w-8 text-primary" aria-hidden="true" />
+                      <div className="h-16 w-16 rounded-full bg-gradient-primary flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <Icon className="h-8 w-8 text-primary-foreground" aria-hidden="true" />
                       </div>
                       <h3 className="text-xl font-bold mb-2">{value.title}</h3>
                       <p className="text-sm text-muted-foreground">{value.description}</p>
@@ -129,21 +134,23 @@ const About = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-primary text-primary-foreground py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Join Us in Breaking Down Barriers
-            </h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Start your journey to financial confidence today, in your own language.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" asChild>
-                <Link to="/signup">Get Started</Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
-                <Link to="/help">Learn More</Link>
-              </Button>
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center glass-card p-8 sm:p-12 rounded-3xl">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 shimmer-text">
+                Join Us in Breaking Down Barriers
+              </h2>
+              <p className="text-xl mb-8 text-muted-foreground max-w-2xl mx-auto">
+                Start your journey to financial confidence today, in your own language.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" asChild className="bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-lg">
+                  <Link to="/signup">Get Started</Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild className="hover-card-lift">
+                  <Link to="/help">Learn More</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

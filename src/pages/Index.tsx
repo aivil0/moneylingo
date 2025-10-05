@@ -156,24 +156,6 @@ const Index = () => {
         {/* Hero Section */}
         <section className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 z-10">
           <div className="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8 animate-fade-in-up">
-            {/* Language Selector */}
-            <div className="flex justify-center gap-2 flex-wrap mb-4">
-              {languages.slice(0, 6).map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => setSelectedLanguage(lang.name)}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                    selectedLanguage === lang.name
-                      ? 'bg-primary text-primary-foreground shadow-md scale-105'
-                      : 'bg-background/60 backdrop-blur-sm border border-border/40 hover:border-primary/40 hover:scale-105'
-                  }`}
-                >
-                  <span className="mr-1.5">{lang.flag}</span>
-                  {lang.name}
-                </button>
-              ))}
-            </div>
-            
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-4">
               <span className="block shimmer-text pb-2">{currentLanguage.greeting}</span>
             </h1>
@@ -181,43 +163,9 @@ const Index = () => {
               Get instant answers to your financial questions in your native language. Our AI assistant breaks down complex concepts into simple, culturally-aware guidance.
             </p>
             
-            {/* Hero Input Field - Floating Design */}
-            <div className="pt-6 sm:pt-8 px-4 max-w-3xl mx-auto">
-              <form onSubmit={handleSearch} className="relative">
-                <div className="relative group glass-card rounded-3xl p-1.5 hover:shadow-2xl transition-all duration-300">
-                  <Input
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={placeholders[placeholderIndex]}
-                    className="h-16 sm:h-20 text-base sm:text-lg pl-6 pr-40 rounded-3xl border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 transition-all duration-300"
-                  />
-                  <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2">
-                    <Button
-                      type="button"
-                      size="icon"
-                      variant="ghost"
-                      onClick={handleVoiceInput}
-                      className="h-12 w-12 rounded-full hover:bg-primary/10 transition-all duration-300"
-                    >
-                      <Mic className="h-5 w-5 text-primary" />
-                    </Button>
-                    <Button 
-                      type="submit"
-                      size="lg" 
-                      className="h-12 sm:h-14 px-6 sm:px-8 bg-gradient-primary hover:scale-105 hover:shadow-lg transition-all duration-300 rounded-full"
-                    >
-                      <Send className="h-5 w-5 sm:mr-2" />
-                      <span className="hidden sm:inline">Ask</span>
-                    </Button>
-                  </div>
-                </div>
-              </form>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-4 text-center animate-fade-in">
-                Available 24/7 in 20+ languages • No credit card required
-              </p>
-              
-              {/* Prominent Call Button */}
-              <div className="mt-8 flex flex-col items-center gap-3 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+            {/* Prominent Call Button */}
+            <div className="pt-6 sm:pt-8 px-4">
+              <div className="flex flex-col items-center gap-3 animate-fade-in-up">
                 <Button
                   onClick={() => setIsCallActive(true)}
                   size="lg"
@@ -231,6 +179,27 @@ const Index = () => {
                   Instant voice guidance in your language
                 </p>
               </div>
+              
+              {/* Language Selector - Moved Below Call Button */}
+              <div className="flex justify-center gap-2 flex-wrap mt-8">
+                {languages.slice(0, 6).map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => setSelectedLanguage(lang.name)}
+                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                      selectedLanguage === lang.name
+                        ? 'bg-primary text-primary-foreground shadow-md scale-105'
+                        : 'bg-background/60 backdrop-blur-sm border border-border/40 hover:border-primary/40 hover:scale-105'
+                    }`}
+                  >
+                    <span className="mr-1.5">{lang.flag}</span>
+                    {lang.name}
+                  </button>
+                ))}
+              </div>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-4 text-center animate-fade-in">
+                Available 24/7 in 20+ languages • No credit card required
+              </p>
             </div>
             
             {/* Quick Action Cards */}
