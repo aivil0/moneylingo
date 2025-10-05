@@ -193,104 +193,12 @@ const Index = () => {
       <Header />
 
       <main className="flex-1 relative overflow-hidden">
-        {/* Help Assistant Piggie - Bottom Left */}
-        <div className="fixed bottom-8 left-8 z-50 group">
-          <div className="relative">
-            {/* Main Piggie Button */}
-            <button
-              onClick={() => {
-                const helpMenu = document.getElementById('help-menu');
-                if (helpMenu) {
-                  helpMenu.classList.toggle('hidden');
-                }
-              }}
-              className="relative bg-gradient-primary rounded-full p-4 shadow-2xl hover:scale-110 transition-all duration-300 bounce-gentle"
-              aria-label="Help assistant"
-            >
-              <PiggyBank className="h-10 w-10 text-primary-foreground drop-shadow-lg" />
-              <div className="absolute -top-1 -right-1 h-3 w-3 bg-accent rounded-full animate-pulse" />
-            </button>
-            
-            {/* Help Menu Popup */}
-            <div
-              id="help-menu"
-              className="hidden absolute bottom-20 left-0 bg-card border border-border shadow-2xl rounded-2xl p-6 w-80 animate-scale-in"
-            >
-              <div className="space-y-4">
-                <div className="flex items-start gap-3 pb-4 border-b border-border">
-                  <PiggyBank className="h-8 w-8 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-lg">Need Help?</h3>
-                    <p className="text-sm text-muted-foreground">I'm here to guide you!</p>
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Button
-                    onClick={() => {
-                      setIsCallActive(true);
-                      document.getElementById('help-menu')?.classList.add('hidden');
-                    }}
-                    className="w-full justify-start"
-                    variant="ghost"
-                  >
-                    <Phone className="h-4 w-4 mr-2" />
-                    Talk to AI Assistant
-                  </Button>
-                  
-                  <Button
-                    onClick={() => {
-                      navigate('/chat');
-                      document.getElementById('help-menu')?.classList.add('hidden');
-                    }}
-                    className="w-full justify-start"
-                    variant="ghost"
-                  >
-                    <MessageSquare className="h-4 w-4 mr-2" />
-                    Start a Chat
-                  </Button>
-                  
-                  <Button
-                    onClick={() => {
-                      navigate('/documents');
-                      document.getElementById('help-menu')?.classList.add('hidden');
-                    }}
-                    className="w-full justify-start"
-                    variant="ghost"
-                  >
-                    <FileText className="h-4 w-4 mr-2" />
-                    Upload Documents
-                  </Button>
-                  
-                  <Button
-                    onClick={() => {
-                      document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
-                      document.getElementById('help-menu')?.classList.add('hidden');
-                    }}
-                    className="w-full justify-start"
-                    variant="ghost"
-                  >
-                    <Headphones className="h-4 w-4 mr-2" />
-                    View FAQ
-                  </Button>
-                  
-                  <Button
-                    onClick={() => {
-                      if (!isAuthenticated) {
-                        setShowOnboarding(true);
-                      } else {
-                        navigate('/dashboard');
-                      }
-                      document.getElementById('help-menu')?.classList.add('hidden');
-                    }}
-                    className="w-full justify-start bg-primary/10 hover:bg-primary/20"
-                    variant="ghost"
-                  >
-                    <Target className="h-4 w-4 mr-2" />
-                    Get Started
-                  </Button>
-                </div>
-              </div>
+        {/* Floating mascot */}
+        <div className="fixed bottom-24 right-8 z-50 bounce-gentle">
+          <div className="relative group cursor-pointer" onClick={() => toast({ title: "MoneyLingo Assistant", description: "I'm here to help! Click Get Started to begin." })}>
+            <PiggyBank className="h-16 w-16 text-primary drop-shadow-lg" />
+            <div className="absolute -top-12 right-0 bg-card text-card-foreground px-3 py-1.5 rounded-lg shadow-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              Need help? 👋
             </div>
           </div>
         </div>
