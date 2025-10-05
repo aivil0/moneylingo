@@ -28,28 +28,37 @@ const Documents = () => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      {/* Main Gradient Background */}
+      <div className="fixed inset-0 bg-gradient-main pointer-events-none" />
+      
+      {/* Cloud-like soft shapes */}
+      <div className="fixed inset-0 bg-gradient-clouds pointer-events-none" />
+      
+      {/* Subtle overlay for depth */}
+      <div className="fixed inset-0 bg-gradient-to-b from-transparent via-background/5 to-background/20 pointer-events-none" />
+      
       <Header />
 
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Document Analysis</h1>
-          <p className="text-muted-foreground">
+      <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10 animate-fade-in">
+        <div className="mb-6 sm:mb-8 animate-scale-in">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">Document Analysis</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Upload your financial documents for AI-powered explanations in your language.
           </p>
         </div>
 
         {/* Auth Alert */}
         {!isAuthenticated && (
-          <Alert className="mb-6 border-primary/50 bg-primary/5">
+          <Alert className="mb-4 sm:mb-6 border-primary/50 bg-primary/5 animate-fade-in">
             <Lock className="h-4 w-4 text-primary" />
-            <AlertDescription className="flex items-center justify-between">
-              <span>Sign in to upload and analyze your financial documents securely.</span>
-              <div className="flex gap-2 ml-4">
-                <Button size="sm" asChild>
+            <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between">
+              <span className="text-sm">Sign in to upload and analyze your financial documents securely.</span>
+              <div className="flex gap-2 w-full sm:w-auto sm:ml-4">
+                <Button size="sm" asChild className="flex-1 sm:flex-initial hover-lift">
                   <Link to="/signin">Sign In</Link>
                 </Button>
-                <Button size="sm" variant="outline" asChild>
+                <Button size="sm" variant="outline" asChild className="flex-1 sm:flex-initial hover-lift">
                   <Link to="/signup">Sign Up</Link>
                 </Button>
               </div>
@@ -58,7 +67,7 @@ const Documents = () => {
         )}
 
         {/* Upload Section */}
-        <Card className={`mb-8 border-2 border-dashed transition-colors ${!isAuthenticated ? 'opacity-60' : 'hover:border-primary/50'}`}>
+        <Card className={`mb-6 sm:mb-8 border-2 border-dashed transition-all bg-gradient-card animate-fade-in-up ${!isAuthenticated ? 'opacity-60' : 'hover:border-primary/50 hover-lift'}`}>
           <CardContent className="p-12">
             <div className="text-center space-y-4">
               <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
@@ -73,7 +82,7 @@ const Documents = () => {
                   Supported formats: PDF, JPG, PNG (Max 10MB)
                 </p>
               </div>
-              <Button size="lg" className="mt-4" disabled={!isAuthenticated}>
+              <Button size="lg" className="mt-4 hover-lift" disabled={!isAuthenticated}>
                 <Upload className="mr-2 h-5 w-5" />
                 Choose Files
               </Button>
@@ -82,7 +91,7 @@ const Documents = () => {
         </Card>
 
         {/* Security Notice */}
-        <Card className="mb-8 border-primary/20 bg-primary/5">
+        <Card className="mb-6 sm:mb-8 border-primary/20 bg-gradient-card animate-fade-in">
           <CardContent className="p-6">
             <div className="flex items-start gap-4">
               <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -99,10 +108,10 @@ const Documents = () => {
         </Card>
 
         {/* Document List */}
-        <div>
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Your Documents</h2>
-            <div className="relative max-w-sm">
+        <div className="animate-fade-in-up">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold">Your Documents</h2>
+            <div className="relative w-full sm:max-w-sm">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search documents..."
@@ -114,9 +123,9 @@ const Documents = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {filteredDocs.map((doc) => (
-              <Card key={doc.id} className="hover:border-primary/50 transition-colors">
+              <Card key={doc.id} className="hover:border-primary/50 transition-all bg-gradient-card hover-lift">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -140,11 +149,11 @@ const Documents = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline" className="flex-1" disabled={!isAuthenticated}>
+                    <Button size="sm" variant="outline" className="flex-1 hover-lift" disabled={!isAuthenticated}>
                       <Eye className="mr-2 h-4 w-4" />
                       View
                     </Button>
-                    <Button size="sm" variant="ghost" disabled={!isAuthenticated}>
+                    <Button size="sm" variant="ghost" className="hover-lift" disabled={!isAuthenticated}>
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </div>

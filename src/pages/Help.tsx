@@ -71,22 +71,31 @@ const Help = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      {/* Main Gradient Background */}
+      <div className="fixed inset-0 bg-gradient-main pointer-events-none" />
+      
+      {/* Cloud-like soft shapes */}
+      <div className="fixed inset-0 bg-gradient-clouds pointer-events-none" />
+      
+      {/* Subtle overlay for depth */}
+      <div className="fixed inset-0 bg-gradient-to-b from-transparent via-background/5 to-background/20 pointer-events-none" />
+      
       <Header />
 
-      <main className="flex-1">
+      <main className="flex-1 relative z-10">
         {/* Hero Section */}
-        <section className="bg-muted/50 py-16">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">How Can We Help?</h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+        <section className="py-12 sm:py-16 animate-fade-in-up">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4 sm:mb-6">How Can We Help?</h1>
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
               Find answers to common questions or reach out to our support team
             </p>
-            <div className="max-w-2xl mx-auto relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <div className="max-w-2xl mx-auto relative px-4">
+              <Search className="absolute left-8 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
                 placeholder="Search for help..."
-                className="pl-12 h-14 text-lg"
+                className="pl-12 h-12 sm:h-14 text-base sm:text-lg"
                 aria-label="Search help articles"
               />
             </div>
@@ -94,14 +103,14 @@ const Help = () => {
         </section>
 
         {/* Quick Links */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12">Quick Help</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <section className="py-12 sm:py-16 bg-background/80">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 animate-scale-in">Quick Help</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto animate-fade-in">
               {resources.map((resource) => {
                 const Icon = resource.icon;
                 return (
-                  <Card key={resource.title} className="hover:border-primary/50 transition-colors cursor-pointer">
+                  <Card key={resource.title} className="hover:border-primary/50 transition-all cursor-pointer bg-gradient-card hover-lift">
                     <CardHeader className="text-center">
                       <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                         <Icon className="h-8 w-8 text-primary" aria-hidden="true" />
@@ -117,17 +126,17 @@ const Help = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="bg-muted/50 py-16">
-          <div className="container mx-auto px-4">
+        <section className="py-12 sm:py-16 bg-background/60">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-center mb-4">Frequently Asked Questions</h2>
-              <p className="text-muted-foreground text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3 sm:mb-4 animate-scale-in">Frequently Asked Questions</h2>
+              <p className="text-sm sm:text-base text-muted-foreground text-center mb-8 sm:mb-12 px-4">
                 Find answers to the most common questions about MoneyLingo
               </p>
 
-              <Accordion type="single" collapsible className="space-y-4">
+              <Accordion type="single" collapsible className="space-y-3 sm:space-y-4 animate-fade-in">
                 {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="bg-background border rounded-lg px-6">
+                  <AccordionItem key={index} value={`item-${index}`} className="bg-gradient-card border rounded-lg px-4 sm:px-6">
                     <AccordionTrigger className="text-left hover:no-underline">
                       <span className="font-semibold">{faq.question}</span>
                     </AccordionTrigger>
@@ -142,27 +151,27 @@ const Help = () => {
         </section>
 
         {/* Contact Section */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <Card className="max-w-2xl mx-auto">
+        <section className="py-12 sm:py-16 bg-background/80">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <Card className="max-w-2xl mx-auto bg-gradient-card animate-scale-in hover-lift">
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Still Need Help?</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-xl sm:text-2xl">Still Need Help?</CardTitle>
+                <CardDescription className="text-sm sm:text-base">
                   Our support team is here to help you in your language
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <Button className="w-full" size="lg" asChild>
+              <CardContent className="space-y-3 sm:space-y-4">
+                <Button className="w-full hover-lift" size="lg" asChild>
                   <Link to="/chat">
                     <MessageSquare className="mr-2 h-5 w-5" />
                     Chat with AI Assistant
                   </Link>
                 </Button>
-                <Button variant="outline" className="w-full" size="lg">
+                <Button variant="outline" className="w-full hover-lift" size="lg">
                   <Mail className="mr-2 h-5 w-5" />
                   Email Support Team
                 </Button>
-                <p className="text-center text-sm text-muted-foreground pt-4">
+                <p className="text-center text-xs sm:text-sm text-muted-foreground pt-2 sm:pt-4">
                   Average response time: Less than 24 hours
                 </p>
               </CardContent>
