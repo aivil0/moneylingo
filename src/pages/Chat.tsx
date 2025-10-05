@@ -3,8 +3,9 @@ import { Input } from "@/components/ui/input";
 import { Header } from "@/components/Header";
 import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
 import { useState, useEffect, useRef } from "react";
-import { Mic, Send, Volume2, Phone, PhoneOff } from "lucide-react";
+import { Mic, Send, Volume2, Phone, PhoneOff, TrendingUp, PieChart, BarChart3, Wallet } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -20,6 +21,13 @@ const Chat = () => {
     "Ask about your credit score…",
     "Type your question in any language…",
     "Need help with taxes?",
+  ];
+
+  const starterQuestions = [
+    { icon: TrendingUp, text: "What's my portfolio performance?", query: "Show me my portfolio performance analysis" },
+    { icon: PieChart, text: "Analyze my spending habits", query: "Analyze my spending habits and provide insights" },
+    { icon: BarChart3, text: "Investment recommendations", query: "What are good investment opportunities for me?" },
+    { icon: Wallet, text: "Budget planning help", query: "Help me create a monthly budget plan" }
   ];
 
   useEffect(() => {
@@ -113,6 +121,11 @@ const Chat = () => {
     }
   };
 
+  const handleStarterClick = (query: string) => {
+    setMessage(query);
+    setTimeout(() => handleSendMessage(query), 100);
+  };
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -133,6 +146,13 @@ const Chat = () => {
       {/* Floating decorative elements */}
       <div className="absolute top-20 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float pointer-events-none" />
       <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-secondary/5 rounded-full blur-2xl animate-float pointer-events-none" style={{ animationDelay: '1s' }} />
+      
+      {/* Floating Financial Icons */}
+      <TrendingUp className="absolute top-32 right-20 w-12 h-12 text-primary/10 animate-float pointer-events-none" style={{ animationDelay: '0.5s' }} />
+      <PieChart className="absolute bottom-40 left-20 w-16 h-16 text-accent/10 animate-float pointer-events-none" style={{ animationDelay: '1.5s' }} />
+      <BarChart3 className="absolute top-1/2 left-1/3 w-10 h-10 text-secondary/10 animate-float pointer-events-none" style={{ animationDelay: '2.5s' }} />
+      <Wallet className="absolute bottom-1/3 right-1/3 w-14 h-14 text-primary/10 animate-float pointer-events-none" style={{ animationDelay: '3s' }} />
       
       <Header />
 
@@ -160,13 +180,58 @@ const Chat = () => {
         <div className="flex-1 overflow-y-auto">
           <div className="w-full px-4 py-4">
             {messages.length === 1 && (
-              <div className="text-center mb-12 animate-fade-in">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold shimmer-text mb-4 pb-2 leading-tight px-2">
-                  How can I help you today?
-                </h1>
-                <p className="text-base sm:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto px-4">
-                  Ask me anything about credit, taxes, mortgages, or financial planning in your language
-                </p>
+              <div className="text-center mb-12 animate-fade-in space-y-8">
+                <div className="space-y-4">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold shimmer-text pb-2 leading-tight px-2">
+                    How can I help you today?
+                  </h1>
+                  <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
+                    Ask me anything about credit, taxes, mortgages, or financial planning in your language
+                  </p>
+                </div>
+
+                {/* Conversation Starters */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                  {starterQuestions.map((starter, index) => {
+                    const Icon = starter.icon;
+                    return (
+                      <Card
+                        key={index}
+                        className="glass-card hover-card-lift cursor-pointer transition-all duration-300 border-primary/20 hover:border-primary/40"
+                        onClick={() => handleStarterClick(starter.query)}
+                      >
+                        <CardContent className="p-6 flex items-start gap-4">
+                          <div className="p-3 rounded-lg bg-gradient-primary shrink-0">
+                            <Icon className="w-6 h-6 text-white" />
+                          </div>
+                          <div className="flex-1 text-left">
+                            <p className="font-medium text-foreground">{starter.text}</p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+
+                {/* Call to Action - Voice Call */}
+                <div className="max-w-xl mx-auto mt-12 p-8 glass-card rounded-2xl border-2 border-primary/30">
+                  <div className="space-y-4">
+                    <h3 className="text-2xl font-bold shimmer-text">
+                      Prefer to Talk?
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Get instant voice assistance with our AI financial advisor
+                    </p>
+                    <Button
+                      onClick={toggleCall}
+                      size="lg"
+                      className="bg-gradient-glow text-white font-semibold px-8 py-6 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 animate-glow-pulse"
+                    >
+                      <Phone className="mr-2 h-6 w-6" />
+                      Start Voice Call
+                    </Button>
+                  </div>
+                </div>
               </div>
             )}
 
