@@ -24,8 +24,8 @@ export const Header = () => {
 
   const navigation = [
     { name: "Chat", href: "/chat" },
-    { name: "Dashboard", href: "/dashboard" },
     { name: "Documents", href: "/documents" },
+    { name: "Dashboard", href: "/dashboard" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
