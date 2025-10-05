@@ -199,22 +199,17 @@ const Index = () => {
         <TooltipProvider>
           <div className="fixed bottom-8 right-8 z-50">
             <div className="relative">
-              {/* Help Menu - Glassmorphic Design */}
+              {/* Help Menu - Speech Bubble Design */}
               {showHelpMenu && (
-                <div className="absolute bottom-20 right-0 w-56 animate-scale-in">
-                  <div className="bg-background/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] p-3 overflow-hidden">
+                <div className="absolute bottom-14 right-2 w-48 animate-scale-in origin-bottom-right">
+                  <div className="relative bg-background/90 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] p-2 overflow-hidden">
                     {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
                     
-                    {/* Header */}
-                    <div className="relative mb-3 pb-2 border-b border-border/40">
-                      <h3 className="font-semibold text-xs text-muted-foreground flex items-center gap-1.5">
-                        <Sparkles className="h-3 w-3 text-primary" />
-                        How can I help you?
-                      </h3>
-                    </div>
+                    {/* Speech bubble tail */}
+                    <div className="absolute -bottom-2 right-6 w-4 h-4 bg-background/90 backdrop-blur-xl border-r border-b border-primary/20 transform rotate-45" />
                     
-                    {/* Menu Items - Vertical Grid */}
+                    {/* Menu Items - Compact Vertical */}
                     <div className="relative space-y-1">
                       {/* Chat with AI */}
                       <Tooltip>
@@ -224,16 +219,16 @@ const Index = () => {
                               navigate('/chat');
                               setShowHelpMenu(false);
                             }}
-                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-background/50 hover:bg-primary/10 border border-transparent hover:border-primary/30 transition-all duration-200 group"
+                            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg bg-background/50 hover:bg-primary/10 border border-transparent hover:border-primary/30 transition-all duration-200 group"
                           >
-                            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <MessageSquare className="h-4 w-4 text-primary" />
+                            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <MessageSquare className="h-3.5 w-3.5 text-primary" />
                             </div>
-                            <span className="text-sm font-medium text-foreground">Chat with AI</span>
+                            <span className="text-xs font-medium text-foreground">Chat with AI</span>
                           </button>
                         </TooltipTrigger>
                         <TooltipContent side="left">
-                          <p>Start a text conversation with our AI assistant</p>
+                          <p>Start a text conversation</p>
                         </TooltipContent>
                       </Tooltip>
 
@@ -245,16 +240,16 @@ const Index = () => {
                               navigate('/documents');
                               setShowHelpMenu(false);
                             }}
-                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-background/50 hover:bg-accent/10 border border-transparent hover:border-accent/30 transition-all duration-200 group"
+                            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg bg-background/50 hover:bg-accent/10 border border-transparent hover:border-accent/30 transition-all duration-200 group"
                           >
-                            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <FileText className="h-4 w-4 text-accent" />
+                            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <FileText className="h-3.5 w-3.5 text-accent" />
                             </div>
-                            <span className="text-sm font-medium text-foreground">Upload Docs</span>
+                            <span className="text-xs font-medium text-foreground">Upload Docs</span>
                           </button>
                         </TooltipTrigger>
                         <TooltipContent side="left">
-                          <p>Upload financial documents for analysis</p>
+                          <p>Upload documents for analysis</p>
                         </TooltipContent>
                       </Tooltip>
 
@@ -266,12 +261,12 @@ const Index = () => {
                               document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
                               setShowHelpMenu(false);
                             }}
-                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-background/50 hover:bg-primary/10 border border-transparent hover:border-primary/30 transition-all duration-200 group"
+                            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg bg-background/50 hover:bg-primary/10 border border-transparent hover:border-primary/30 transition-all duration-200 group"
                           >
-                            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <Shield className="h-4 w-4 text-primary" />
+                            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <Shield className="h-3.5 w-3.5 text-primary" />
                             </div>
-                            <span className="text-sm font-medium text-foreground">FAQs</span>
+                            <span className="text-xs font-medium text-foreground">FAQs</span>
                           </button>
                         </TooltipTrigger>
                         <TooltipContent side="left">
@@ -287,16 +282,16 @@ const Index = () => {
                               handleGetStarted();
                               setShowHelpMenu(false);
                             }}
-                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 border border-primary/40 transition-all duration-200 group shadow-sm"
+                            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 border border-primary/40 transition-all duration-200 group shadow-sm"
                           >
-                            <div className="h-8 w-8 rounded-lg bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <Target className="h-4 w-4 text-white" />
+                            <div className="h-7 w-7 rounded-md bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <Target className="h-3.5 w-3.5 text-white" />
                             </div>
-                            <span className="text-sm font-semibold text-white">Get Started</span>
+                            <span className="text-xs font-semibold text-white">Get Started</span>
                           </button>
                         </TooltipTrigger>
                         <TooltipContent side="left">
-                          <p>Begin your financial journey with MoneyLingo</p>
+                          <p>Begin your financial journey</p>
                         </TooltipContent>
                       </Tooltip>
                     </div>
