@@ -97,29 +97,17 @@ const Index = () => {
   ];
   
   const features = [{
-    icon: CreditCard,
-    title: "Credit Building",
-    description: "Learn how to build and improve your credit score with personalized strategies."
+    icon: MessageSquare,
+    title: "AI Financial Assistant",
+    description: "Get instant answers to your financial questions in your native language. Our AI breaks down complex concepts into simple, culturally-aware guidance through natural conversation."
   }, {
     icon: FileText,
     title: "Document Analysis",
-    description: "Upload tax forms, credit statements, or financial documents for clear explanations."
+    description: "Upload tax forms, credit statements, bank documents, or any financial paperwork for instant analysis. Receive clear explanations and actionable insights in seconds."
   }, {
-    icon: Wallet,
-    title: "Budget Planning",
-    description: "Create personalized budgets that work for your income and lifestyle."
-  }, {
-    icon: Globe,
-    title: "Multi-Language Support",
-    description: "Available in English, Spanish, Chinese, Arabic, Hindi, French, and more."
-  }, {
-    icon: TrendingDown,
-    title: "Debt Management",
-    description: "Get strategies to reduce debt and manage payments effectively."
-  }, {
-    icon: Shield,
-    title: "Bank-Level Security",
-    description: "Your financial data is protected with industry-leading encryption and security measures."
+    icon: Target,
+    title: "Personalized Financial Plans",
+    description: "Create customized financial strategies tailored to your goals and situation. Track your progress, build credit, manage debt, and achieve financial confidence."
   }];
   const values = [{
     icon: Heart,
@@ -238,27 +226,6 @@ const Index = () => {
                 Available 24/7 in 20+ languages • No credit card required
               </p>
             </div>
-            
-            {/* Quick Action Cards */}
-            <div className="grid sm:grid-cols-3 gap-4 max-w-4xl mx-auto mt-12">
-              <Link to="/chat" className="glass-card p-6 rounded-2xl hover-card-lift group">
-                <MessageSquare className="h-10 w-10 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="font-semibold text-lg mb-2">AI Chat</h3>
-                <p className="text-sm text-muted-foreground">Ask anything about finances</p>
-              </Link>
-              
-              <Link to="/documents" className="glass-card p-6 rounded-2xl hover-card-lift group">
-                <FileText className="h-10 w-10 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="font-semibold text-lg mb-2">Documents</h3>
-                <p className="text-sm text-muted-foreground">Upload & analyze files</p>
-              </Link>
-              
-              <button onClick={handleGetStarted} className="glass-card p-6 rounded-2xl hover-card-lift group glow-pulse">
-                <Target className="h-10 w-10 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="font-semibold text-lg mb-2">Get Started</h3>
-                <p className="text-sm text-muted-foreground">Create your plan</p>
-              </button>
-            </div>
           </div>
         </section>
 
@@ -281,17 +248,17 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {features.map((feature, index) => {
               const Icon = feature.icon;
-              return <div key={feature.title} className="bg-background/80 backdrop-blur-sm border border-border/40 shadow-md p-6 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group animate-fade-in-up" style={{
+              return <div key={feature.title} className="bg-background/80 backdrop-blur-sm border border-border/40 shadow-md p-8 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group animate-fade-in-up" style={{
                 animationDelay: `${index * 0.1}s`
               }}>
-                    <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                      <Icon className="h-6 w-6 text-primary-foreground" />
+                    <div className="h-14 w-14 rounded-xl bg-gradient-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <Icon className="h-7 w-7 text-primary-foreground" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+                    <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                    <p className="text-base text-muted-foreground leading-relaxed">{feature.description}</p>
                   </div>;
             })}
             </div>
