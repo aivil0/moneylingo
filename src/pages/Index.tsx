@@ -220,9 +220,33 @@ const Index = () => {
         </TooltipProvider>
         
         {/* Hero Section with radial gradient background */}
-        <section className="relative px-6 pt-24 pb-32 z-10" style={{ 
+        <section className="relative px-6 pt-24 pb-32 z-10 overflow-hidden" style={{ 
           background: 'radial-gradient(ellipse 100% 60% at 50% 0%, hsl(192, 100%, 97%), hsl(0, 0%, 100%) 70%)'
         }}>
+          {/* Floating gradient orb animation */}
+          <div 
+            className="absolute floating-gradient-orb pointer-events-none"
+            style={{
+              width: '450px',
+              height: '450px',
+              top: '10%',
+              left: '5%',
+              background: 'radial-gradient(circle, hsl(180, 62%, 45%) 0%, hsl(160, 70%, 50%) 30%, hsl(45, 95%, 65%) 60%, transparent 100%)',
+              borderRadius: '50%',
+            }}
+          />
+          <div 
+            className="absolute floating-gradient-orb pointer-events-none"
+            style={{
+              width: '400px',
+              height: '400px',
+              top: '30%',
+              right: '10%',
+              background: 'radial-gradient(circle, hsl(192, 81%, 50%) 0%, hsl(180, 62%, 45%) 40%, hsl(25, 95%, 63%) 70%, transparent 100%)',
+              borderRadius: '50%',
+              animationDelay: '-10s',
+            }}
+          />
           <div className="container mx-auto max-w-6xl text-center space-y-8 animate-fade-in-up">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-4">
               <span className="block shimmer-text pb-2">{currentLanguage.greeting}</span>
