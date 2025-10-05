@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Link } from "react-router-dom";
-import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target, Send } from "lucide-react";
 const Index = () => {
+  const navigate = useNavigate();
+  
   const features = [{
     icon: MessageSquare,
     title: "AI Chat in Your Language",
@@ -70,13 +73,32 @@ const Index = () => {
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto px-4 sm:px-6">
               Get instant answers to your financial questions in your native language. Our AI assistant breaks down complex concepts into simple, culturally-aware guidance.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center pt-4 sm:pt-6 px-4">
-              <Button size="lg" asChild className="w-full sm:w-auto min-w-[240px] hover-lift shadow-2xl bg-gradient-primary text-base sm:text-lg py-5 sm:py-6 h-auto">
-                <Link to="/chat">🚀 Start Chatting Now</Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="w-full sm:w-auto min-w-[200px] hover-lift py-5 sm:py-6 h-auto">
-                <Link to="/signup">Create Free Account</Link>
-              </Button>
+            
+            {/* Hero Input Field */}
+            <div className="pt-6 sm:pt-8 px-4 max-w-3xl mx-auto">
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                navigate('/chat');
+              }} className="relative">
+                <div className="relative group">
+                  <Input
+                    placeholder="Ask about credit scores, taxes, mortgages, or any financial topic..."
+                    className="h-16 sm:h-20 text-base sm:text-lg pl-6 pr-32 rounded-2xl border-2 border-border/50 bg-background/80 backdrop-blur-sm shadow-2xl hover:border-primary/50 focus:border-primary transition-all"
+                    onFocus={() => navigate('/chat')}
+                  />
+                  <Button 
+                    type="submit"
+                    size="lg" 
+                    className="absolute right-2 top-1/2 -translate-y-1/2 h-12 sm:h-16 px-6 sm:px-8 bg-gradient-primary hover-lift shadow-xl"
+                  >
+                    <Send className="h-5 w-5 sm:mr-2" />
+                    <span className="hidden sm:inline">Ask Now</span>
+                  </Button>
+                </div>
+              </form>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-4 text-center">
+                Available 24/7 in 20+ languages • No credit card required
+              </p>
             </div>
             
             {/* Chat Feature Highlight */}
