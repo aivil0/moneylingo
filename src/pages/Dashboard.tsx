@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { AuthGuard } from "@/components/AuthGuard";
 import { Link } from "react-router-dom";
 import { MessageSquare, FileText, TrendingUp, Clock, CheckCircle2 } from "lucide-react";
 
@@ -19,8 +20,9 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
+    <AuthGuard>
+      <div className="min-h-screen flex flex-col">
+        <Header />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="mb-8">
@@ -185,7 +187,8 @@ const Dashboard = () => {
       </main>
 
       <Footer />
-    </div>
+      </div>
+    </AuthGuard>
   );
 };
 

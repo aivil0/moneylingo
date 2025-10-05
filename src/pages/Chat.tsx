@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Header } from "@/components/Header";
+import { AuthGuard } from "@/components/AuthGuard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
 import { Mic, Send, Paperclip, Volume2 } from "lucide-react";
@@ -49,10 +50,11 @@ const Chat = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
+    <AuthGuard>
+      <div className="min-h-screen flex flex-col">
+        <Header />
 
-      <main className="flex-1 container mx-auto px-4 py-8 flex flex-col max-w-5xl">
+        <main className="flex-1 container mx-auto px-4 py-8 flex flex-col max-w-5xl">
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-foreground mb-2">AI Financial Assistant</h1>
@@ -177,7 +179,8 @@ const Chat = () => {
           </div>
         </div>
       </main>
-    </div>
+      </div>
+    </AuthGuard>
   );
 };
 

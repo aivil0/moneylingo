@@ -3,12 +3,36 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignIn = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // Mock authentication - in production, this would call your backend
+    setTimeout(() => {
+      localStorage.setItem("isAuthenticated", "true");
+      toast({
+        title: "Welcome back!",
+        description: "You've successfully signed in.",
+      });
+      setIsLoading(false);
+      navigate("/dashboard");
+    }, 1000);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-subtle px-4 py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
@@ -18,7 +42,7 @@ const SignIn = () => {
           <CardDescription>Sign in to your MoneyLingo account</CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
+          <form onSubmit={handleSignIn} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
@@ -28,6 +52,8 @@ const SignIn = () => {
                   type="email"
                   placeholder="your@email.com"
                   className="pl-10"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   aria-required="true"
                 />
@@ -43,6 +69,8 @@ const SignIn = () => {
                   type="password"
                   placeholder="••••••••"
                   className="pl-10"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   aria-required="true"
                 />
@@ -64,8 +92,8 @@ const SignIn = () => {
               </a>
             </div>
 
-            <Button type="submit" className="w-full" size="lg">
-              Sign In
+            <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
+              {isLoading ? "Signing in..." : "Sign In"}
             </Button>
 
             <div className="relative my-6">

@@ -68,7 +68,7 @@ const Index = () => {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-20 md:py-32">
+        <section className="container mx-auto px-4 py-20 md:py-32 bg-gradient-to-br from-background via-background to-primary/5">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
               Financial Literacy
@@ -89,7 +89,7 @@ const Index = () => {
         </section>
 
         {/* Mission Section */}
-        <section className="bg-primary text-primary-foreground py-20">
+        <section className="bg-gradient-primary text-primary-foreground py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">Our Mission</h2>
@@ -254,7 +254,7 @@ const Index = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-primary text-primary-foreground py-20">
+        <section className="bg-gradient-hero text-primary-foreground py-20">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Take Control of Your Finances?

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { AuthGuard } from "@/components/AuthGuard";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Upload, FileText, Search, Shield, Trash2, Eye } from "lucide-react";
@@ -20,8 +21,9 @@ const Documents = () => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
+    <AuthGuard>
+      <div className="min-h-screen flex flex-col">
+        <Header />
 
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="mb-8">
@@ -139,7 +141,8 @@ const Documents = () => {
       </main>
 
       <Footer />
-    </div>
+      </div>
+    </AuthGuard>
   );
 };
 

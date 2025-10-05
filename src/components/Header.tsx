@@ -1,16 +1,29 @@
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Menu, X, Globe } from "lucide-react";
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [language, setLanguage] = useState("en");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isAuthenticated") === "true";
+    setIsAuthenticated(authStatus);
+  }, [location]);
+
+  const handleSignOut = () => {
+    localStorage.removeItem("isAuthenticated");
+    setIsAuthenticated(false);
+    navigate("/");
+  };
 
   const navigation = [
-    { name: "Home", href: "/home" },
+    { name: "Home", href: "/" },
     { name: "Dashboard", href: "/dashboard" },
     { name: "Chat", href: "/chat" },
     { name: "Documents", href: "/documents" },
@@ -61,12 +74,20 @@ export const Header = () => {
           </Select>
 
           <div className="hidden md:flex items-center gap-2">
-            <Button variant="ghost" asChild>
-              <Link to="/signin">Sign In</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/signup">Get Started</Link>
-            </Button>
+            {isAuthenticated ? (
+              <Button variant="outline" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            ) : (
+              <>
+                <Button variant="ghost" asChild>
+                  <Link to="/signin">Sign In</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/signup">Get Started</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           <Button
@@ -99,16 +120,24 @@ export const Header = () => {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-4 border-t">
-              <Button variant="ghost" asChild className="w-full">
-                <Link to="/signin" onClick={() => setMobileMenuOpen(false)}>
-                  Sign In
-                </Link>
-              </Button>
-              <Button asChild className="w-full">
-                <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
-                  Get Started
-                </Link>
-              </Button>
+              {isAuthenticated ? (
+                <Button variant="outline" onClick={handleSignOut} className="w-full">
+                  Sign Out
+                </Button>
+              ) : (
+                <>
+                  <Button variant="ghost" asChild className="w-full">
+                    <Link to="/signin" onClick={() => setMobileMenuOpen(false)}>
+                      Sign In
+                    </Link>
+                  </Button>
+                  <Button asChild className="w-full">
+                    <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
+                      Get Started
+                    </Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
