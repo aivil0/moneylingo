@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
-import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones } from "lucide-react";
+import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target } from "lucide-react";
 
 const Index = () => {
   const features = [
@@ -39,6 +39,29 @@ const Index = () => {
     },
   ];
 
+  const values = [
+    {
+      icon: Heart,
+      title: "Empathy First",
+      description: "We understand the challenges immigrants and ESL speakers face in navigating complex financial systems.",
+    },
+    {
+      icon: Users,
+      title: "Cultural Inclusivity",
+      description: "Financial advice that respects and incorporates diverse cultural perspectives and experiences.",
+    },
+    {
+      icon: Target,
+      title: "Clear Communication",
+      description: "Breaking down complex financial jargon into simple, accessible language everyone can understand.",
+    },
+    {
+      icon: Shield,
+      title: "Trust & Security",
+      description: "Your financial information is protected with the highest security standards in the industry.",
+    },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -65,8 +88,40 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Mission Section */}
+        <section className="bg-primary text-primary-foreground py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">Our Mission</h2>
+              <p className="text-lg text-center mb-12 opacity-90">
+                We believe financial literacy should not be limited by language barriers or cultural unfamiliarity with the American financial system. Our mission is to empower immigrants and ESL speakers with the knowledge and tools they need to achieve financial success.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <Card className="bg-primary-foreground text-foreground">
+                  <CardContent className="p-8">
+                    <h3 className="text-2xl font-bold mb-4">The Problem</h3>
+                    <p className="text-muted-foreground">
+                      Millions of immigrants and ESL speakers struggle to understand financial documents, credit systems, and tax requirements in their non-native language. This creates barriers to financial security and opportunity.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-primary-foreground text-foreground">
+                  <CardContent className="p-8">
+                    <h3 className="text-2xl font-bold mb-4">Our Solution</h3>
+                    <p className="text-muted-foreground">
+                      AI-powered financial guidance in your native language, with culturally-aware explanations and personalized support that makes complex financial concepts accessible to everyone.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Features Section */}
-        <section className="bg-muted/50 py-20">
+        <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -89,6 +144,33 @@ const Index = () => {
                       <CardTitle className="text-xl">{feature.title}</CardTitle>
                       <CardDescription className="text-base">{feature.description}</CardDescription>
                     </CardHeader>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Values Section */}
+        <section className="bg-muted/50 py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Our Values</h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+              These principles guide everything we do at MoneyLingo
+            </p>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {values.map((value) => {
+                const Icon = value.icon;
+                return (
+                  <Card key={value.title} className="text-center">
+                    <CardContent className="p-6">
+                      <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                        <Icon className="h-8 w-8 text-primary" aria-hidden="true" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{value.title}</h3>
+                      <p className="text-sm text-muted-foreground">{value.description}</p>
+                    </CardContent>
                   </Card>
                 );
               })}
@@ -142,6 +224,29 @@ const Index = () => {
                   <p className="text-muted-foreground">
                     Receive clear explanations and customized financial plans tailored to your situation.
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Impact Section */}
+        <section className="bg-muted/50 py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-12">Making an Impact</h2>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div>
+                  <p className="text-5xl font-bold text-primary mb-2">10K+</p>
+                  <p className="text-muted-foreground">Users Served</p>
+                </div>
+                <div>
+                  <p className="text-5xl font-bold text-primary mb-2">25+</p>
+                  <p className="text-muted-foreground">Languages Supported</p>
+                </div>
+                <div>
+                  <p className="text-5xl font-bold text-primary mb-2">50K+</p>
+                  <p className="text-muted-foreground">Documents Analyzed</p>
                 </div>
               </div>
             </div>
