@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { PhoneOff, Mic, MicOff } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface VoiceCallInterfaceProps {
   isActive: boolean;
@@ -8,6 +9,7 @@ interface VoiceCallInterfaceProps {
 }
 
 export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps) => {
+  const { t } = useLanguage();
   const [isMuted, setIsMuted] = useState(false);
   const [isAISpeaking, setIsAISpeaking] = useState(false);
   const [audioLevel, setAudioLevel] = useState(0);
@@ -54,7 +56,7 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
           <div className="glass-card px-6 py-3 rounded-full inline-flex items-center gap-2">
             <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
             <span className="text-base text-foreground font-medium">
-              {isAISpeaking ? "AI is speaking..." : "Listening..."}
+              {isAISpeaking ? t("chat.aiSpeaking") : t("chat.listeningStatus")}
             </span>
           </div>
         </div>
@@ -95,10 +97,10 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
           {/* Call info */}
           <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <p className="text-xl font-semibold mb-2">
-              <span className="shimmer-text">Voice call active</span>
+              <span className="shimmer-text">{t("chat.callActive")}</span>
             </p>
             <p className="text-base text-muted-foreground">
-              Ask me anything about finance
+              {t("chat.askAnything")}
             </p>
           </div>
 
@@ -127,7 +129,7 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
           {/* Tips */}
           <div className="glass-card px-8 py-3 rounded-full text-center animate-fade-in-up inline-block" style={{ animationDelay: "0.4s" }}>
             <p className="text-sm text-muted-foreground whitespace-nowrap">
-              💡 Speak naturally about credit, taxes, mortgages, or any financial topic
+              {t("chat.speakNaturally")}
             </p>
           </div>
         </div>
