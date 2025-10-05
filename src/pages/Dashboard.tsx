@@ -66,7 +66,7 @@ const Dashboard = () => {
         {/* Quick Actions */}
         <div className="grid md:grid-cols-3 gap-4 mb-8">
           <Link to="/chat">
-            <Card className="bg-gradient-card hover:border-primary/50 transition-colors cursor-pointer hover-lift">
+            <Card className="bg-gradient-card hover:border-primary/50 transition-colors cursor-pointer">
               <CardHeader>
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -82,7 +82,7 @@ const Dashboard = () => {
           </Link>
 
           <Link to="/documents">
-            <Card className="bg-gradient-card hover:border-primary/50 transition-colors cursor-pointer hover-lift">
+            <Card className="bg-gradient-card hover:border-primary/50 transition-colors cursor-pointer">
               <CardHeader>
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-lg bg-accent/10 flex items-center justify-center">
@@ -97,7 +97,7 @@ const Dashboard = () => {
             </Card>
           </Link>
 
-          <Card className="bg-gradient-card hover:border-primary/50 transition-colors hover-lift">
+          <Card className="bg-gradient-card hover:border-primary/50 transition-colors">
             <CardHeader>
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -116,7 +116,7 @@ const Dashboard = () => {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Insights */}
-            <Card className="bg-gradient-card hover-lift">
+            <Card className="bg-gradient-card">
               <CardHeader>
                 <CardTitle>Your Progress</CardTitle>
                 <CardDescription>Key metrics from your financial journey</CardDescription>
@@ -135,7 +135,7 @@ const Dashboard = () => {
             </Card>
 
             {/* Recent Activity */}
-            <Card className="bg-gradient-card hover-lift">
+            <Card className="bg-gradient-card">
               <CardHeader>
                 <CardTitle>Recent Activity</CardTitle>
                 <CardDescription>Your latest interactions and progress</CardDescription>
@@ -166,7 +166,7 @@ const Dashboard = () => {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Current Goals */}
-            <Card className="bg-gradient-card hover-lift">
+            <Card className="bg-gradient-card">
               <CardHeader>
                 <CardTitle>Current Goals</CardTitle>
                 <CardDescription>Your active financial objectives</CardDescription>
@@ -197,18 +197,18 @@ const Dashboard = () => {
             </Card>
 
             {/* Help Resources */}
-            <Card className="bg-gradient-card hover-lift">
+            <Card className="bg-gradient-card">
               <CardHeader>
                 <CardTitle>Need Help?</CardTitle>
                 <CardDescription>Access resources and support</CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
-                <Button variant="ghost" className="w-full justify-start" asChild>
+                <Button variant="ghost" className="w-full justify-start hover-lift" asChild>
                   <Link to="/help">
                     Help Center
                   </Link>
                 </Button>
-                <Button variant="ghost" className="w-full justify-start" asChild>
+                <Button variant="ghost" className="w-full justify-start hover-lift" asChild>
                   <Link to="/chat">
                     Ask AI Assistant
                   </Link>
