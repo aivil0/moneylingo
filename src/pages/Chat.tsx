@@ -125,27 +125,27 @@ const Chat = () => {
       <Header />
 
       {/* Main Voice Call Area */}
-      <main className="flex-1 relative z-10 flex flex-col items-center justify-center container mx-auto max-w-5xl px-4 pb-8 pt-24">
+      <main className="flex-1 relative z-10 flex flex-col items-center justify-center container mx-auto max-w-5xl px-4 py-4">
         {/* Hero Voice Call Section */}
-        <div className="text-center space-y-8 sm:space-y-10 animate-fade-in-up max-w-3xl px-4">
+        <div className="text-center space-y-6 animate-fade-in-up max-w-3xl px-4">
           <div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight px-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight px-4">
               <span className="block shimmer-text pb-2">How can I help you today?</span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 sm:px-6 mt-4">Get instant financial advice through natural conversation.</p>
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-6 mt-2">Get instant financial advice through natural conversation.</p>
           </div>
 
           {/* Large Voice Call Button */}
-          <div className="flex flex-col items-center gap-12">
-            <Button size="icon" onClick={toggleCall} className={`h-40 w-40 sm:h-52 sm:w-52 rounded-full transition-all hover:scale-105 shadow-2xl ${isInCall ? "bg-destructive hover:bg-destructive/90 glow-pulse" : "bg-gradient-glow text-white glow-pulse"}`} aria-label={isInCall ? "End call" : "Start voice call"}>
-              {isInCall ? <PhoneOff className="h-20 w-20 sm:h-28 sm:w-28" /> : <Phone className="h-20 w-20 sm:h-28 sm:w-28" />}
+          <div className="flex flex-col items-center gap-6">
+            <Button size="icon" onClick={toggleCall} className={`h-36 w-36 sm:h-44 sm:w-44 rounded-full transition-all hover:scale-105 shadow-2xl ${isInCall ? "bg-destructive hover:bg-destructive/90 glow-pulse" : "bg-gradient-glow text-white glow-pulse"}`} aria-label={isInCall ? "End call" : "Start voice call"}>
+              {isInCall ? <PhoneOff className="h-18 w-18 sm:h-22 sm:w-22" /> : <Phone className="h-18 w-18 sm:h-22 sm:w-22" />}
             </Button>
             
             <div className="text-center">
-              <p className="text-xl sm:text-2xl font-semibold mb-2">
+              <p className="text-lg sm:text-xl font-semibold mb-1">
                 {isInCall ? "Talking to MoneyLingo..." : "Tap to start talking"}
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 {isInCall ? "We're listening and ready to help" : "Natural conversation in your language"}
               </p>
             </div>
