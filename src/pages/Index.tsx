@@ -99,15 +99,18 @@ const Index = () => {
   const features = [{
     icon: MessageSquare,
     title: "AI Financial Assistant",
-    description: "Get instant answers to your financial questions in your native language. Our AI breaks down complex concepts into simple, culturally-aware guidance through natural conversation."
+    description: "Get instant answers to your financial questions in your native language. Our AI breaks down complex concepts into simple, culturally-aware guidance through natural conversation.",
+    link: "/chat"
   }, {
     icon: FileText,
     title: "Document Analysis",
-    description: "Upload tax forms, credit statements, bank documents, or any financial paperwork for instant analysis. Receive clear explanations and actionable insights in seconds."
+    description: "Upload tax forms, credit statements, bank documents, or any financial paperwork for instant analysis. Receive clear explanations and actionable insights in seconds.",
+    link: "/documents"
   }, {
     icon: Target,
     title: "Personalized Financial Plans",
-    description: "Create customized financial strategies tailored to your goals and situation. Track your progress, build credit, manage debt, and achieve financial confidence."
+    description: "Create customized financial strategies tailored to your goals and situation. Track your progress, build credit, manage debt, and achieve financial confidence.",
+    link: "/dashboard"
   }];
   const values = [{
     icon: Heart,
@@ -229,15 +232,15 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Wave Divider */}
-        <div className="relative h-16" style={{ background: 'linear-gradient(to bottom, transparent, hsl(192, 100%, 98%) 50%)' }}>
-          <svg className="absolute bottom-0 w-full h-16" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Wave Divider - Reduced height */}
+        <div className="relative h-8" style={{ background: 'linear-gradient(to bottom, transparent, hsl(192, 100%, 98%) 50%)' }}>
+          <svg className="absolute bottom-0 w-full h-12" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,24 Q360,0 720,24 T1440,24 L1440,48 L0,48 Z" fill="hsl(192, 100%, 98%)" />
           </svg>
         </div>
 
         {/* Features Section with soft background */}
-        <section className="relative py-20 px-6" style={{ backgroundColor: 'hsl(192, 100%, 98%)' }}>
+        <section className="relative py-16 px-6" style={{ backgroundColor: 'hsl(192, 100%, 98%)' }}>
           <div className="container mx-auto max-w-6xl relative z-10">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 shimmer-text">
@@ -251,29 +254,35 @@ const Index = () => {
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {features.map((feature, index) => {
               const Icon = feature.icon;
-              return <div key={feature.title} className="bg-background/80 backdrop-blur-sm border border-border/40 shadow-md p-8 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group animate-fade-in-up" style={{
-                animationDelay: `${index * 0.1}s`
-              }}>
+              const FeatureCard = feature.link ? Link : 'div';
+              return <FeatureCard 
+                key={feature.title} 
+                to={feature.link}
+                className="bg-background/80 backdrop-blur-sm border border-border/40 shadow-md p-8 rounded-2xl hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group animate-fade-in-up cursor-pointer" 
+                style={{
+                  animationDelay: `${index * 0.1}s`
+                }}
+              >
                     <div className="h-14 w-14 rounded-xl bg-gradient-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                       <Icon className="h-7 w-7 text-primary-foreground" />
                     </div>
                     <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
                     <p className="text-base text-muted-foreground leading-relaxed">{feature.description}</p>
-                  </div>;
+                  </FeatureCard>;
             })}
             </div>
           </div>
         </section>
         
-        {/* Wave Divider */}
-        <div className="relative h-16" style={{ background: 'linear-gradient(to bottom, hsl(192, 100%, 98%), hsl(0, 0%, 100%))' }}>
-          <svg className="absolute bottom-0 w-full h-16" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Wave Divider - Reduced height */}
+        <div className="relative h-8" style={{ background: 'linear-gradient(to bottom, hsl(192, 100%, 98%), hsl(0, 0%, 100%))' }}>
+          <svg className="absolute bottom-0 w-full h-12" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,24 Q360,48 720,24 T1440,24 L1440,48 L0,48 Z" fill="hsl(0, 0%, 100%)" />
           </svg>
         </div>
         
         {/* FAQ Section with white background */}
-        <section id="faq" className="relative py-20 px-6 bg-background">
+        <section id="faq" className="relative py-16 px-6 bg-background">
           <div className="container mx-auto max-w-6xl relative z-10">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
