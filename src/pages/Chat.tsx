@@ -14,10 +14,24 @@ const Chat = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [inputCount, setInputCount] = useState(0);
   const [isInCall, setIsInCall] = useState(false);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  
+  const placeholders = [
+    "Ask about your credit score…",
+    "Type your question in any language…",
+    "Need help with taxes?",
+  ];
 
   useEffect(() => {
     const authStatus = localStorage.getItem("isAuthenticated") === "true";
     setIsAuthenticated(authStatus);
+    
+    // Rotate placeholders every 3 seconds
+    const interval = setInterval(() => {
+      setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
+    }, 3000);
+    
+    return () => clearInterval(interval);
   }, []);
   
   const [message, setMessage] = useState("");
@@ -147,39 +161,12 @@ const Chat = () => {
           <div className="w-full px-4 py-4">
             {messages.length === 1 && (
               <div className="text-center mb-12 animate-fade-in">
-                <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4 pb-2">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold shimmer-text mb-4 pb-2 leading-tight px-2">
                   How can I help you today?
                 </h1>
-                <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
+                <p className="text-base sm:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto px-4">
                   Ask me anything about credit, taxes, mortgages, or financial planning in your language
                 </p>
-                
-                {/* Suggested Questions with gradient cards */}
-                <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                  {[
-                    { q: "What is a credit score?", icon: "📊", desc: "Learn the basics" },
-                    { q: "How do I file taxes?", icon: "📝", desc: "Step-by-step guide" },
-                    { q: "What is APR?", icon: "💰", desc: "Understand rates" },
-                    { q: "Explain mortgage rates", icon: "🏠", desc: "Home financing" },
-                  ].map((suggestion, index) => (
-                     <button
-                      key={suggestion.q}
-                      className="group text-left p-5 rounded-2xl border-2 border-border/50 bg-gradient-card hover:border-primary/50 transition-all hover-lift shadow-lg animate-fade-in-up"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                      onClick={() => setMessage(suggestion.q)}
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="text-3xl group-hover:scale-110 transition-transform">{suggestion.icon}</div>
-                        <div className="flex-1">
-                          <p className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-                            {suggestion.q}
-                          </p>
-                          <p className="text-xs text-muted-foreground">{suggestion.desc}</p>
-                        </div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
               </div>
             )}
 
@@ -222,43 +209,42 @@ const Chat = () => {
           </div>
         </div>
 
-        {/* Input Area - Fixed at Bottom with gradient styling */}
-        <div className="bg-gradient-card/80 backdrop-blur-md">
-          <div className="w-full px-4 py-5">
-            <div className="flex items-end gap-3">
-              {/* Call Button */}
+        {/* Floating Input Bar - Fixed at Bottom */}
+        <div className="pb-6 px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 glass-card p-2 rounded-3xl shadow-2xl">
+              {/* Prominent Call Button */}
               <Button
                 size="icon"
                 onClick={toggleCall}
-                className={`h-14 w-14 rounded-2xl transition-all hover-lift shadow-lg ${
+                className={`h-14 w-14 sm:h-16 sm:w-16 rounded-2xl transition-all hover:scale-105 shadow-xl flex-shrink-0 ${
                   isInCall 
-                    ? "bg-destructive hover:bg-destructive/90 animate-pulse" 
-                    : "bg-gradient-primary"
+                    ? "bg-destructive hover:bg-destructive/90 glow-pulse" 
+                    : "bg-gradient-glow text-white glow-pulse"
                 }`}
                 aria-label={isInCall ? "End call" : "Start voice call"}
               >
-                {isInCall ? <PhoneOff className="h-5 w-5" /> : <Phone className="h-5 w-5" />}
+                {isInCall ? <PhoneOff className="h-6 w-6" /> : <Phone className="h-6 w-6" />}
               </Button>
+              
               <div className="flex-1 relative">
                 <Input
-                  placeholder="Message MoneyLingo..."
+                  placeholder={placeholders[placeholderIndex]}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="pr-28 h-14 text-base rounded-2xl bg-background/80 border-2 border-border/50 focus:border-primary/50 shadow-lg transition-all"
+                  className="h-14 sm:h-16 text-base sm:text-lg rounded-3xl bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 pr-14 transition-all"
                   aria-label="Message input"
                 />
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                  <Button
-                    size="icon"
-                    onClick={handleSend}
-                    disabled={!message.trim()}
-                    className="h-9 w-9 rounded-full bg-gradient-primary hover-lift shadow-lg"
-                    aria-label="Send message"
-                  >
-                    <Send className="h-4 w-4" />
-                  </Button>
-                </div>
+                <Button
+                  size="icon"
+                  onClick={handleSend}
+                  disabled={!message.trim()}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-primary glow-pulse hover:scale-110 transition-all duration-300 shadow-lg disabled:opacity-50"
+                  aria-label="Send message"
+                >
+                  <Send className="h-4 w-4 sm:h-5 sm:w-5" />
+                </Button>
               </div>
             </div>
             <p className="text-xs text-muted-foreground mt-3 text-center flex items-center justify-center gap-2">
