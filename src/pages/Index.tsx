@@ -240,9 +240,7 @@ const Index = () => {
                     {lang.name}
                   </button>)}
               </div>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-4 text-center animate-fade-in">
-                Available 24/7 in 20+ languages • No credit card required
-              </p>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-4 text-center animate-fade-in">Available 24/7 in 20+ languages</p>
             </div>
           </div>
         </section>
