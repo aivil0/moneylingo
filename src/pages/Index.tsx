@@ -332,9 +332,10 @@ const Index = () => {
           </DialogHeader>
           
           <div className="flex justify-center my-8">
-            {React.createElement(onboardingSteps[onboardingStep].icon, {
-              className: "h-24 w-24 text-primary animate-float"
-            })}
+            {(() => {
+              const IconComponent = onboardingSteps[onboardingStep].icon;
+              return <IconComponent className="h-24 w-24 text-primary animate-float" />;
+            })()}
           </div>
           
           <div className="flex justify-center gap-2 mb-6">
