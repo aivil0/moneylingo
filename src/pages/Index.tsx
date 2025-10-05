@@ -201,13 +201,13 @@ const Index = () => {
             <div className="relative">
               {/* Help Menu - Speech Bubble Design */}
               {showHelpMenu && (
-                <div className="absolute bottom-20 right-0 w-48 animate-scale-in origin-bottom-right">
+                <div className="absolute bottom-14 right-2 w-48 animate-scale-in origin-bottom-right">
                   <div className="relative bg-background/90 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] p-2 overflow-hidden">
                     {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
                     
                     {/* Speech bubble tail */}
-                    <div className="absolute -bottom-2 right-8 w-4 h-4 bg-background/90 backdrop-blur-xl border-r border-b border-primary/20 transform rotate-45" />
+                    <div className="absolute -bottom-2 right-6 w-4 h-4 bg-background/90 backdrop-blur-xl border-r border-b border-primary/20 transform rotate-45" />
                     
                     {/* Menu Items - Compact Vertical */}
                     <div className="relative space-y-1">
@@ -299,24 +299,25 @@ const Index = () => {
                 </div>
               )}
               
-              {/* Help Button with Piggy */}
-              <button 
-                className="relative group cursor-pointer focus:outline-none bg-background/90 backdrop-blur-xl border border-primary/20 rounded-full px-4 py-3 shadow-[0_4px_16px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition-all duration-300 bounce-gentle"
-                onClick={() => setShowHelpMenu(!showHelpMenu)}
-                aria-label="Help menu"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="relative">
-                    <PiggyBank className="h-8 w-8 text-primary drop-shadow-lg transition-all duration-300 group-hover:scale-110" />
-                    {/* Glow effect on hover */}
-                    <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-xs font-semibold text-foreground whitespace-nowrap">Need help?</p>
-                    <p className="text-xs text-muted-foreground whitespace-nowrap">Click me! 👋</p>
-                  </div>
-                </div>
-              </button>
+              {/* Mascot Button */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button 
+                    className="relative group cursor-pointer bounce-gentle focus:outline-none"
+                    onClick={() => setShowHelpMenu(!showHelpMenu)}
+                    aria-label="Help menu"
+                  >
+                    <div className="relative">
+                      <PiggyBank className="h-16 w-16 text-primary drop-shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-2xl" />
+                      {/* Glow effect on hover */}
+                      <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="left">
+                  <p className="font-medium">Need help? Click me! 👋</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
         </TooltipProvider>
