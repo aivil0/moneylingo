@@ -125,7 +125,7 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
           </div>
 
           {/* Tips */}
-          <div className="glass-card px-8 py-3 rounded-full text-center animate-fade-in-up w-full max-w-2xl" style={{ animationDelay: "0.4s" }}>
+          <div className="glass-card px-8 py-3 rounded-full text-center animate-fade-in-up inline-block" style={{ animationDelay: "0.4s" }}>
             <p className="text-sm text-muted-foreground whitespace-nowrap">
               💡 Speak naturally about credit, taxes, mortgages, or any financial topic
             </p>
