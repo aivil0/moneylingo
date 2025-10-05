@@ -58,13 +58,29 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
 
         {/* Main sound wave circle */}
         <div className="relative flex items-center justify-center mb-12">
-          {/* Main circle with gradient */}
+          {/* Outer rings - no borders */}
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full bg-primary/5"
+              style={{
+                width: `${300 + i * 100}px`,
+                height: `${300 + i * 100}px`,
+                animation: `ping ${2 + i}s cubic-bezier(0, 0, 0.2, 1) infinite`,
+                animationDelay: `${i * 0.3}s`,
+                opacity: audioLevel > 10 ? 0.4 - i * 0.1 : 0.1,
+              }}
+            />
+          ))}
+
+          {/* Main circle with dynamic gradient */}
           <div
-            className="relative z-10 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent shadow-2xl transition-all duration-200 flex items-center justify-center"
+            className="relative z-10 rounded-full shadow-2xl transition-all duration-200 flex items-center justify-center"
             style={{
               width: "280px",
               height: "280px",
               transform: `scale(${circleScale})`,
+              background: `linear-gradient(${audioLevel * 3.6}deg, hsl(180, 62%, ${35 + audioLevel / 5}%), hsl(192, 81%, ${50 + audioLevel / 10}%), hsl(25, 95%, ${63 + audioLevel / 10}%))`,
             }}
           >
 
@@ -105,7 +121,7 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
             size="icon"
             variant={isMuted ? "destructive" : "secondary"}
             onClick={() => setIsMuted(!isMuted)}
-            className="h-16 w-16 rounded-full shadow-xl hover-lift"
+            className="h-20 w-20 rounded-full shadow-xl hover-lift"
             aria-label={isMuted ? "Unmute" : "Mute"}
           >
             {isMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
