@@ -194,41 +194,47 @@ const Index = () => {
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 px-4">How It Works</h3>
                 <div className="space-y-6 sm:space-y-8 px-4">
-                  <div className="flex flex-col md:flex-row gap-6 items-center bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 hover-lift">
-                    <div className="flex-shrink-0 h-16 w-16 rounded-full bg-primary-foreground text-primary flex items-center justify-center text-2xl font-bold shadow-lg">
-                      1
+                  <Link to="/signup" className="block">
+                    <div className="flex flex-col md:flex-row gap-6 items-center bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 hover-lift hover:bg-primary-foreground/20 transition-all cursor-pointer">
+                      <div className="flex-shrink-0 h-16 w-16 rounded-full bg-primary-foreground text-primary flex items-center justify-center text-2xl font-bold shadow-lg">
+                        1
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-semibold mb-2">Create Your Account</h4>
+                        <p className="opacity-90">
+                          Sign up in seconds and select your preferred language. Your data is encrypted and secure.
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-xl font-semibold mb-2">Create Your Account</h4>
-                      <p className="opacity-90">
-                        Sign up in seconds and select your preferred language. Your data is encrypted and secure.
-                      </p>
-                    </div>
-                  </div>
+                  </Link>
 
-                  <div className="flex flex-col md:flex-row gap-6 items-center bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 hover-lift">
-                    <div className="flex-shrink-0 h-16 w-16 rounded-full bg-primary-foreground text-primary flex items-center justify-center text-2xl font-bold shadow-lg">
-                      2
+                  <Link to="/chat" className="block">
+                    <div className="flex flex-col md:flex-row gap-6 items-center bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 hover-lift hover:bg-primary-foreground/20 transition-all cursor-pointer">
+                      <div className="flex-shrink-0 h-16 w-16 rounded-full bg-primary-foreground text-primary flex items-center justify-center text-2xl font-bold shadow-lg">
+                        2
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-semibold mb-2">Ask Questions or Upload Documents</h4>
+                        <p className="opacity-90">
+                          Chat with our AI in your language or upload financial documents for instant analysis.
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-xl font-semibold mb-2">Ask Questions or Upload Documents</h4>
-                      <p className="opacity-90">
-                        Chat with our AI in your language or upload financial documents for instant analysis.
-                      </p>
-                    </div>
-                  </div>
+                  </Link>
 
-                  <div className="flex flex-col md:flex-row gap-6 items-center bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 hover-lift">
-                    <div className="flex-shrink-0 h-16 w-16 rounded-full bg-primary-foreground text-primary flex items-center justify-center text-2xl font-bold shadow-lg">
-                      3
+                  <Link to="/dashboard" className="block">
+                    <div className="flex flex-col md:flex-row gap-6 items-center bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-6 hover-lift hover:bg-primary-foreground/20 transition-all cursor-pointer">
+                      <div className="flex-shrink-0 h-16 w-16 rounded-full bg-primary-foreground text-primary flex items-center justify-center text-2xl font-bold shadow-lg">
+                        3
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-semibold mb-2">Get Personalized Guidance</h4>
+                        <p className="opacity-90">
+                          Receive clear explanations and customized financial plans tailored to your situation.
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-xl font-semibold mb-2">Get Personalized Guidance</h4>
-                      <p className="opacity-90">
-                        Receive clear explanations and customized financial plans tailored to your situation.
-                      </p>
-                    </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>
