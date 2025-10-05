@@ -17,7 +17,7 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
     if (!isActive) return;
 
     const interval = setInterval(() => {
-      // Simulate audio levels - slower updates for calming effect
+      // Simulate audio levels - very slow updates for calming effect
       if (isAISpeaking) {
         setAudioLevel(Math.random() * 100);
       } else if (!isMuted) {
@@ -25,12 +25,12 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
       } else {
         setAudioLevel(0);
       }
-    }, 300); // Slower update rate
+    }, 600); // Much slower update rate
 
     // Simulate AI speaking randomly
     const aiSpeakInterval = setInterval(() => {
       setIsAISpeaking((prev) => !prev);
-    }, 3000);
+    }, 4000);
 
     return () => {
       clearInterval(interval);
@@ -40,7 +40,7 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
 
   if (!isActive) return null;
 
-  const circleScale = 1 + (audioLevel / 100) * 0.2; // Further reduced scale range
+  const circleScale = 1 + (audioLevel / 100) * 0.15; // Even more reduced scale range
 
   return (
     <div className="fixed inset-0 z-50 bg-gradient-soft-bg animate-fade-in overflow-hidden">
@@ -69,8 +69,8 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
               style={{
                 width: `${220 + i * 70}px`,
                 height: `${220 + i * 70}px`,
-                animation: `ping ${3 + i * 1.5}s cubic-bezier(0, 0, 0.2, 1) infinite`,
-                animationDelay: `${i * 0.5}s`,
+                animation: `ping ${4 + i * 2}s cubic-bezier(0.4, 0, 0.6, 1) infinite`,
+                animationDelay: `${i * 0.7}s`,
                 opacity: audioLevel > 10 ? 0.4 - i * 0.1 : 0.1,
               }}
             />
@@ -84,7 +84,7 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
               height: "220px",
               transform: `scale(${circleScale})`,
               background: `linear-gradient(${audioLevel * 1.2}deg, hsl(180, 62%, ${35 + audioLevel / 8}%), hsl(192, 81%, ${50 + audioLevel / 12}%), hsl(25, 95%, ${63 + audioLevel / 15}%))`,
-              transition: "all 800ms ease-in-out",
+              transition: "all 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
           </div>
