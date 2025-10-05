@@ -86,8 +86,11 @@ const translations: Record<Language, any> = {
     },
     chat: {
       title: "AI Financial Assistant",
-      subtitle: "Practice financial conversations in your language",
-      tapToStart: "Tap to start conversation",
+      subtitle: "Get instant financial advice through natural conversation.",
+      tapToStart: "Tap to start talking",
+      naturalConversation: "Natural conversation in your language",
+      placeholder: "Type your question in any language...",
+      orType: "Or type your question • MoneyLingo can make mistakes",
     },
     dashboard: {
       title: "Dashboard",
@@ -218,6 +221,14 @@ const translations: Record<Language, any> = {
       getStarted: "Comenzar Gratis",
       needHelp: "¿Necesitas ayuda? ¡Haz clic! 👋",
     },
+    chat: {
+      title: "Asistente Financiero IA",
+      subtitle: "Obtén consejos financieros instantáneos a través de conversación natural.",
+      tapToStart: "Toca para comenzar a hablar",
+      naturalConversation: "Conversación natural en tu idioma",
+      placeholder: "Escribe tu pregunta en cualquier idioma...",
+      orType: "O escribe tu pregunta • MoneyLingo puede cometer errores",
+    },
     dashboard: {
       title: "Panel",
       welcome: "¡Bienvenido de nuevo!",
@@ -346,6 +357,14 @@ const translations: Record<Language, any> = {
       ctaSubtitle: "加入数千人用母语建立财务信心。",
       getStarted: "免费开始",
       needHelp: "需要帮助吗？点击我！👋",
+    },
+    chat: {
+      title: "AI金融助手",
+      subtitle: "通过自然对话获得即时财务建议。",
+      tapToStart: "点击开始说话",
+      naturalConversation: "用您的语言自然对话",
+      placeholder: "用任何语言输入您的问题...",
+      orType: "或输入您的问题 • MoneyLingo可能会出错",
     },
     dashboard: {
       title: "仪表板",
@@ -476,6 +495,14 @@ const translations: Record<Language, any> = {
       getStarted: "ابدأ مجاناً",
       needHelp: "هل تحتاج إلى مساعدة؟ انقر علي! 👋",
     },
+    chat: {
+      title: "مساعد مالي بالذكاء الاصطناعي",
+      subtitle: "احصل على نصائح مالية فورية من خلال محادثة طبيعية.",
+      tapToStart: "اضغط لبدء الحديث",
+      naturalConversation: "محادثة طبيعية بلغتك",
+      placeholder: "اكتب سؤالك بأي لغة...",
+      orType: "أو اكتب سؤالك • MoneyLingo يمكن أن يخطئ",
+    },
     dashboard: {
       title: "لوحة التحكم",
       welcome: "مرحباً بعودتك!",
@@ -605,6 +632,14 @@ const translations: Record<Language, any> = {
       getStarted: "मुफ्त शुरू करें",
       needHelp: "मदद चाहिए? मुझे क्लिक करें! 👋",
     },
+    chat: {
+      title: "AI वित्तीय सहायक",
+      subtitle: "प्राकृतिक बातचीत के माध्यम से तुरंत वित्तीय सलाह प्राप्त करें।",
+      tapToStart: "बात करना शुरू करने के लिए टैप करें",
+      naturalConversation: "आपकी भाषा में प्राकृतिक बातचीत",
+      placeholder: "किसी भी भाषा में अपना प्रश्न टाइप करें...",
+      orType: "या अपना प्रश्न टाइप करें • MoneyLingo गलतियाँ कर सकता है",
+    },
     dashboard: {
       title: "डैशबोर्ड",
       welcome: "वापसी पर स्वागत है!",
@@ -733,6 +768,14 @@ const translations: Record<Language, any> = {
       ctaSubtitle: "Rejoignez des milliers de personnes qui renforcent leur confiance financière dans leur langue maternelle.",
       getStarted: "Commencer Gratuitement",
       needHelp: "Besoin d'aide ? Cliquez sur moi ! 👋",
+    },
+    chat: {
+      title: "Assistant Financier IA",
+      subtitle: "Obtenez des conseils financiers instantanés par conversation naturelle.",
+      tapToStart: "Appuyez pour commencer à parler",
+      naturalConversation: "Conversation naturelle dans votre langue",
+      placeholder: "Tapez votre question dans n'importe quelle langue...",
+      orType: "Ou tapez votre question • MoneyLingo peut faire des erreurs",
     },
     dashboard: {
       title: "Tableau de bord",
