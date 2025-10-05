@@ -75,28 +75,51 @@ const Index = () => {
         {/* Hero Section */}
         <section className="relative container mx-auto px-4 py-20 md:py-32">
           <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in-up">
+            <div className="inline-block px-6 py-2 bg-gradient-primary text-primary-foreground rounded-full text-sm font-semibold mb-4 animate-pulse-slow">
+              🤖 AI-Powered Financial Guidance
+            </div>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-              Financial Literacy
-              <span className="block bg-gradient-hero bg-clip-text text-transparent mt-2">In Your Language</span>
+              Chat With AI
+              <span className="block bg-gradient-hero bg-clip-text text-transparent mt-2">Financial Literacy In Your Language</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-              Breaking down barriers in finance for immigrants and ESL speakers with AI-powered guidance that speaks your language.
+              Get instant answers to your financial questions in your native language. Our AI assistant breaks down complex concepts into simple, culturally-aware guidance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              <Button size="lg" asChild className="w-full sm:w-auto min-w-[200px] hover-lift shadow-lg">
-                <Link to="/signup">Get Started Free</Link>
+              <Button size="lg" asChild className="w-full sm:w-auto min-w-[240px] hover-lift shadow-2xl bg-gradient-primary text-lg py-6">
+                <Link to="/chat">🚀 Start Chatting Now</Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="w-full sm:w-auto min-w-[200px] hover-lift">
-                <Link to="/chat">Try AI Chat</Link>
+                <Link to="/signup">Create Free Account</Link>
               </Button>
+            </div>
+            
+            {/* Chat Feature Highlight */}
+            <div className="mt-12 p-8 bg-gradient-card rounded-2xl border-2 border-primary/20 hover-lift max-w-2xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <MessageSquare className="h-8 w-8 text-primary" />
+                <h3 className="text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">Try Our AI Chat</h3>
+              </div>
+              <p className="text-muted-foreground mb-6">
+                Available 24/7 in 20+ languages. Ask about credit scores, taxes, mortgages, banking, and more.
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 text-sm">
+                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">English</span>
+                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">Español</span>
+                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">中文</span>
+                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">العربية</span>
+                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">हिन्दी</span>
+                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">Français</span>
+                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">+14 more</span>
+              </div>
             </div>
             
             {/* Floating emoji decorations */}
             <div className="flex justify-center gap-8 mt-12 text-4xl opacity-60">
-              <span className="animate-float">💰</span>
-              <span className="animate-float" style={{ animationDelay: '1s' }}>📊</span>
+              <span className="animate-float">💬</span>
+              <span className="animate-float" style={{ animationDelay: '1s' }}>🤖</span>
               <span className="animate-float" style={{ animationDelay: '2s' }}>🌍</span>
-              <span className="animate-float" style={{ animationDelay: '3s' }}>💳</span>
+              <span className="animate-float" style={{ animationDelay: '3s' }}>💡</span>
             </div>
           </div>
         </section>
@@ -139,10 +162,10 @@ const Index = () => {
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Everything You Need to Understand Finance
+                Additional Features To Support You
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                We simplify complex financial jargon into clear, culturally accessible definitions.
+                Beyond our AI chat, we provide extra tools to help you master your finances.
               </p>
             </div>
 

@@ -27,12 +27,17 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      {/* Decorative Background */}
+      <div className="fixed inset-0 bg-gradient-mesh opacity-40 pointer-events-none" />
+      <div className="fixed top-20 right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float pointer-events-none" />
+      <div className="fixed bottom-20 left-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-slow pointer-events-none" />
+      
       <Header />
 
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+      <main className="flex-1 container mx-auto px-4 py-8 relative z-10 animate-fade-in">
+        <div className="mb-8 animate-scale-in">
+          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">
             {isAuthenticated ? 'Welcome Back!' : 'Dashboard Preview'}
           </h1>
           <p className="text-muted-foreground">
@@ -61,7 +66,7 @@ const Dashboard = () => {
         {/* Quick Actions */}
         <div className="grid md:grid-cols-3 gap-4 mb-8">
           <Link to="/chat">
-            <Card className="hover:border-primary/50 transition-colors cursor-pointer">
+            <Card className="bg-gradient-card hover:border-primary/50 transition-colors cursor-pointer hover-lift">
               <CardHeader>
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -77,7 +82,7 @@ const Dashboard = () => {
           </Link>
 
           <Link to="/documents">
-            <Card className="hover:border-primary/50 transition-colors cursor-pointer">
+            <Card className="bg-gradient-card hover:border-primary/50 transition-colors cursor-pointer hover-lift">
               <CardHeader>
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-lg bg-accent/10 flex items-center justify-center">
@@ -92,7 +97,7 @@ const Dashboard = () => {
             </Card>
           </Link>
 
-          <Card className="hover:border-primary/50 transition-colors">
+          <Card className="bg-gradient-card hover:border-primary/50 transition-colors hover-lift">
             <CardHeader>
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -111,7 +116,7 @@ const Dashboard = () => {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Insights */}
-            <Card>
+            <Card className="bg-gradient-card hover-lift">
               <CardHeader>
                 <CardTitle>Your Progress</CardTitle>
                 <CardDescription>Key metrics from your financial journey</CardDescription>
@@ -130,7 +135,7 @@ const Dashboard = () => {
             </Card>
 
             {/* Recent Activity */}
-            <Card>
+            <Card className="bg-gradient-card hover-lift">
               <CardHeader>
                 <CardTitle>Recent Activity</CardTitle>
                 <CardDescription>Your latest interactions and progress</CardDescription>
@@ -161,7 +166,7 @@ const Dashboard = () => {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Current Goals */}
-            <Card>
+            <Card className="bg-gradient-card hover-lift">
               <CardHeader>
                 <CardTitle>Current Goals</CardTitle>
                 <CardDescription>Your active financial objectives</CardDescription>
@@ -187,12 +192,12 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <Button variant="outline" className="w-full" disabled={!isAuthenticated}>Add New Goal</Button>
+                <Button variant="outline" className="w-full hover-lift" disabled={!isAuthenticated}>Add New Goal</Button>
               </CardContent>
             </Card>
 
             {/* Help Resources */}
-            <Card>
+            <Card className="bg-gradient-card hover-lift">
               <CardHeader>
                 <CardTitle>Need Help?</CardTitle>
                 <CardDescription>Access resources and support</CardDescription>
