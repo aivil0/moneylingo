@@ -87,7 +87,7 @@ const Help = () => {
         {/* Hero Section */}
         <section className="py-12 sm:py-16 animate-fade-in-up">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4 sm:mb-6">How Can We Help?</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold shimmer-text mb-4 sm:mb-6 leading-tight px-2">How Can We Help?</h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
               Find answers to common questions or reach out to our support team
             </p>
@@ -103,20 +103,20 @@ const Help = () => {
         </section>
 
         {/* Quick Links */}
-        <section className="py-12 sm:py-16 bg-background/80">
+        <section className="py-12 sm:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 animate-scale-in">Quick Help</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto animate-fade-in">
-              {resources.map((resource) => {
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 shimmer-text animate-scale-in">Quick Help</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto">
+              {resources.map((resource, index) => {
                 const Icon = resource.icon;
                 return (
-                  <Card key={resource.title} className="hover:border-primary/50 transition-all cursor-pointer bg-gradient-card hover-lift">
+                  <Card key={resource.title} className="hover:border-primary/50 transition-all cursor-pointer glass-card hover-card-lift animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                     <CardHeader className="text-center">
-                      <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                        <Icon className="h-8 w-8 text-primary" aria-hidden="true" />
+                      <div className="h-16 w-16 rounded-xl bg-gradient-primary flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <Icon className="h-8 w-8 text-primary-foreground" aria-hidden="true" />
                       </div>
                       <CardTitle className="text-lg">{resource.title}</CardTitle>
-                      <CardDescription>{resource.description}</CardDescription>
+                      <CardDescription className="text-sm">{resource.description}</CardDescription>
                     </CardHeader>
                   </Card>
                 );
@@ -126,17 +126,17 @@ const Help = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-12 sm:py-16 bg-background/60">
+        <section className="py-12 sm:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3 sm:mb-4 animate-scale-in">Frequently Asked Questions</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3 sm:mb-4 shimmer-text animate-scale-in leading-tight px-2">Frequently Asked Questions</h2>
               <p className="text-sm sm:text-base text-muted-foreground text-center mb-8 sm:mb-12 px-4">
                 Find answers to the most common questions about MoneyLingo
               </p>
 
               <Accordion type="single" collapsible className="space-y-3 sm:space-y-4 animate-fade-in">
                 {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="bg-gradient-card border rounded-lg px-4 sm:px-6">
+                  <AccordionItem key={index} value={`item-${index}`} className="glass-card border rounded-lg px-4 sm:px-6 hover-card-lift"  style={{ animationDelay: `${index * 0.05}s` }}>
                     <AccordionTrigger className="text-left hover:no-underline">
                       <span className="font-semibold">{faq.question}</span>
                     </AccordionTrigger>
@@ -151,23 +151,23 @@ const Help = () => {
         </section>
 
         {/* Contact Section */}
-        <section className="py-12 sm:py-16 bg-background/80">
+        <section className="py-12 sm:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <Card className="max-w-2xl mx-auto bg-gradient-card animate-scale-in hover-lift">
+            <Card className="max-w-2xl mx-auto glass-card animate-scale-in hover-card-lift">
               <CardHeader className="text-center">
-                <CardTitle className="text-xl sm:text-2xl">Still Need Help?</CardTitle>
+                <CardTitle className="text-xl sm:text-2xl shimmer-text">Still Need Help?</CardTitle>
                 <CardDescription className="text-sm sm:text-base">
                   Our support team is here to help you in your language
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-3 sm:space-y-4">
-                <Button className="w-full hover-lift" size="lg" asChild>
+                <Button className="w-full bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-lg" size="lg" asChild>
                   <Link to="/chat">
                     <MessageSquare className="mr-2 h-5 w-5" />
                     Chat with AI Assistant
                   </Link>
                 </Button>
-                <Button variant="outline" className="w-full hover-lift" size="lg">
+                <Button variant="outline" className="w-full hover-card-lift" size="lg">
                   <Mail className="mr-2 h-5 w-5" />
                   Email Support Team
                 </Button>

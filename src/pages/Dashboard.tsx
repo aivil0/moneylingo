@@ -75,26 +75,26 @@ const Dashboard = () => {
       <Header />
 
       <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10 animate-fade-in">
-        <div className="mb-6 sm:mb-8 animate-scale-in">
-          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">
+        <div className="mb-6 sm:mb-8 animate-scale-in px-4 sm:px-0">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold shimmer-text mb-2 leading-tight">
             {isAuthenticated ? 'Welcome Back!' : 'Dashboard Preview'}
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             {isAuthenticated ? "Here's your financial literacy progress." : 'Sign in to track your financial journey.'}
           </p>
         </div>
 
         {/* Auth Alert */}
         {!isAuthenticated && (
-          <Alert className="mb-6 border-primary/50 bg-primary/5">
+          <Alert className="mb-6 border-primary/50 bg-primary/5 glass-card animate-fade-in">
             <Lock className="h-4 w-4 text-primary" />
-            <AlertDescription className="flex items-center justify-between">
-              <span>Create an account to access your personalized dashboard and track your progress.</span>
-              <div className="flex gap-2 ml-4">
-                <Button size="sm" asChild>
+            <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between">
+              <span className="text-sm">Create an account to access your personalized dashboard and track your progress.</span>
+              <div className="flex gap-2 w-full sm:w-auto ml-0 sm:ml-4">
+                <Button size="sm" asChild className="flex-1 sm:flex-initial bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-lg">
                   <Link to="/signin">Sign In</Link>
                 </Button>
-                <Button size="sm" variant="outline" asChild>
+                <Button size="sm" variant="outline" asChild className="flex-1 sm:flex-initial hover-card-lift">
                   <Link to="/signup">Sign Up</Link>
                 </Button>
               </div>
@@ -103,17 +103,17 @@ const Dashboard = () => {
         )}
 
         {/* Quick Actions */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8 animate-fade-in-up">
           <Link to="/chat">
-            <Card className="bg-gradient-card hover:border-primary/50 transition-colors cursor-pointer">
+            <Card className="glass-card hover:border-primary/50 transition-all hover-card-lift cursor-pointer">
               <CardHeader>
                 <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <MessageSquare className="h-6 w-6 text-primary" />
+                  <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
+                    <MessageSquare className="h-6 w-6 text-primary-foreground" />
                   </div>
                   <div>
                     <CardTitle className="text-lg">Start AI Chat</CardTitle>
-                    <CardDescription>Ask financial questions</CardDescription>
+                    <CardDescription className="text-sm">Ask financial questions</CardDescription>
                   </div>
                 </div>
               </CardHeader>
@@ -121,30 +121,30 @@ const Dashboard = () => {
           </Link>
 
           <Link to="/documents">
-            <Card className="bg-gradient-card hover:border-primary/50 transition-colors cursor-pointer">
+            <Card className="glass-card hover:border-primary/50 transition-all hover-card-lift cursor-pointer">
               <CardHeader>
                 <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <FileText className="h-6 w-6 text-accent" />
+                  <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
+                    <FileText className="h-6 w-6 text-primary-foreground" />
                   </div>
                   <div>
                     <CardTitle className="text-lg">Upload Document</CardTitle>
-                    <CardDescription>Analyze financial files</CardDescription>
+                    <CardDescription className="text-sm">Analyze financial files</CardDescription>
                   </div>
                 </div>
               </CardHeader>
             </Card>
           </Link>
 
-          <Card className="bg-gradient-card hover:border-primary/50 transition-colors">
+          <Card className="glass-card hover:border-primary/50 transition-all hover-card-lift">
             <CardHeader>
               <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <TrendingUp className="h-6 w-6 text-primary" />
+                <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
+                  <TrendingUp className="h-6 w-6 text-primary-foreground" />
                 </div>
                 <div>
                   <CardTitle className="text-lg">View Progress</CardTitle>
-                  <CardDescription>Track your goals</CardDescription>
+                  <CardDescription className="text-sm">Track your goals</CardDescription>
                 </div>
               </div>
             </CardHeader>
@@ -155,17 +155,17 @@ const Dashboard = () => {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Insights */}
-            <Card className="bg-gradient-card">
+            <Card className="glass-card animate-fade-in-up">
               <CardHeader>
-                <CardTitle>Your Progress</CardTitle>
+                <CardTitle className="text-xl">Your Progress</CardTitle>
                 <CardDescription>Key metrics from your financial journey</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-4">
-                  {insights.map((insight) => (
-                    <div key={insight.title} className="p-4 rounded-lg bg-muted">
+                  {insights.map((insight, index) => (
+                    <div key={insight.title} className="p-4 rounded-xl bg-gradient-card border-2 border-border/50 hover-card-lift animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                       <p className="text-sm text-muted-foreground mb-1">{insight.title}</p>
-                      <p className="text-2xl font-bold text-primary">{insight.value}</p>
+                      <p className="text-2xl font-bold shimmer-text">{insight.value}</p>
                       <p className="text-xs text-muted-foreground">{insight.change}</p>
                     </div>
                   ))}
@@ -174,7 +174,7 @@ const Dashboard = () => {
             </Card>
 
             {/* Recent Activity */}
-            <Card className="bg-gradient-card">
+            <Card className="glass-card animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
               <CardHeader>
                 <CardTitle>Recent Activity</CardTitle>
                 <CardDescription>Your latest interactions and progress</CardDescription>
@@ -215,9 +215,9 @@ const Dashboard = () => {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Current Goals */}
-            <Card className="bg-gradient-card">
+            <Card className="glass-card animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
               <CardHeader>
-                <CardTitle>Current Goals</CardTitle>
+                <CardTitle className="text-xl">Current Goals</CardTitle>
                 <CardDescription>Your active financial objectives</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -251,14 +251,14 @@ const Dashboard = () => {
                   </div>
                 </Button>
 
-                <Button variant="outline" className="w-full hover-lift" disabled={!isAuthenticated}>Add New Goal</Button>
+                <Button variant="outline" className="w-full hover-card-lift bg-gradient-primary text-primary-foreground hover:scale-105 transition-all duration-300 shadow-lg" disabled={!isAuthenticated}>Add New Goal</Button>
               </CardContent>
             </Card>
 
             {/* Help Resources */}
-            <Card className="bg-gradient-card">
+            <Card className="glass-card animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
               <CardHeader>
-                <CardTitle>Need Help?</CardTitle>
+                <CardTitle className="text-xl">Need Help?</CardTitle>
                 <CardDescription>Access resources and support</CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
@@ -282,11 +282,11 @@ const Dashboard = () => {
 
       {/* Goal Details Dialog */}
       <Dialog open={!!selectedGoal} onOpenChange={() => setSelectedGoal(null)}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto glass-card">
           {selectedGoal && goalDetails[selectedGoal as keyof typeof goalDetails] && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl bg-gradient-hero bg-clip-text text-transparent">
+                <DialogTitle className="text-2xl shimmer-text">
                   {goalDetails[selectedGoal as keyof typeof goalDetails].title}
                 </DialogTitle>
                 <DialogDescription className="text-base">
@@ -340,10 +340,10 @@ const Dashboard = () => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-3 pt-4 border-t">
-                  <Button className="flex-1 hover-lift" asChild>
+                  <Button className="flex-1 bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-lg" asChild>
                     <Link to="/chat">Ask AI Assistant</Link>
                   </Button>
-                  <Button variant="outline" className="flex-1 hover-lift" onClick={() => setSelectedGoal(null)}>
+                  <Button variant="outline" className="flex-1 hover-card-lift" onClick={() => setSelectedGoal(null)}>
                     Close
                   </Button>
                 </div>
