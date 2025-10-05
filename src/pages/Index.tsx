@@ -1,12 +1,35 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target, Send } from "lucide-react";
+import { useState, useEffect } from "react";
 const Index = () => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
+
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isAuthenticated") === "true";
+    setIsAuthenticated(authStatus);
+  }, []);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+
+    if (isAuthenticated) {
+      // Navigate to chat with the message
+      navigate('/chat', { state: { initialMessage: searchQuery } });
+    } else {
+      // Show login popup
+      setShowAuthDialog(true);
+    }
+  };
   
   const features = [{
     icon: MessageSquare,
@@ -76,12 +99,11 @@ const Index = () => {
             
             {/* Hero Input Field */}
             <div className="pt-6 sm:pt-8 px-4 max-w-3xl mx-auto">
-              <form onSubmit={(e) => {
-                e.preventDefault();
-                navigate('/chat');
-              }} className="relative">
+              <form onSubmit={handleSearch} className="relative">
                 <div className="relative group">
                   <Input
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Ask about credit scores, taxes, mortgages, or any financial topic..."
                     className="h-16 sm:h-20 text-base sm:text-lg pl-6 pr-32 rounded-2xl border-2 border-border/50 bg-background/80 backdrop-blur-sm shadow-2xl hover:border-primary/50 focus:border-primary transition-all"
                   />
@@ -305,6 +327,31 @@ const Index = () => {
       </main>
 
       <Footer />
+
+      {/* Auth Required Dialog */}
+      <AlertDialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
+        <AlertDialogContent className="bg-gradient-card border-2 border-primary/40">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-2xl bg-gradient-hero bg-clip-text text-transparent pb-1">
+              Sign in required
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base">
+              You need to sign in to chat with our AI assistant and get personalized financial guidance in your language.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+            <Button variant="outline" onClick={() => setShowAuthDialog(false)} className="hover-lift">
+              Cancel
+            </Button>
+            <Button asChild className="bg-gradient-primary hover-lift shadow-lg">
+              <Link to="/signin">Sign In</Link>
+            </Button>
+            <Button asChild variant="secondary" className="hover-lift">
+              <Link to="/signup">Create Account</Link>
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>;
 };
 export default Index;

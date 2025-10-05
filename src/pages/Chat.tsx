@@ -5,9 +5,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useState, useEffect, useRef } from "react";
 import { Mic, Send, Volume2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Chat = () => {
+  const location = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showAuthDialog, setShowAuthDialog] = useState(false);
 
@@ -26,20 +27,14 @@ const Chat = () => {
     },
   ]);
 
-  const handleSend = () => {
-    if (!message.trim()) return;
-    
-    // Check if user is authenticated
-    if (!isAuthenticated) {
-      setShowAuthDialog(true);
-      return;
-    }
+  const handleSendMessage = (messageText: string) => {
+    if (!messageText.trim()) return;
 
     // Add user message
     const userMessage = {
       id: messages.length + 1,
       sender: "user",
-      text: message,
+      text: messageText,
       time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     };
 
@@ -53,6 +48,30 @@ const Chat = () => {
 
     setMessages([...messages, userMessage, aiMessage]);
     setMessage("");
+  };
+
+  // Handle initial message from homepage
+  useEffect(() => {
+    const initialMessage = location.state?.initialMessage;
+    if (initialMessage && isAuthenticated) {
+      setMessage(initialMessage);
+      // Auto-send the message
+      setTimeout(() => {
+        handleSendMessage(initialMessage);
+      }, 100);
+    }
+  }, [location.state, isAuthenticated]);
+
+  const handleSend = () => {
+    if (!message.trim()) return;
+    
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      setShowAuthDialog(true);
+      return;
+    }
+
+    handleSendMessage(message);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
