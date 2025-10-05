@@ -2,13 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Header } from "@/components/Header";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useState, useEffect, useRef } from "react";
-import { Mic, Send, Volume2, Lock } from "lucide-react";
+import { Mic, Send, Volume2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Chat = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
 
   useEffect(() => {
     const authStatus = localStorage.getItem("isAuthenticated") === "true";
@@ -27,6 +28,12 @@ const Chat = () => {
 
   const handleSend = () => {
     if (!message.trim()) return;
+    
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      setShowAuthDialog(true);
+      return;
+    }
 
     // Add user message
     const userMessage = {
@@ -97,30 +104,6 @@ const Chat = () => {
           </Select>
         </div>
 
-        {/* Auth Alert with gradient styling */}
-        {!isAuthenticated && (
-          <div className="px-4 pb-4">
-            <Alert className="border-2 border-primary/40 bg-gradient-card shadow-lg animate-scale-in hover-lift">
-              <div className="h-8 w-8 rounded-full bg-gradient-primary flex items-center justify-center">
-                <Lock className="h-4 w-4 text-primary-foreground" />
-              </div>
-              <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between ml-2">
-                <div>
-                  <p className="font-semibold text-foreground mb-1">Sign in to unlock AI chat</p>
-                  <p className="text-sm text-muted-foreground">Get personalized financial guidance in your language</p>
-                </div>
-                <div className="flex gap-2">
-                  <Button size="sm" asChild className="bg-gradient-primary hover-lift shadow-lg">
-                    <Link to="/signin">Sign In</Link>
-                  </Button>
-                  <Button size="sm" variant="outline" asChild className="hover-lift">
-                    <Link to="/signup">Sign Up</Link>
-                  </Button>
-                </div>
-              </AlertDescription>
-            </Alert>
-          </div>
-        )}
 
         {/* Messages Container */}
         <div className="flex-1 overflow-y-auto">
@@ -209,13 +192,12 @@ const Chat = () => {
             <div className="flex items-end gap-2">
               <div className="flex-1 relative">
                 <Input
-                  placeholder={isAuthenticated ? "Message MoneyLingo..." : "Sign in to start chatting..."}
+                  placeholder="Message MoneyLingo..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
                   className="pr-28 h-14 text-base rounded-2xl bg-background/80 border-2 border-border/50 focus:border-primary/50 shadow-lg transition-all"
                   aria-label="Message input"
-                  disabled={!isAuthenticated}
                 />
                 <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
                   <Button
@@ -223,14 +205,14 @@ const Chat = () => {
                     variant="ghost"
                     className="h-9 w-9 rounded-full hover:bg-primary/10 hover-lift"
                     aria-label="Voice input"
-                    disabled={!isAuthenticated}
+                    onClick={() => !isAuthenticated && setShowAuthDialog(true)}
                   >
                     <Mic className="h-4 w-4" />
                   </Button>
                   <Button
                     size="icon"
                     onClick={handleSend}
-                    disabled={!message.trim() || !isAuthenticated}
+                    disabled={!message.trim()}
                     className="h-9 w-9 rounded-full bg-gradient-primary hover-lift shadow-lg"
                     aria-label="Send message"
                   >
@@ -246,6 +228,31 @@ const Chat = () => {
           </div>
         </div>
       </main>
+
+      {/* Auth Required Dialog */}
+      <AlertDialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
+        <AlertDialogContent className="bg-gradient-card border-2 border-primary/40">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-2xl bg-gradient-hero bg-clip-text text-transparent pb-1">
+              Sign in required
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base">
+              You need to sign in to chat with our AI assistant and get personalized financial guidance in your language.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+            <Button variant="outline" onClick={() => setShowAuthDialog(false)} className="hover-lift">
+              Cancel
+            </Button>
+            <Button asChild className="bg-gradient-primary hover-lift shadow-lg">
+              <Link to="/signin">Sign In</Link>
+            </Button>
+            <Button asChild variant="secondary" className="hover-lift">
+              <Link to="/signup">Create Account</Link>
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
