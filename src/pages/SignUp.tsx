@@ -9,10 +9,12 @@ import { Mail, Lock, User, Globe } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Header } from "@/components/Header";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,19 +50,19 @@ const SignUp = () => {
           <div className="flex justify-center mb-4">
             <div className="text-4xl">💰</div>
           </div>
-          <CardTitle className="text-2xl shimmer-text">Create Your Account</CardTitle>
-          <CardDescription>Start your financial literacy journey today</CardDescription>
+          <CardTitle className="text-2xl shimmer-text">{t("signUp.title")}</CardTitle>
+          <CardDescription>{t("signUp.subtitle")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignUp} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name">{t("signUp.fullName")}</Label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="name"
                   type="text"
-                  placeholder="John Doe"
+                  placeholder={t("signUp.namePlaceholder")}
                   className="pl-10"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -71,13 +73,13 @@ const SignUp = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("signUp.email")}</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="email"
                   type="email"
-                  placeholder="your@email.com"
+                  placeholder={t("signUp.emailPlaceholder")}
                   className="pl-10"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -88,7 +90,7 @@ const SignUp = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="language">Preferred Language</Label>
+              <Label htmlFor="language">{t("signUp.language")}</Label>
               <div className="relative">
                 <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground z-10" />
                 <Select defaultValue="en">
@@ -108,13 +110,13 @@ const SignUp = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("signUp.password")}</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="password"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder={t("signUp.passwordPlaceholder")}
                   className="pl-10"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -124,7 +126,7 @@ const SignUp = () => {
                 />
               </div>
               <p className="text-xs text-muted-foreground">
-                Must be at least 8 characters long
+                {t("signUp.passwordHint")}
               </p>
             </div>
 
@@ -134,19 +136,19 @@ const SignUp = () => {
                 htmlFor="terms"
                 className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
               >
-                I agree to the{" "}
+                {t("signUp.terms")}{" "}
                 <a href="#" className="text-primary hover:underline">
-                  Terms of Service
+                  {t("signUp.termsService")}
                 </a>{" "}
-                and{" "}
+                {t("signUp.and")}{" "}
                 <a href="#" className="text-primary hover:underline">
-                  Privacy Policy
+                  {t("signUp.privacyPolicy")}
                 </a>
               </Label>
             </div>
 
             <Button type="submit" className="w-full bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-lg" size="lg" disabled={isLoading}>
-              {isLoading ? "Creating account..." : "Create Account"}
+              {isLoading ? t("signUp.creating") : t("signUp.createButton")}
             </Button>
 
             <div className="relative my-6">
@@ -154,7 +156,7 @@ const SignUp = () => {
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                <span className="bg-card px-2 text-muted-foreground">{t("signUp.orContinue")}</span>
               </div>
             </div>
 
@@ -177,14 +179,14 @@ const SignUp = () => {
                   fill="#EA4335"
                 />
               </svg>
-              Google
+              {t("signUp.google")}
             </Button>
           </form>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            Already have an account?{" "}
+            {t("signUp.haveAccount")}{" "}
             <Link to="/signin" className="text-primary font-medium hover:underline">
-              Sign in
+              {t("signUp.signIn")}
             </Link>
           </p>
         </CardContent>

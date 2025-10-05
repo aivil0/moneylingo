@@ -3,10 +3,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Menu, X, Globe } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [language, setLanguage] = useState("en");
+  const { language, setLanguage, t } = useLanguage();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,9 +24,9 @@ export const Header = () => {
   };
 
   const navigation = [
-    { name: "Chat", href: "/chat" },
-    { name: "Documents", href: "/documents" },
-    { name: "Dashboard", href: "/dashboard" },
+    { name: t("header.chat"), href: "/chat" },
+    { name: t("header.documents"), href: "/documents" },
+    { name: t("header.dashboard"), href: "/dashboard" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -74,15 +75,15 @@ export const Header = () => {
           <div className="hidden md:flex items-center gap-2">
             {isAuthenticated ? (
               <Button variant="outline" onClick={handleSignOut}>
-                Sign Out
+                {t("header.signOut")}
               </Button>
             ) : (
               <>
                 <Button variant="ghost" asChild>
-                  <Link to="/signin">Sign In</Link>
+                  <Link to="/signin">{t("header.signIn")}</Link>
                 </Button>
                 <Button asChild>
-                  <Link to="/signup">Get Started</Link>
+                  <Link to="/signup">{t("header.getStarted")}</Link>
                 </Button>
               </>
             )}
@@ -120,18 +121,18 @@ export const Header = () => {
             <div className="flex flex-col gap-2 pt-4 border-t">
               {isAuthenticated ? (
                 <Button variant="outline" onClick={handleSignOut} className="w-full">
-                  Sign Out
+                  {t("header.signOut")}
                 </Button>
               ) : (
                 <>
                   <Button variant="ghost" asChild className="w-full">
                     <Link to="/signin" onClick={() => setMobileMenuOpen(false)}>
-                      Sign In
+                      {t("header.signIn")}
                     </Link>
                   </Button>
                   <Button asChild className="w-full">
                     <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
-                      Get Started
+                      {t("header.getStarted")}
                     </Link>
                   </Button>
                 </>

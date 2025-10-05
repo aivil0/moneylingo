@@ -8,10 +8,12 @@ import { Mail, Lock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Header } from "@/components/Header";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -46,19 +48,19 @@ const SignIn = () => {
           <div className="flex justify-center mb-4">
             <div className="text-4xl">💰</div>
           </div>
-          <CardTitle className="text-2xl shimmer-text">Welcome Back</CardTitle>
-          <CardDescription>Sign in to your MoneyLingo account</CardDescription>
+          <CardTitle className="text-2xl shimmer-text">{t("signIn.title")}</CardTitle>
+          <CardDescription>{t("signIn.subtitle")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignIn} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("signIn.email")}</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="email"
                   type="email"
-                  placeholder="your@email.com"
+                  placeholder={t("signIn.emailPlaceholder")}
                   className="pl-10"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -69,13 +71,13 @@ const SignIn = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("signIn.password")}</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="password"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder={t("signIn.passwordPlaceholder")}
                   className="pl-10"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -92,16 +94,16 @@ const SignIn = () => {
                   htmlFor="remember"
                   className="text-sm font-normal cursor-pointer"
                 >
-                  Remember me
+                  {t("signIn.rememberMe")}
                 </Label>
               </div>
               <a href="#" className="text-sm text-primary hover:underline">
-                Forgot password?
+                {t("signIn.forgotPassword")}
               </a>
             </div>
 
             <Button type="submit" className="w-full bg-gradient-primary hover:scale-105 transition-all duration-300 shadow-lg" size="lg" disabled={isLoading}>
-              {isLoading ? "Signing in..." : "Sign In"}
+              {isLoading ? t("signIn.signingIn") : t("signIn.signInButton")}
             </Button>
 
             <div className="relative my-6">
@@ -109,7 +111,7 @@ const SignIn = () => {
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                <span className="bg-card px-2 text-muted-foreground">{t("signIn.orContinue")}</span>
               </div>
             </div>
 
@@ -132,14 +134,14 @@ const SignIn = () => {
                   fill="#EA4335"
                 />
               </svg>
-              Google
+              {t("signIn.google")}
             </Button>
           </form>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            Don't have an account?{" "}
+            {t("signIn.noAccount")}{" "}
             <Link to="/signup" className="text-primary font-medium hover:underline">
-              Sign up
+              {t("signIn.signUp")}
             </Link>
           </p>
         </CardContent>

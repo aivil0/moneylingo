@@ -7,11 +7,12 @@ import { useState, useEffect, useRef } from "react";
 import { Send, Phone, PhoneOff } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
+
 const Chat = () => {
   const location = useLocation();
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  const { t } = useLanguage();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [inputCount, setInputCount] = useState(0);
   const [isInCall, setIsInCall] = useState(false);
@@ -130,9 +131,9 @@ const Chat = () => {
         <div className="text-center space-y-6 animate-fade-in-up max-w-3xl px-4">
           <div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight px-4">
-              <span className="block shimmer-text pb-2">How can I help you today?</span>
+              <span className="block shimmer-text pb-2">{t("chat.title")}</span>
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-6 mt-2">Get instant financial advice through natural conversation.</p>
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-6 mt-2">{t("chat.subtitle")}</p>
           </div>
 
           {/* Large Voice Call Button */}
@@ -157,7 +158,7 @@ const Chat = () => {
             
             <div className="text-center">
               <p className="text-lg sm:text-xl font-semibold mb-1">
-                {isInCall ? "Talking to MoneyLingo..." : "Tap to start talking"}
+                {isInCall ? "Talking to MoneyLingo..." : t("chat.tapToStart")}
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground">
                 {isInCall ? "We're listening and ready to help" : "Natural conversation in your language"}

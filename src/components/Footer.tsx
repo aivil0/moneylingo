@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { Facebook, Twitter, Linkedin, Mail } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="border-t bg-gradient-to-br from-slate-900 to-slate-800 text-slate-100">
@@ -14,7 +16,7 @@ export const Footer = () => {
               <span>MoneyLingo</span>
             </div>
             <p className="text-sm text-slate-300">
-              Breaking down barriers in finance through language and accessibility.
+              {t("footer.tagline")}
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-slate-300 hover:text-white transition-colors" aria-label="Facebook">
@@ -33,32 +35,32 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-white">Product</h3>
+            <h3 className="font-semibold mb-4 text-white">{t("footer.product")}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/chat" className="text-slate-300 hover:text-white transition-colors">
-                  AI Chat
+                  {t("header.chat")}
                 </Link>
               </li>
               <li>
                 <Link to="/documents" className="text-slate-300 hover:text-white transition-colors">
-                  Document Analysis
+                  {t("header.documents")}
                 </Link>
               </li>
               <li>
                 <Link to="/dashboard" className="text-slate-300 hover:text-white transition-colors">
-                  Dashboard
+                  {t("header.dashboard")}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-white">Resources</h3>
+            <h3 className="font-semibold mb-4 text-white">{t("footer.company")}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/" className="text-slate-300 hover:text-white transition-colors">
-                  About Us
+                  {t("footer.about")}
                 </Link>
               </li>
               <li>
@@ -68,23 +70,23 @@ export const Footer = () => {
               </li>
               <li>
                 <a href="#" className="text-slate-300 hover:text-white transition-colors">
-                  Blog
+                  {t("footer.blog")}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-white">Legal</h3>
+            <h3 className="font-semibold mb-4 text-white">{t("footer.legal")}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#" className="text-slate-300 hover:text-white transition-colors">
-                  Privacy Policy
+                  {t("footer.privacy")}
                 </a>
               </li>
               <li>
                 <a href="#" className="text-slate-300 hover:text-white transition-colors">
-                  Terms of Service
+                  {t("footer.terms")}
                 </a>
               </li>
               <li>
@@ -97,7 +99,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-700 text-center text-sm text-slate-300">
-          <p>&copy; {currentYear} MoneyLingo. All rights reserved.</p>
+          <p>&copy; {currentYear} MoneyLingo. {t("footer.rights")}</p>
         </div>
       </div>
     </footer>
