@@ -255,4 +255,21 @@ All colors MUST be HSL.
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
   }
+  
+  .gradient-wave-animation {
+    animation: gradient-wave 8s ease-in-out infinite;
+    background-size: 200% 200%;
+  }
+  
+  @keyframes gradient-wave {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 }

@@ -76,15 +76,23 @@ export const VoiceCallInterface = ({ isActive, onEnd }: VoiceCallInterfaceProps)
             />
           ))}
 
-          {/* Main circle with dynamic gradient using design system */}
+          {/* Main circle with wave gradient animation */}
           <div
-            className="relative z-10 rounded-full shadow-2xl ease-out glow-pulse"
+            className="relative z-10 rounded-full shadow-2xl ease-out glow-pulse gradient-wave-animation"
             style={{
               width: "220px",
               height: "220px",
               transform: `scale(${circleScale})`,
-              background: `linear-gradient(${audioLevel * 1.2}deg, hsl(180, 62%, ${35 + audioLevel / 8}%), hsl(192, 81%, ${50 + audioLevel / 12}%), hsl(25, 95%, ${63 + audioLevel / 15}%))`,
-              transition: "all 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
+              background: `linear-gradient(135deg, 
+                hsl(180, 62%, 35%) 0%, 
+                hsl(180, 62%, 45%) 15%,
+                hsl(192, 81%, 50%) 30%, 
+                hsl(192, 81%, 60%) 45%,
+                hsl(25, 95%, 63%) 60%,
+                hsl(25, 95%, 70%) 75%,
+                hsl(180, 62%, 45%) 90%,
+                hsl(180, 62%, 35%) 100%)`,
+              transition: "transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
           </div>
