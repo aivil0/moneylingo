@@ -124,12 +124,9 @@ const Chat = () => {
 
         {/* Messages Container */}
         <div className="flex-1 overflow-y-auto">
-          <div className="w-full px-4 py-6">
+          <div className="w-full px-4 py-4">
             {messages.length === 1 && (
               <div className="text-center mb-12 animate-fade-in">
-                <div className="inline-block px-4 py-2 bg-gradient-primary text-primary-foreground rounded-full text-sm font-semibold mb-6 animate-pulse-slow shadow-lg">
-                  AI-Powered Financial Assistant
-                </div>
                 <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-4 pb-2">
                   How can I help you today?
                 </h1>
