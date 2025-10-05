@@ -181,34 +181,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Values Section */}
-        <section className="relative bg-muted/30 py-20">
-          <div className="absolute inset-0 bg-gradient-mesh opacity-30 pointer-events-none" />
-          <div className="container mx-auto px-4 relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Our Values</h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              These principles guide everything we do at MoneyLingo
-            </p>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {values.map((value, index) => {
-              const Icon = value.icon;
-              return <Card key={value.title} className="text-center hover-lift animate-fade-in-up border-0 shadow-lg bg-gradient-card" style={{
-                animationDelay: `${index * 0.1}s`
-              }}>
-                    <CardContent className="p-6">
-                      <div className="h-16 w-16 rounded-full bg-gradient-primary flex items-center justify-center mx-auto mb-4 shadow-lg">
-                        <Icon className="h-8 w-8 text-primary-foreground" aria-hidden="true" />
-                      </div>
-                      <h3 className="text-xl font-bold mb-2">{value.title}</h3>
-                      <p className="text-sm text-muted-foreground">{value.description}</p>
-                    </CardContent>
-                  </Card>;
-            })}
-            </div>
-          </div>
-        </section>
-
         {/* How It Works Section */}
         <section className="py-20">
           <div className="container mx-auto px-4">
