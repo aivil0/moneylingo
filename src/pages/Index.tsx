@@ -238,27 +238,31 @@ const Index = () => {
         {/* Features Section */}
         <section className="relative py-12 sm:py-16 md:py-20 bg-background/80">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center mb-10 sm:mb-12 md:mb-16 px-4">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12 px-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2 sm:mb-3">
                 Additional Features To Support You
               </h2>
-              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
                 Beyond our AI chat, we provide extra tools to help you master your finances.
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-6xl mx-auto">
               {features.map((feature, index) => {
               const Icon = feature.icon;
-              return <Card key={feature.title} className="group border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-gradient-card animate-fade-in-up" style={{
+              return <Card key={feature.title} className="group border hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl bg-gradient-card animate-fade-in-up" style={{
                 animationDelay: `${index * 0.1}s`
               }}>
-                    <CardHeader>
-                      <div className="h-12 w-12 rounded-lg bg-gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                        <Icon className="h-6 w-6 text-primary-foreground" aria-hidden="true" />
+                    <CardHeader className="p-4 sm:p-5">
+                      <div className="flex items-start gap-3 sm:gap-4">
+                        <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-lg bg-gradient-primary flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-md">
+                          <Icon className="h-5 w-5 text-primary-foreground" aria-hidden="true" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <CardTitle className="text-base sm:text-lg mb-1.5">{feature.title}</CardTitle>
+                          <CardDescription className="text-xs sm:text-sm leading-snug">{feature.description}</CardDescription>
+                        </div>
                       </div>
-                      <CardTitle className="text-xl">{feature.title}</CardTitle>
-                      <CardDescription className="text-base">{feature.description}</CardDescription>
                     </CardHeader>
                   </Card>;
             })}
