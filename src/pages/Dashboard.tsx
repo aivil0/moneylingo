@@ -3,17 +3,56 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Link } from "react-router-dom";
-import { MessageSquare, FileText, TrendingUp, Clock, CheckCircle2, Lock } from "lucide-react";
+import { MessageSquare, FileText, TrendingUp, Clock, CheckCircle2, Lock, ExternalLink, BookOpen, Video, FileCheck } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
 
   useEffect(() => {
     const authStatus = localStorage.getItem("isAuthenticated") === "true";
     setIsAuthenticated(authStatus);
   }, []);
+
+  const goalDetails = {
+    "Build Credit Score": {
+      title: "Build Credit Score",
+      target: "Target: 700+ by June 2024",
+      summary: "Building a strong credit score is essential for accessing better financial opportunities, including loans, mortgages, and credit cards with favorable terms.",
+      steps: [
+        "Pay all bills on time - payment history is 35% of your credit score",
+        "Keep credit card balances below 30% of your limit",
+        "Don't close old credit cards - length of credit history matters",
+        "Only apply for new credit when necessary",
+        "Monitor your credit report regularly for errors"
+      ],
+      resources: [
+        { title: "Understanding Credit Scores Guide", type: "article", icon: BookOpen },
+        { title: "Credit Building Video Tutorial", type: "video", icon: Video },
+        { title: "Free Credit Report Access", type: "tool", icon: FileCheck }
+      ]
+    },
+    "Understand Tax Forms": {
+      title: "Understand Tax Forms",
+      target: "Complete guide walkthrough",
+      summary: "Understanding tax forms is crucial for filing your taxes correctly and taking advantage of all available deductions and credits.",
+      steps: [
+        "Learn about W-2 forms and how to read them",
+        "Understand different types of 1099 forms",
+        "Know which deductions you qualify for",
+        "Learn about tax credits vs. tax deductions",
+        "Understand filing status and its impact"
+      ],
+      resources: [
+        { title: "Tax Forms Explained", type: "article", icon: BookOpen },
+        { title: "Filing Taxes Step-by-Step", type: "video", icon: Video },
+        { title: "Tax Calculator Tool", type: "tool", icon: FileCheck }
+      ]
+    }
+  };
   const recentActivity = [
     { id: 1, type: "chat", title: "Asked about credit scores", time: "2 hours ago" },
     { id: 2, type: "document", title: "Uploaded tax return 2023", time: "1 day ago" },
@@ -143,20 +182,30 @@ const Dashboard = () => {
               <CardContent>
                 <div className="space-y-4">
                   {recentActivity.map((activity) => (
-                    <div key={activity.id} className="flex items-start gap-4 p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        {activity.type === "chat" && <MessageSquare className="h-5 w-5 text-primary" />}
-                        {activity.type === "document" && <FileText className="h-5 w-5 text-accent" />}
-                        {activity.type === "plan" && <TrendingUp className="h-5 w-5 text-primary" />}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-foreground truncate">{activity.title}</p>
-                        <p className="text-sm text-muted-foreground flex items-center gap-1">
-                          <Clock className="h-3 w-3" />
-                          {activity.time}
-                        </p>
-                      </div>
-                    </div>
+                    <Button
+                      key={activity.id}
+                      variant="ghost"
+                      className="w-full h-auto p-4 justify-start hover-lift"
+                      asChild
+                    >
+                      <Link to={activity.type === "chat" ? "/chat" : activity.type === "document" ? "/documents" : "/dashboard"}>
+                        <div className="flex items-start gap-4 w-full">
+                          <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            {activity.type === "chat" && <MessageSquare className="h-5 w-5 text-primary" />}
+                            {activity.type === "document" && <FileText className="h-5 w-5 text-accent" />}
+                            {activity.type === "plan" && <TrendingUp className="h-5 w-5 text-primary" />}
+                          </div>
+                          <div className="flex-1 min-w-0 text-left">
+                            <p className="font-medium text-foreground truncate">{activity.title}</p>
+                            <p className="text-sm text-muted-foreground flex items-center gap-1">
+                              <Clock className="h-3 w-3" />
+                              {activity.time}
+                            </p>
+                          </div>
+                          <ExternalLink className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                        </div>
+                      </Link>
+                    </Button>
                   ))}
                 </div>
               </CardContent>
@@ -172,25 +221,35 @@ const Dashboard = () => {
                 <CardDescription>Your active financial objectives</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="p-4 rounded-lg border">
-                  <div className="flex items-start gap-3">
+                <Button
+                  variant="ghost"
+                  className="w-full h-auto p-4 justify-start hover-lift border rounded-lg"
+                  onClick={() => setSelectedGoal("Build Credit Score")}
+                >
+                  <div className="flex items-start gap-3 w-full">
                     <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
+                    <div className="flex-1 text-left">
                       <p className="font-medium mb-1">Build Credit Score</p>
                       <p className="text-sm text-muted-foreground">Target: 700+ by June 2024</p>
                     </div>
+                    <ExternalLink className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-1" />
                   </div>
-                </div>
+                </Button>
 
-                <div className="p-4 rounded-lg border">
-                  <div className="flex items-start gap-3">
+                <Button
+                  variant="ghost"
+                  className="w-full h-auto p-4 justify-start hover-lift border rounded-lg"
+                  onClick={() => setSelectedGoal("Understand Tax Forms")}
+                >
+                  <div className="flex items-start gap-3 w-full">
                     <CheckCircle2 className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-                    <div>
+                    <div className="flex-1 text-left">
                       <p className="font-medium mb-1">Understand Tax Forms</p>
                       <p className="text-sm text-muted-foreground">Complete guide walkthrough</p>
                     </div>
+                    <ExternalLink className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-1" />
                   </div>
-                </div>
+                </Button>
 
                 <Button variant="outline" className="w-full hover-lift" disabled={!isAuthenticated}>Add New Goal</Button>
               </CardContent>
@@ -220,6 +279,79 @@ const Dashboard = () => {
       </main>
 
       <Footer />
+
+      {/* Goal Details Dialog */}
+      <Dialog open={!!selectedGoal} onOpenChange={() => setSelectedGoal(null)}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          {selectedGoal && goalDetails[selectedGoal as keyof typeof goalDetails] && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl bg-gradient-hero bg-clip-text text-transparent">
+                  {goalDetails[selectedGoal as keyof typeof goalDetails].title}
+                </DialogTitle>
+                <DialogDescription className="text-base">
+                  {goalDetails[selectedGoal as keyof typeof goalDetails].target}
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-6 mt-4">
+                {/* Summary */}
+                <div>
+                  <h3 className="font-semibold text-lg mb-2">Overview</h3>
+                  <p className="text-muted-foreground">
+                    {goalDetails[selectedGoal as keyof typeof goalDetails].summary}
+                  </p>
+                </div>
+
+                {/* Action Steps */}
+                <div>
+                  <h3 className="font-semibold text-lg mb-3">Action Steps</h3>
+                  <div className="space-y-3">
+                    {goalDetails[selectedGoal as keyof typeof goalDetails].steps.map((step, index) => (
+                      <div key={index} className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
+                        <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <span className="text-sm font-semibold text-primary">{index + 1}</span>
+                        </div>
+                        <p className="text-sm">{step}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Resources */}
+                <div>
+                  <h3 className="font-semibold text-lg mb-3">Helpful Resources</h3>
+                  <div className="space-y-2">
+                    {goalDetails[selectedGoal as keyof typeof goalDetails].resources.map((resource, index) => (
+                      <Button
+                        key={index}
+                        variant="outline"
+                        className="w-full justify-start hover-lift"
+                      >
+                        <resource.icon className="h-4 w-4 text-primary mr-2" />
+                        <span className="flex-1 text-left">{resource.title}</span>
+                        <span className="text-xs text-muted-foreground px-2 py-1 bg-muted rounded">
+                          {resource.type}
+                        </span>
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-4 border-t">
+                  <Button className="flex-1 hover-lift" asChild>
+                    <Link to="/chat">Ask AI Assistant</Link>
+                  </Button>
+                  <Button variant="outline" className="flex-1 hover-lift" onClick={() => setSelectedGoal(null)}>
+                    Close
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
