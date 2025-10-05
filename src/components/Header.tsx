@@ -26,7 +26,7 @@ export const Header = () => {
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-2 text-xl font-bold text-primary hover:opacity-80 transition-opacity">
             <span className="text-2xl" aria-hidden="true">💰</span>
-            <span>Babel Finance</span>
+            <span>MoneyLingo</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-6">

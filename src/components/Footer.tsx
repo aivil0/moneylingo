@@ -11,7 +11,7 @@ export const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-xl font-bold text-primary">
               <span className="text-2xl" aria-hidden="true">💰</span>
-              <span>Babel Finance</span>
+              <span>MoneyLingo</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Breaking down barriers in finance through language and accessibility.
@@ -97,7 +97,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>&copy; {currentYear} Babel Finance. All rights reserved.</p>
+          <p>&copy; {currentYear} MoneyLingo. All rights reserved.</p>
         </div>
       </div>
     </footer>

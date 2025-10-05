@@ -15,7 +15,7 @@ const SignIn = () => {
             <div className="text-4xl">💰</div>
           </div>
           <CardTitle className="text-2xl">Welcome Back</CardTitle>
-          <CardDescription>Sign in to your Babel Finance account</CardDescription>
+          <CardDescription>Sign in to your MoneyLingo account</CardDescription>
         </CardHeader>
         <CardContent>
           <form className="space-y-4">

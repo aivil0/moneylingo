@@ -30,7 +30,7 @@ const Help = () => {
       answer: "Absolutely! Our platform supports voice input in multiple languages. Simply click the microphone icon in the chat interface and speak naturally. The AI will transcribe and respond to your question.",
     },
     {
-      question: "How much does Babel Finance cost?",
+      question: "How much does MoneyLingo cost?",
       answer: "We offer a free tier with basic features including AI chat and document uploads. Premium plans start at $9.99/month and include unlimited AI sessions, priority support, and advanced analytics features.",
     },
     {
@@ -122,7 +122,7 @@ const Help = () => {
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-center mb-4">Frequently Asked Questions</h2>
               <p className="text-muted-foreground text-center mb-12">
-                Find answers to the most common questions about Babel Finance
+                Find answers to the most common questions about MoneyLingo
               </p>
 
               <Accordion type="single" collapsible className="space-y-4">
