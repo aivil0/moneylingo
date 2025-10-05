@@ -65,14 +65,14 @@ const Chat = () => {
       
       <Header />
 
-      <main className="flex-1 container mx-auto px-4 py-8 flex flex-col max-w-5xl relative z-10 animate-fade-in">
-        <div className="mb-6 flex items-center justify-between animate-scale-in">
+      <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col max-w-5xl relative z-10 animate-fade-in">
+        <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 animate-scale-in">
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">AI Financial Assistant</h1>
-            <p className="text-muted-foreground">Ask questions in your language, get clear answers</p>
+            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-1 sm:mb-2">AI Financial Assistant</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">Ask questions in your language, get clear answers</p>
           </div>
           <Select value={language} onValueChange={setLanguage}>
-            <SelectTrigger className="w-[140px]" aria-label="Select chat language">
+            <SelectTrigger className="w-full sm:w-[140px]" aria-label="Select chat language">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -88,15 +88,15 @@ const Chat = () => {
 
         {/* Auth Alert */}
         {!isAuthenticated && (
-          <Alert className="mb-6 border-primary/50 bg-primary/5">
+          <Alert className="mb-4 sm:mb-6 border-primary/50 bg-primary/5">
             <Lock className="h-4 w-4 text-primary" />
-            <AlertDescription className="flex items-center justify-between">
-              <span>Sign in to start chatting with our AI assistant and get personalized financial guidance.</span>
-              <div className="flex gap-2 ml-4">
-                <Button size="sm" asChild>
+            <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:justify-between">
+              <span className="text-sm">Sign in to start chatting with our AI assistant and get personalized financial guidance.</span>
+              <div className="flex gap-2 w-full sm:w-auto sm:ml-4">
+                <Button size="sm" asChild className="flex-1 sm:flex-initial">
                   <Link to="/signin">Sign In</Link>
                 </Button>
-                <Button size="sm" variant="outline" asChild>
+                <Button size="sm" variant="outline" asChild className="flex-1 sm:flex-initial">
                   <Link to="/signup">Sign Up</Link>
                 </Button>
               </div>
@@ -105,21 +105,21 @@ const Chat = () => {
         )}
 
         {/* Chat Area */}
-        <Card className="flex-1 flex flex-col mb-4 overflow-hidden bg-gradient-card hover-lift">
-          <div className="flex-1 p-6 overflow-y-auto space-y-4">
+        <Card className="flex-1 flex flex-col mb-3 sm:mb-4 overflow-hidden bg-gradient-card hover-lift shadow-lg">
+          <div className="flex-1 p-3 sm:p-4 md:p-6 overflow-y-auto space-y-3 sm:space-y-4">
             {messages.map((msg) => (
               <div
                 key={msg.id}
                 className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[80%] rounded-lg p-4 ${
+                  className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-3 sm:p-4 ${
                     msg.sender === "user"
                       ? "bg-primary text-primary-foreground"
                       : "bg-muted text-foreground"
                   }`}
                 >
-                  <p className="text-sm mb-2">{msg.text}</p>
+                  <p className="text-xs sm:text-sm mb-2">{msg.text}</p>
                   <div className="flex items-center justify-between gap-2">
                     <p className="text-xs opacity-70">{msg.time}</p>
                     {msg.sender === "ai" && (
@@ -139,12 +139,12 @@ const Chat = () => {
           </div>
 
           {/* Input Area */}
-          <div className="border-t p-4 bg-background">
-            <div className="flex items-end gap-2">
+          <div className="border-t p-3 sm:p-4 bg-background">
+            <div className="flex items-end gap-1.5 sm:gap-2">
               <Button
                 size="icon"
                 variant="ghost"
-                className="flex-shrink-0"
+                className="flex-shrink-0 hidden sm:flex"
                 aria-label="Attach file"
                 disabled={!isAuthenticated}
               >
@@ -157,7 +157,7 @@ const Chat = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="resize-none"
+                  className="resize-none text-sm sm:text-base"
                   aria-label="Message input"
                   disabled={!isAuthenticated}
                 />
@@ -173,7 +173,7 @@ const Chat = () => {
                 aria-label="Voice input"
                 disabled={!isAuthenticated}
               >
-                <Mic className="h-5 w-5" />
+                <Mic className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
 
               <Button
@@ -183,7 +183,7 @@ const Chat = () => {
                 className="flex-shrink-0"
                 aria-label="Send message"
               >
-                <Send className="h-5 w-5" />
+                <Send className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             </div>
           </div>
@@ -191,7 +191,7 @@ const Chat = () => {
 
         {/* Suggested Questions */}
         <div className="space-y-2">
-          <p className="text-sm text-muted-foreground">Suggested questions:</p>
+          <p className="text-xs sm:text-sm text-muted-foreground">Suggested questions:</p>
           <div className="flex flex-wrap gap-2">
             {[
               "What is a credit score?",
@@ -203,6 +203,7 @@ const Chat = () => {
                 key={suggestion}
                 variant="outline"
                 size="sm"
+                className="text-xs sm:text-sm"
                 onClick={() => isAuthenticated && setMessage(suggestion)}
                 disabled={!isAuthenticated}
               >

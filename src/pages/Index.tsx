@@ -73,49 +73,49 @@ const Index = () => {
         <div className="absolute bottom-20 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float pointer-events-none" style={{ animationDelay: '2s' }} />
         
         {/* Hero Section */}
-        <section className="relative container mx-auto px-4 py-20 md:py-32">
-          <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in-up">
-            <div className="inline-block px-6 py-2 bg-gradient-primary text-primary-foreground rounded-full text-sm font-semibold mb-4 animate-pulse-slow">
+        <section className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-32 lg:py-40">
+          <div className="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8 animate-fade-in-up">
+            <div className="inline-block px-4 sm:px-6 py-2 bg-gradient-primary text-primary-foreground rounded-full text-xs sm:text-sm font-semibold mb-2 sm:mb-4 animate-pulse-slow">
               🤖 AI-Powered Financial Guidance
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight px-4">
               Chat With AI
-              <span className="block bg-gradient-hero bg-clip-text text-transparent mt-2">Financial Literacy In Your Language</span>
+              <span className="block bg-gradient-hero bg-clip-text text-transparent mt-2 sm:mt-3">Financial Literacy In Your Language</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto px-4 sm:px-6">
               Get instant answers to your financial questions in your native language. Our AI assistant breaks down complex concepts into simple, culturally-aware guidance.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              <Button size="lg" asChild className="w-full sm:w-auto min-w-[240px] hover-lift shadow-2xl bg-gradient-primary text-lg py-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center pt-4 sm:pt-6 px-4">
+              <Button size="lg" asChild className="w-full sm:w-auto min-w-[240px] hover-lift shadow-2xl bg-gradient-primary text-base sm:text-lg py-5 sm:py-6 h-auto">
                 <Link to="/chat">🚀 Start Chatting Now</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="w-full sm:w-auto min-w-[200px] hover-lift">
+              <Button size="lg" variant="outline" asChild className="w-full sm:w-auto min-w-[200px] hover-lift py-5 sm:py-6 h-auto">
                 <Link to="/signup">Create Free Account</Link>
               </Button>
             </div>
             
             {/* Chat Feature Highlight */}
-            <Link to="/chat" className="block mt-12 p-8 bg-gradient-card rounded-2xl border-2 border-primary/20 hover-lift max-w-2xl mx-auto cursor-pointer transition-all">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <MessageSquare className="h-8 w-8 text-primary" />
-                <h3 className="text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">Try Our AI Chat</h3>
+            <Link to="/chat" className="block mt-8 sm:mt-12 p-6 sm:p-8 bg-gradient-card rounded-xl sm:rounded-2xl border-2 border-primary/20 hover-lift hover:border-primary/40 max-w-3xl mx-4 sm:mx-auto cursor-pointer transition-all shadow-lg">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                <MessageSquare className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+                <h3 className="text-xl sm:text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent text-center">Try Our AI Chat</h3>
               </div>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 text-center px-2">
                 Available 24/7 in 20+ languages. Ask about credit scores, taxes, mortgages, banking, and more.
               </p>
-              <div className="flex flex-wrap justify-center gap-2 text-sm">
-                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">English</span>
-                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">Español</span>
-                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">中文</span>
-                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">العربية</span>
-                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">हिन्दी</span>
-                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">Français</span>
-                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">+14 more</span>
+              <div className="flex flex-wrap justify-center gap-2 text-xs sm:text-sm">
+                <span className="px-2.5 sm:px-3 py-1 bg-primary/10 text-primary rounded-full whitespace-nowrap">English</span>
+                <span className="px-2.5 sm:px-3 py-1 bg-primary/10 text-primary rounded-full whitespace-nowrap">Español</span>
+                <span className="px-2.5 sm:px-3 py-1 bg-primary/10 text-primary rounded-full whitespace-nowrap">中文</span>
+                <span className="px-2.5 sm:px-3 py-1 bg-primary/10 text-primary rounded-full whitespace-nowrap">العربية</span>
+                <span className="px-2.5 sm:px-3 py-1 bg-primary/10 text-primary rounded-full whitespace-nowrap">हिन्दी</span>
+                <span className="px-2.5 sm:px-3 py-1 bg-primary/10 text-primary rounded-full whitespace-nowrap">Français</span>
+                <span className="px-2.5 sm:px-3 py-1 bg-primary/10 text-primary rounded-full whitespace-nowrap">+14 more</span>
               </div>
             </Link>
             
             {/* Floating emoji decorations */}
-            <div className="flex justify-center gap-8 mt-12 text-4xl opacity-60">
+            <div className="flex justify-center gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-12 text-2xl sm:text-3xl md:text-4xl opacity-60">
               <span className="animate-float">💬</span>
               <span className="animate-float" style={{ animationDelay: '1s' }}>🤖</span>
               <span className="animate-float" style={{ animationDelay: '2s' }}>🌍</span>
@@ -125,16 +125,16 @@ const Index = () => {
         </section>
 
         {/* Mission Section */}
-        <section className="relative bg-gradient-hero text-primary-foreground py-20 overflow-hidden">
+        <section className="relative bg-gradient-hero text-primary-foreground py-12 sm:py-16 md:py-20 overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iLjEiLz48L2c+PC9zdmc+')] opacity-20" />
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">Our Mission</h2>
-              <p className="text-lg text-center mb-12 opacity-90">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 md:mb-8 px-4">Our Mission</h2>
+              <p className="text-base sm:text-lg md:text-xl text-center mb-8 sm:mb-10 md:mb-12 opacity-90 px-4 max-w-3xl mx-auto">
                 We believe financial literacy should not be limited by language barriers or cultural unfamiliarity with the American financial system. Our mission is to empower immigrants and ESL speakers with the knowledge and tools they need to achieve financial success.
               </p>
 
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 px-4">
                 <Card className="bg-primary-foreground text-foreground hover-lift animate-fade-in border-0 shadow-2xl">
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-bold mb-4">The Problem</h3>
@@ -158,18 +158,18 @@ const Index = () => {
         </section>
 
         {/* Features Section */}
-        <section className="relative py-20">
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+        <section className="relative py-12 sm:py-16 md:py-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-10 sm:mb-12 md:mb-16 px-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                 Additional Features To Support You
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Beyond our AI chat, we provide extra tools to help you master your finances.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
               {features.map((feature, index) => {
                 const Icon = feature.icon;
                 return (

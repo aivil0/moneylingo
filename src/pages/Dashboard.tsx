@@ -74,8 +74,8 @@ const Dashboard = () => {
       
       <Header />
 
-      <main className="flex-1 container mx-auto px-4 py-8 relative z-10 animate-fade-in">
-        <div className="mb-8 animate-scale-in">
+      <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10 animate-fade-in">
+        <div className="mb-6 sm:mb-8 animate-scale-in">
           <h1 className="text-3xl md:text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">
             {isAuthenticated ? 'Welcome Back!' : 'Dashboard Preview'}
           </h1>
@@ -103,7 +103,7 @@ const Dashboard = () => {
         )}
 
         {/* Quick Actions */}
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
           <Link to="/chat">
             <Card className="bg-gradient-card hover:border-primary/50 transition-colors cursor-pointer">
               <CardHeader>
@@ -151,7 +151,7 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Insights */}
