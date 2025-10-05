@@ -206,34 +206,6 @@ const Chat = () => {
         </div>
       </main>
 
-      {/* Fixed Chat Bar at Bottom */}
-      <div className="relative z-20 border-t border-border/50 bg-background/95 backdrop-blur-sm">
-        <div className="px-4 py-4 container mx-auto max-w-4xl">
-          <div className="flex items-center gap-2 glass-card p-2 rounded-3xl shadow-xl">
-            <Input
-              placeholder={placeholders[placeholderIndex]}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              className="h-12 text-base rounded-3xl bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 pr-12"
-              aria-label="Message input"
-            />
-            <Button
-              size="icon"
-              onClick={handleSend}
-              disabled={!message.trim()}
-              className="h-10 w-10 rounded-full bg-gradient-primary hover:scale-110 transition-all shadow-lg disabled:opacity-50 flex-shrink-0"
-              aria-label="Send message"
-            >
-              <Send className="h-4 w-4" />
-            </Button>
-          </div>
-          <p className="text-xs text-muted-foreground mt-2 text-center">
-            Or type your question • MoneyLingo can make mistakes
-          </p>
-        </div>
-      </div>
-
       {/* Voice Call Interface */}
       <VoiceCallInterface isActive={isInCall} onEnd={endCall} />
     </div>
