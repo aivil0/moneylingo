@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Header } from "@/components/Header";
+import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect, useRef } from "react";
 import { Mic, Send, Volume2, Phone, PhoneOff } from "lucide-react";
@@ -85,12 +86,10 @@ const Chat = () => {
 
   const toggleCall = () => {
     setIsInCall(!isInCall);
-    if (!isInCall) {
-      toast({
-        title: "📞 Call started",
-        description: "You can now speak with the AI assistant. Voice feature coming soon!",
-      });
-    }
+  };
+
+  const endCall = () => {
+    setIsInCall(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -270,6 +269,8 @@ const Chat = () => {
         </div>
       </main>
 
+      {/* Voice Call Interface */}
+      <VoiceCallInterface isActive={isInCall} onEnd={endCall} />
     </div>
   );
 };
