@@ -228,11 +228,11 @@ const Index = () => {
         {/* Features Section */}
         <section className="relative py-12 sm:py-16 md:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center mb-8 sm:mb-12 px-4">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 shimmer-text">
+            <div className="text-center mb-8 sm:mb-12 px-4 sm:px-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 shimmer-text px-2 leading-tight">
                 Everything You Need to Succeed
               </h2>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
                 Comprehensive tools to build your financial confidence and achieve your goals.
               </p>
             </div>
