@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { VoiceCallInterface } from "@/components/VoiceCallInterface";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect, useRef } from "react";
-import { Mic, Send, Volume2, Phone, PhoneOff } from "lucide-react";
+import { Mic, Send, Volume2, Phone, PhoneOff, MessageSquare, ChevronDown, ChevronUp } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -15,6 +15,7 @@ const Chat = () => {
   const [inputCount, setInputCount] = useState(0);
   const [isInCall, setIsInCall] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [isChatExpanded, setIsChatExpanded] = useState(false);
   
   const placeholders = [
     "Ask about your credit score…",
@@ -86,6 +87,7 @@ const Chat = () => {
     const initialMessage = location.state?.initialMessage;
     if (initialMessage) {
       setMessage(initialMessage);
+      setIsChatExpanded(true);
       // Auto-send the message
       setTimeout(() => {
         handleSendMessage(initialMessage);
@@ -136,10 +138,10 @@ const Chat = () => {
       
       <Header />
 
-      {/* Main Chat Area */}
-      <main className="flex-1 relative z-10 flex flex-col overflow-hidden container mx-auto max-w-4xl">
+      {/* Main Voice Call Area */}
+      <main className="flex-1 relative z-10 flex flex-col items-center justify-center container mx-auto max-w-5xl px-4">
         {/* Language Selector */}
-        <div className="px-4 pt-4 pb-2 flex justify-end">
+        <div className="absolute top-4 right-4">
           <Select value={language} onValueChange={setLanguage}>
             <SelectTrigger className="w-[140px] h-10 text-sm border-border/50 hover:border-primary/50 transition-colors bg-gradient-card shadow-sm">
               <SelectValue />
@@ -155,105 +157,144 @@ const Chat = () => {
           </Select>
         </div>
 
+        {/* Hero Voice Call Section */}
+        <div className="text-center space-y-8 animate-fade-in max-w-3xl">
+          <div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold shimmer-text mb-6 leading-tight">
+              Talk to Your Financial AI
+            </h1>
+            <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Get instant financial advice through natural conversation. Just tap to start talking.
+            </p>
+          </div>
 
-        {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto">
-          <div className="w-full px-4 py-4">
-            {messages.length === 1 && (
-              <div className="text-center mb-12 animate-fade-in">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold shimmer-text mb-4 pb-2 leading-tight px-2">
-                  How can I help you today?
-                </h1>
-                <p className="text-base sm:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto px-4">
-                  Ask me anything about credit, taxes, mortgages, or financial planning in your language
-                </p>
-              </div>
-            )}
+          {/* Large Voice Call Button */}
+          <div className="flex flex-col items-center gap-6">
+            <Button
+              size="icon"
+              onClick={toggleCall}
+              className={`h-32 w-32 sm:h-40 sm:w-40 rounded-full transition-all hover:scale-105 shadow-2xl ${
+                isInCall 
+                  ? "bg-destructive hover:bg-destructive/90 glow-pulse" 
+                  : "bg-gradient-glow text-white glow-pulse"
+              }`}
+              aria-label={isInCall ? "End call" : "Start voice call"}
+            >
+              {isInCall ? <PhoneOff className="h-16 w-16 sm:h-20 sm:w-20" /> : <Phone className="h-16 w-16 sm:h-20 sm:w-20" />}
+            </Button>
+            
+            <div className="text-center">
+              <p className="text-xl sm:text-2xl font-semibold mb-2">
+                {isInCall ? "Talking to MoneyLingo..." : "Tap to start talking"}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {isInCall ? "We're listening and ready to help" : "Natural conversation in your language"}
+              </p>
+            </div>
+          </div>
 
-            {/* Chat Messages with enhanced styling */}
-            <div className="space-y-6">
-              {messages.map((msg, index) => (
-                index > 0 && (
-                  <div
-                    key={msg.id}
-                    className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
-                  >
-                    <div
-                      className={`max-w-[85%] rounded-2xl px-5 py-4 shadow-lg ${
-                        msg.sender === "user"
-                          ? "bg-gradient-primary text-primary-foreground"
-                          : "bg-gradient-card border-2 border-border/50"
-                      }`}
-                    >
-                      <p className="text-sm sm:text-base leading-relaxed">{msg.text}</p>
-                      <div className="flex items-center justify-between gap-2 mt-3 pt-2 border-t border-white/10">
-                        <p className="text-xs opacity-60">{msg.time}</p>
-                        {msg.sender === "ai" && (
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="h-7 px-2 hover:bg-primary/10 hover-lift rounded-full"
-                            aria-label="Play audio"
-                          >
-                            <Volume2 className="h-3 w-3 mr-1" />
-                            <span className="text-xs">Listen</span>
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )
-              ))}
-              <div ref={messagesEndRef} />
+          {/* Feature Pills */}
+          <div className="flex flex-wrap justify-center gap-3 pt-4">
+            <div className="glass-card px-4 py-2 rounded-full text-sm">
+              🎤 Voice Recognition
+            </div>
+            <div className="glass-card px-4 py-2 rounded-full text-sm">
+              🌍 30+ Languages
+            </div>
+            <div className="glass-card px-4 py-2 rounded-full text-sm">
+              ⚡ Instant Responses
             </div>
           </div>
         </div>
+      </main>
 
-        {/* Floating Input Bar - Fixed at Bottom */}
-        <div className="pb-6 px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 glass-card p-2 rounded-3xl shadow-2xl">
-              {/* Prominent Call Button */}
-              <Button
-                size="icon"
-                onClick={toggleCall}
-                className={`h-14 w-14 sm:h-16 sm:w-16 rounded-2xl transition-all hover:scale-105 shadow-xl flex-shrink-0 ${
-                  isInCall 
-                    ? "bg-destructive hover:bg-destructive/90 glow-pulse" 
-                    : "bg-gradient-glow text-white glow-pulse"
-                }`}
-                aria-label={isInCall ? "End call" : "Start voice call"}
-              >
-                {isInCall ? <PhoneOff className="h-6 w-6" /> : <Phone className="h-6 w-6" />}
-              </Button>
-              
-              <div className="flex-1 relative">
+      {/* Collapsible Chat Section at Bottom */}
+      <div className="relative z-20 border-t border-border/50 bg-background/95 backdrop-blur-sm">
+        {/* Chat Toggle Header */}
+        <button
+          onClick={() => setIsChatExpanded(!isChatExpanded)}
+          className="w-full px-6 py-4 flex items-center justify-between hover:bg-accent/5 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <MessageSquare className="h-5 w-5 text-primary" />
+            <div className="text-left">
+              <p className="font-semibold">Text Chat</p>
+              <p className="text-xs text-muted-foreground">Prefer typing? Use our text chat</p>
+            </div>
+          </div>
+          {isChatExpanded ? <ChevronDown className="h-5 w-5" /> : <ChevronUp className="h-5 w-5" />}
+        </button>
+
+        {/* Expandable Chat Area */}
+        {isChatExpanded && (
+          <div className="border-t border-border/50 animate-fade-in">
+            {/* Messages Container */}
+            <div className="max-h-[400px] overflow-y-auto px-4 py-4 container mx-auto max-w-4xl">
+              <div className="space-y-4">
+                {messages.map((msg, index) => (
+                  index > 0 && (
+                    <div
+                      key={msg.id}
+                      className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
+                    >
+                      <div
+                        className={`max-w-[85%] rounded-2xl px-4 py-3 shadow-lg ${
+                          msg.sender === "user"
+                            ? "bg-gradient-primary text-primary-foreground"
+                            : "bg-gradient-card border-2 border-border/50"
+                        }`}
+                      >
+                        <p className="text-sm leading-relaxed">{msg.text}</p>
+                        <div className="flex items-center justify-between gap-2 mt-2 pt-2 border-t border-white/10">
+                          <p className="text-xs opacity-60">{msg.time}</p>
+                          {msg.sender === "ai" && (
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="h-6 px-2 hover:bg-primary/10 hover-lift rounded-full"
+                              aria-label="Play audio"
+                            >
+                              <Volume2 className="h-3 w-3 mr-1" />
+                              <span className="text-xs">Listen</span>
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
+            </div>
+
+            {/* Chat Input Bar */}
+            <div className="px-4 pb-4 pt-2 container mx-auto max-w-4xl">
+              <div className="flex items-center gap-2 glass-card p-2 rounded-3xl shadow-xl">
                 <Input
                   placeholder={placeholders[placeholderIndex]}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="h-14 sm:h-16 text-base sm:text-lg rounded-3xl bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 pr-14 transition-all"
+                  className="h-12 text-base rounded-3xl bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 pr-12"
                   aria-label="Message input"
                 />
                 <Button
                   size="icon"
                   onClick={handleSend}
                   disabled={!message.trim()}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-primary glow-pulse hover:scale-110 transition-all duration-300 shadow-lg disabled:opacity-50"
+                  className="h-10 w-10 rounded-full bg-gradient-primary hover:scale-110 transition-all shadow-lg disabled:opacity-50 flex-shrink-0"
                   aria-label="Send message"
                 >
-                  <Send className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <Send className="h-4 w-4" />
                 </Button>
               </div>
+              <p className="text-xs text-muted-foreground mt-2 text-center">
+                MoneyLingo can make mistakes. Verify important information.
+              </p>
             </div>
-            <p className="text-xs text-muted-foreground mt-3 text-center flex items-center justify-center gap-2">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              MoneyLingo can make mistakes. Always verify important financial information.
-            </p>
           </div>
-        </div>
-      </main>
+        )}
+      </div>
 
       {/* Voice Call Interface */}
       <VoiceCallInterface isActive={isInCall} onEnd={endCall} />
