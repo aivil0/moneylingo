@@ -38,15 +38,14 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
-    /* Gradient definitions - Modern & Trustworthy */
-    --gradient-primary: linear-gradient(135deg, hsl(180, 62%, 35%) 0%, hsl(170, 70%, 42%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(175, 60%, 42%) 0%, hsl(185, 75%, 48%) 35%, hsl(42, 88%, 60%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(42, 88%, 60%) 0%, hsl(180, 62%, 42%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(180, 20%, 98%) 0%, hsl(178, 25%, 96%) 100%);
-    --gradient-card: linear-gradient(135deg, hsla(0, 0%, 100%, 0.95) 0%, hsla(180, 20%, 99%, 0.92) 100%);
-    --gradient-glow: linear-gradient(135deg, hsl(180, 62%, 45%) 0%, hsl(42, 88%, 60%) 100%);
+    /* Gradient definitions - Lovable-inspired */
+    --gradient-primary: linear-gradient(135deg, hsl(180, 62%, 35%) 0%, hsl(180, 62%, 45%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(180, 62%, 40%) 0%, hsl(192, 81%, 50%) 50%, hsl(25, 95%, 65%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(25, 95%, 63%) 0%, hsl(180, 62%, 45%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(192, 81%, 98%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(192, 81%, 99%) 100%);
     
-    /* Main background gradient - Soft & Professional */
+    /* Main background gradient - inspired by Lovable */
     --gradient-bg: linear-gradient(
       180deg,
       hsl(195, 80%, 90%) 0%,
@@ -207,38 +206,5 @@ All colors MUST be HSL.
   
   .gradient-text {
     @apply bg-gradient-hero bg-clip-text text-transparent;
-  }
-  
-  .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
-  }
-  
-  .shimmer {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.6) 50%,
-      transparent 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 3s infinite;
-  }
-  
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-  
-  .glow-pulse {
-    animation: glow-pulse 2s ease-in-out infinite;
-  }
-  
-  @keyframes glow-pulse {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(72, 187, 172, 0.3);
-    }
-    50% {
-      box-shadow: 0 0 40px rgba(72, 187, 172, 0.6);
-    }
   }
 }
