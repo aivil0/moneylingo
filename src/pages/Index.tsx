@@ -4,66 +4,50 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { MessageSquare, FileText, Shield, Globe, TrendingUp, Headphones, Heart, Users, Target } from "lucide-react";
-
 const Index = () => {
-  const features = [
-    {
-      icon: MessageSquare,
-      title: "AI Chat in Your Language",
-      description: "Speak with our AI in your native language and get instant, culturally-aware financial advice.",
-    },
-    {
-      icon: FileText,
-      title: "Document Analysis",
-      description: "Upload tax forms, credit statements, or financial documents for clear explanations.",
-    },
-    {
-      icon: TrendingUp,
-      title: "Personalized Plans",
-      description: "Get customized credit building plans and financial strategies tailored to your goals.",
-    },
-    {
-      icon: Globe,
-      title: "Multi-Language Support",
-      description: "Available in English, Spanish, Chinese, Arabic, Hindi, French, and more.",
-    },
-    {
-      icon: Headphones,
-      title: "Voice Interaction",
-      description: "Talk naturally with voice input and output for a seamless experience.",
-    },
-    {
-      icon: Shield,
-      title: "Bank-Level Security",
-      description: "Your financial data is protected with industry-leading encryption and security measures.",
-    },
-  ];
-
-  const values = [
-    {
-      icon: Heart,
-      title: "Empathy First",
-      description: "We understand the challenges immigrants and ESL speakers face in navigating complex financial systems.",
-    },
-    {
-      icon: Users,
-      title: "Cultural Inclusivity",
-      description: "Financial advice that respects and incorporates diverse cultural perspectives and experiences.",
-    },
-    {
-      icon: Target,
-      title: "Clear Communication",
-      description: "Breaking down complex financial jargon into simple, accessible language everyone can understand.",
-    },
-    {
-      icon: Shield,
-      title: "Trust & Security",
-      description: "Your financial information is protected with the highest security standards in the industry.",
-    },
-  ];
-
-  return (
-    <div className="min-h-screen flex flex-col">
+  const features = [{
+    icon: MessageSquare,
+    title: "AI Chat in Your Language",
+    description: "Speak with our AI in your native language and get instant, culturally-aware financial advice."
+  }, {
+    icon: FileText,
+    title: "Document Analysis",
+    description: "Upload tax forms, credit statements, or financial documents for clear explanations."
+  }, {
+    icon: TrendingUp,
+    title: "Personalized Plans",
+    description: "Get customized credit building plans and financial strategies tailored to your goals."
+  }, {
+    icon: Globe,
+    title: "Multi-Language Support",
+    description: "Available in English, Spanish, Chinese, Arabic, Hindi, French, and more."
+  }, {
+    icon: Headphones,
+    title: "Voice Interaction",
+    description: "Talk naturally with voice input and output for a seamless experience."
+  }, {
+    icon: Shield,
+    title: "Bank-Level Security",
+    description: "Your financial data is protected with industry-leading encryption and security measures."
+  }];
+  const values = [{
+    icon: Heart,
+    title: "Empathy First",
+    description: "We understand the challenges immigrants and ESL speakers face in navigating complex financial systems."
+  }, {
+    icon: Users,
+    title: "Cultural Inclusivity",
+    description: "Financial advice that respects and incorporates diverse cultural perspectives and experiences."
+  }, {
+    icon: Target,
+    title: "Clear Communication",
+    description: "Breaking down complex financial jargon into simple, accessible language everyone can understand."
+  }, {
+    icon: Shield,
+    title: "Trust & Security",
+    description: "Your financial information is protected with the highest security standards in the industry."
+  }];
+  return <div className="min-h-screen flex flex-col">
       <Header />
 
       <main className="flex-1 relative overflow-hidden">
@@ -79,9 +63,7 @@ const Index = () => {
         {/* Hero Section */}
         <section className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-32 lg:py-40 z-10">
           <div className="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8 animate-fade-in-up">
-            <div className="inline-block px-4 sm:px-6 py-2 bg-gradient-primary text-primary-foreground rounded-full text-xs sm:text-sm font-semibold mb-2 sm:mb-4 animate-pulse-slow">
-              🤖 AI-Powered Financial Guidance
-            </div>
+            <div className="inline-block px-4 sm:px-6 py-2 bg-gradient-primary text-primary-foreground rounded-full text-xs sm:text-sm font-semibold mb-2 sm:mb-4 animate-pulse-slow">AI-Powered Financial Guidance</div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight px-4">
               Chat With AI
               <span className="block bg-gradient-hero bg-clip-text text-transparent mt-2 sm:mt-3">Financial Literacy In Your Language</span>
@@ -121,9 +103,15 @@ const Index = () => {
             {/* Floating emoji decorations */}
             <div className="flex justify-center gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-12 text-2xl sm:text-3xl md:text-4xl opacity-60">
               <span className="animate-float">💬</span>
-              <span className="animate-float" style={{ animationDelay: '1s' }}>🤖</span>
-              <span className="animate-float" style={{ animationDelay: '2s' }}>🌍</span>
-              <span className="animate-float" style={{ animationDelay: '3s' }}>💡</span>
+              <span className="animate-float" style={{
+              animationDelay: '1s'
+            }}>🤖</span>
+              <span className="animate-float" style={{
+              animationDelay: '2s'
+            }}>🌍</span>
+              <span className="animate-float" style={{
+              animationDelay: '3s'
+            }}>💡</span>
             </div>
           </div>
         </section>
@@ -148,7 +136,9 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-primary-foreground text-foreground hover-lift animate-fade-in border-0 shadow-2xl" style={{ animationDelay: '0.2s' }}>
+                <Card className="bg-primary-foreground text-foreground hover-lift animate-fade-in border-0 shadow-2xl" style={{
+                animationDelay: '0.2s'
+              }}>
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-bold mb-4">Our Solution</h3>
                     <p className="text-muted-foreground">
@@ -175,13 +165,10 @@ const Index = () => {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
               {features.map((feature, index) => {
-                const Icon = feature.icon;
-                return (
-                  <Card 
-                    key={feature.title} 
-                    className="group border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-gradient-card animate-fade-in-up"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
+              const Icon = feature.icon;
+              return <Card key={feature.title} className="group border-2 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-gradient-card animate-fade-in-up" style={{
+                animationDelay: `${index * 0.1}s`
+              }}>
                     <CardHeader>
                       <div className="h-12 w-12 rounded-lg bg-gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                         <Icon className="h-6 w-6 text-primary-foreground" aria-hidden="true" />
@@ -189,9 +176,8 @@ const Index = () => {
                       <CardTitle className="text-xl">{feature.title}</CardTitle>
                       <CardDescription className="text-base">{feature.description}</CardDescription>
                     </CardHeader>
-                  </Card>
-                );
-              })}
+                  </Card>;
+            })}
             </div>
           </div>
         </section>
@@ -207,13 +193,10 @@ const Index = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {values.map((value, index) => {
-                const Icon = value.icon;
-                return (
-                  <Card 
-                    key={value.title} 
-                    className="text-center hover-lift animate-fade-in-up border-0 shadow-lg bg-gradient-card"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
+              const Icon = value.icon;
+              return <Card key={value.title} className="text-center hover-lift animate-fade-in-up border-0 shadow-lg bg-gradient-card" style={{
+                animationDelay: `${index * 0.1}s`
+              }}>
                     <CardContent className="p-6">
                       <div className="h-16 w-16 rounded-full bg-gradient-primary flex items-center justify-center mx-auto mb-4 shadow-lg">
                         <Icon className="h-8 w-8 text-primary-foreground" aria-hidden="true" />
@@ -221,9 +204,8 @@ const Index = () => {
                       <h3 className="text-xl font-bold mb-2">{value.title}</h3>
                       <p className="text-sm text-muted-foreground">{value.description}</p>
                     </CardContent>
-                  </Card>
-                );
-              })}
+                  </Card>;
+            })}
             </div>
           </div>
         </section>
@@ -286,15 +268,21 @@ const Index = () => {
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold mb-12 animate-fade-in">Making an Impact</h2>
               <div className="grid md:grid-cols-3 gap-8">
-                <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+                <div className="animate-fade-in-up" style={{
+                animationDelay: '0.1s'
+              }}>
                   <p className="text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">10K+</p>
                   <p className="text-muted-foreground">Users Served</p>
                 </div>
-                <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                <div className="animate-fade-in-up" style={{
+                animationDelay: '0.2s'
+              }}>
                   <p className="text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">25+</p>
                   <p className="text-muted-foreground">Languages Supported</p>
                 </div>
-                <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                <div className="animate-fade-in-up" style={{
+                animationDelay: '0.3s'
+              }}>
                   <p className="text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-2">50K+</p>
                   <p className="text-muted-foreground">Documents Analyzed</p>
                 </div>
@@ -307,7 +295,9 @@ const Index = () => {
         <section className="relative bg-gradient-hero text-primary-foreground py-20 overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-20" />
           <div className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse-slow" />
-          <div className="absolute bottom-10 left-10 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
+          <div className="absolute bottom-10 left-10 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse-slow" style={{
+          animationDelay: '2s'
+        }} />
           <div className="container mx-auto px-4 text-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Take Control of Your Finances?
@@ -323,8 +313,6 @@ const Index = () => {
       </main>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
