@@ -137,8 +137,22 @@ const Chat = () => {
 
           {/* Large Voice Call Button */}
           <div className="flex flex-col items-center gap-6">
-            <Button size="icon" onClick={toggleCall} className={`h-36 w-36 sm:h-44 sm:w-44 rounded-full transition-all hover:scale-105 shadow-2xl ${isInCall ? "bg-destructive hover:bg-destructive/90 glow-pulse" : "bg-gradient-glow text-white glow-pulse"}`} aria-label={isInCall ? "End call" : "Start voice call"}>
-              {isInCall ? <PhoneOff className="h-18 w-18 sm:h-22 sm:w-22" /> : <Phone className="h-18 w-18 sm:h-22 sm:w-22" />}
+            <Button 
+              size="icon" 
+              onClick={toggleCall} 
+              className="rounded-full transition-all hover:scale-105 shadow-2xl border-0"
+              style={{
+                width: '220px',
+                height: '220px',
+                background: isInCall 
+                  ? 'hsl(var(--destructive))' 
+                  : 'linear-gradient(135deg, hsl(180, 62%, 35%), hsl(192, 81%, 50%), hsl(25, 95%, 63%))',
+                backgroundSize: '200% 200%',
+                animation: isInCall ? 'none' : 'gradient-wave-animation 8s ease infinite'
+              }}
+              aria-label={isInCall ? "End call" : "Start voice call"}
+            >
+              {isInCall ? <PhoneOff className="h-20 w-20" /> : <Phone className="h-20 w-20 text-white" />}
             </Button>
             
             <div className="text-center">
